@@ -1,1 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+[dir="rtl"] {
+    direction: rtl;
+}
+
+
+@font-face {
+    font-family: cairo;
+    src: url(assets/Fonts/Cairo-SemiBold.ttf),
+        url(assets/Fonts/Cairo-Black.ttf),
+        url(assets/Fonts/Cairo-Bold.ttf),
+        url(assets/Fonts/Cairo-ExtraBold.ttf),
+        url(assets/Fonts/Cairo-Light.ttf),
+        url(assets/Fonts/Cairo-ExtraLight.ttf),
+        url(assets/Fonts/Cairo-Medium.ttf),
+        url(assets/Fonts/Cairo-Regular.ttf);
+
+}
+
+
+@font-face {
+    font-family: 'cairo';
+    src: url('assets/Fonts/Cairo-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'cairo', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+body,
+html {
+    width: 100%;
+    overflow-x: hidden;
+}

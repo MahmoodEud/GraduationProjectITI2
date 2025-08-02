@@ -1,0 +1,233 @@
+<section
+  class="full-screen-section d-flex justify-content-center align-items-center text-white"
+>
+  <div class="container-fluid">
+    <div class="row h-100 w-100">
+      <div class="col-12 col-md-6">
+        <div class="h-100 w-100 white-half p-4">
+          <div class="title mb-4">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <img
+                  src="assets/Logo.png"
+                  class="LogoInLogin img-fluid"
+                  alt="Logo"
+                />
+              </div>
+              <div class="col-6">
+                <h1 class="LogingHeader text-dark">إنشاء حساب</h1>
+              </div>
+            </div>
+          </div>
+
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div class="container-fluid">
+              <div class="row mb-3">
+                <div class="col-7">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white">
+                      <i class="fas fa-user text-muted"></i>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="الأسم رباعى"
+                      aria-label=" الأسم رباعى"
+                      formControlName="name"
+                    />
+                  </div>
+                  @if
+                  (registrationForm.get("name")?.invalid&&registrationForm.get("name")?.touched)
+                  {
+                  <small class="text-danger text-center ms-5">
+                    الأسم لازم يبقا رباعي
+                  </small>
+                  }@else if(registrationForm.get('name')?.valid &&
+                  registrationForm.get('name')?.touched) {
+                  <small class="text-success text-center ms-5"
+                    >الأسم تمام التمام</small
+                  >
+
+                  }
+                </div>
+                <div class="col-5">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white">
+                      <i class="fas fa-user text-muted"></i>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="أسم المستخدم"
+                      aria-label=" أسم المستخدم"
+                      formControlName="username"
+                    />
+                  </div>
+                  @if (registrationForm.get('username')?.invalid &&
+                  registrationForm.get('username')?.touched) {
+                  <small class="text-danger ">غير اسم المستخدم بعد إذنك</small>
+                  }@else if(registrationForm.get('username')?.valid&&registrationForm.get('username')?.touched)
+                  {
+                  <small class="text-success ">كمل انتا زي الفل</small>
+                  }
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white">
+                      <i class="fas fa-phone text-muted"></i>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="رقم الهاتف"
+                      aria-label="رقم الهاتف"
+                      formControlName="PhoneNumber"
+                    />
+                  </div>
+                  @if (registrationForm.get('PhoneNumber')?.invalid && registrationForm.get('PhoneNumber')?.touched){
+                    <small class="text-danger ms-5">حط رقم تليفونك يكون سليم</small>
+                  }@else if(registrationForm.get('PhoneNumber')?.valid && registrationForm.get('PhoneNumber')?.touched) {
+                    <small class="text-success ms-5">رقم تليفونك سليم</small>
+                  }
+                </div>
+                <div class="col-12 col-md-6 mt-3 mt-md-0">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white">
+                      <i class="fas fa-phone-alt"></i>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="رقم ولي الأمر"
+                      aria-label="رقم ولي الأمر"
+                      formControlName="parentphonenumber"
+                    />
+                  </div>
+                 @if (registrationForm.get('parentphonenumber')?.invalid && registrationForm.get('parentphonenumber')?.touched) {
+                  <small class="text-danger ms-5">حط رقم تليفونك يكون سليم</small>
+                  }@else if(registrationForm.get('parentphonenumber')?.valid && registrationForm.get('parentphonenumber')?.touched) {
+                    <small class="text-success ms-5">رقم تليفونك سليم</small>
+                  }
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white">
+                      <i class="fas fa-calendar text-muted"></i>
+                    </span>
+                    <input
+                      type="date"
+                      class="form-control"
+                      placeholder="تاريخ الميلاد"
+                      aria-label="تاريخ الميلاد"
+                      formControlName="BirthDate"
+                    />
+                  </div>
+                  @if (registrationForm.get('BirthDate')?.invalid&&registrationForm.get('BirthDate')?.touched) {
+                    <small class="text-danger ms-5">تاريخ الميلاد غلط </small>
+                  } @else if(registrationForm.get('BirthDate')?.valid&&registrationForm.get('BirthDate')?.touched) {
+                    <small class="text-success ms-5">تاريخ الميلاد سليم </small>
+                    
+                  }
+                </div>
+                <div class="col-12 col-md-6 mt-3 mt-md-0">
+                <div class="input-group">
+                  <span class="input-group-text bg-white">
+                    <i class="fas fa-layer-group text-muted"></i>
+                  </span>
+                  <select class="form-select" aria-label="الصف الدراسى" formControlName="Grade">
+                    <option value="" disabled selected>اختر الصف الدراسى</option>
+                    <option value="1">الصف الأول الثانوى</option>
+                    <option value="2">الصف الثاني الثانوى</option>
+                    <option value="3">الصف الثالث الثانوى</option>
+                  </select>
+                </div>
+                @if (registrationForm.get('Grade')?.invalid&&registrationForm.get('Grade')?.touched) {
+                  <small class="text-danger ms-5">مش تعرفنا انتا ف سنة كام ؟؟</small>
+                } @else if (registrationForm.get('Grade')?.valid&&registrationForm.get('Grade')?.touched) {
+                  <small class="text-success ms-5">انتا كدا ف التمام</small>
+                }
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-12 col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white">
+                      <i class="fas fa-lock text-muted"></i>
+                    </span>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="كلمة المرور"
+                      aria-label=" كلمة المرور"
+                      formControlName="Password"
+                    />
+                  </div>
+                  @if (registrationForm.get('Password')?.invalid&&registrationForm.get('Password')?.touched) {
+                    <small class="text-danger ms-5">كلمة السر مش صح</small>
+                    
+                  } @else if(registrationForm.get('Password')?.valid&&registrationForm.get('Password')?.touched) {
+                    <small class="text-success ms-5">كلمة السر كدا صح</small>
+
+                  }
+                </div>
+                <div class="col-12 col-md-6 mt-3 mt-md-0">
+                  <div class="input-group">
+                    <span class="input-group-text bg-white">
+                      <i class="fas fa-calendar text-muted"></i>
+                    </span>
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="تأكيد كلمة المرور"
+                      aria-label="تأكيد كلمة المرور"
+                      formControlName="confirmPassword"
+                    />
+                  </div>
+                  @if (registrationForm.get('confirmPassword')?.invalid&&registrationForm.get('confirmPassword')?.touched) {
+                    <small class="text-danger ms-5">كلمة السر مش صح</small>
+                    
+                  } @else if(registrationForm.get('confirmPassword')?.valid&&registrationForm.get('confirmPassword')?.touched) {
+                    <small class="text-success ms-5">كلمة السر كدا صح</small>
+
+                  }
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary w-75 mt-2 p-2">
+                  أنشاء حساب
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <div class="py-5 mx-5">
+            <p class="text-black text-center">
+              باستخدامك للمنصة فأنت توافق على 
+              <a href="#" class="text-decoration-none">سياسة الخصوصية</a>
+            </p>
+            <p class="text-black text-center">
+              لديك حساب بالفعل؟
+              <a routerLink="/Login" class="text-decoration-none"
+                >تسجيل الدخول</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-12 col-md-6 d-none d-md-flex align-items-center justify-content-center"
+      >
+        <img src="assets/Login.png" alt="" class="img-fluid" />
+      </div>
+    </div>
+  </div>
+</section>

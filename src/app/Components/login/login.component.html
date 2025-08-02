@@ -1,0 +1,65 @@
+<section
+  class="full-screen-section d-flex justify-content-center align-items-center text-white"
+>
+  <div class="container-fluid">
+    <div class="row h-100 w-100">
+      <div class="col-12 col-md-6">
+        <div class="h-100 w-100 white-half">
+          <div class="title">
+            <div class="row">
+              <div class="col-4">
+                <img src="assets/Logo.png" class="LogoInLogin" alt="" />
+              </div>
+              <div class="col-6">
+                <h1 class="LogingHeader">تسجيل الدخول</h1>
+              </div>
+            </div>
+          </div>
+          <form class="pt-5">
+            <div class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                id="PhoneNumber"
+                aria-describedby="PhoneNumber"
+                placeholder="رقم الموبايل"
+              />
+              >
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                id="Password"
+                placeholder="كلمة المرور"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-75 mx-3 mt-3 p-2">
+              تسجيل
+            </button>
+          </form>
+          <div class="py-5 mx-5">
+            <p class="text-black text-center">
+              باستخدامك للمنصة فأنت توافق على <a
+                href="#"
+                class="text-decoration-none"
+                >سياسة الخصوصية</a
+              >
+            </p>
+            <p class="text-black text-center">
+              ليس لديك حساب؟
+              <a routerLink="/Register" class="text-decoration-none"
+                >سجل الأن</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-12 col-md-6 d-flex align-items-center justify-content-center d-none d-md-flex"
+      >
+        <img src="assets/Login.png" alt="" class="img-fluid" />
+      </div>
+    </div>
+  </div>
+</section>
