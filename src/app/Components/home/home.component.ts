@@ -9,20 +9,19 @@ import { RouterModule } from '@angular/router';
 import { LottieComponent } from 'ngx-lottie';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { LoginComponent } from "../login/login.component";
-import { NavHomePageComponent } from "../nav-home-page/nav-home-page.component";
+import { ScrollRevealDirective } from '../../directives/onScrollAnimation/scroll-reveal.directive';
+import { ButtonsAnimationDirective } from '../../directives/ButtonsAnimation/buttons-animation.directive';
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, LottieComponent, LoginComponent, NavHomePageComponent],
+  imports: [RouterModule, LottieComponent,ScrollRevealDirective,ButtonsAnimationDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements AfterViewInit {
-
   @ViewChild('progressBar') progressBar!: ElementRef;
   @ViewChild('myBtn') myBtn!: ElementRef;
 
@@ -33,8 +32,8 @@ export class HomeComponent implements AfterViewInit {
   };
 
   ngAfterViewInit(): void {
-    // progress bar animation
     const bar = this.progressBar.nativeElement;
+
     gsap.to(bar, {
       width: '100%',
       ease: 'none',
@@ -45,7 +44,9 @@ export class HomeComponent implements AfterViewInit {
         scrub: true
       }
     });
-
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 100);
   }
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -56,4 +57,5 @@ export class HomeComponent implements AfterViewInit {
       bar.style.opacity = '0';
     }
   }
+
 }

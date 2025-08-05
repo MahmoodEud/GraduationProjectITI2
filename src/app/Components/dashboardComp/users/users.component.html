@@ -28,7 +28,7 @@
               href="#list-home"
               role="tab"
             >
-              <i class="fas fa-home me-2"></i> الصفحة الرئيسية
+              <i class="fas fa-home me-2"></i> المستخدمين
             </a>
             <a
               class="list-group-item list-group-item-action custom-tab mb-3"
@@ -36,7 +36,7 @@
               href="#list-profile"
               role="tab"
             >
-              <i class="fas fa-user me-2"></i> الملف الشخصي
+              <i class="fas fa-user me-2"></i> الدورات التعليمية
             </a>
             <a
               class="list-group-item list-group-item-action custom-tab mb-3"
@@ -44,7 +44,7 @@
               href="#list-courses"
               role="tab"
             >
-              <i class="fas fa-graduation-cap me-2"></i> كورسات مجانية
+              <i class="fas fa-graduation-cap me-2"></i> أضافة دورة
             </a>
             <a
               class="list-group-item list-group-item-action custom-tab mb-3"
@@ -52,7 +52,7 @@
               href="#list-my-courses"
               role="tab"
             >
-              <i class="fas fa-book-open me-2"></i> دوراتي
+              <i class="fas fa-book-open me-2"></i> الدروس
             </a>
             <a
               class="list-group-item list-group-item-action custom-tab mb-3"
@@ -60,7 +60,7 @@
               href="#list-educational"
               role="tab"
             >
-              <i class="fas fa-chalkboard-teacher me-2"></i> الدورات التعليمية
+              <i class="fas fa-chalkboard-teacher me-2"></i> اضافة درس
             </a>
             <a
               class="list-group-item list-group-item-action custom-tab mb-3"
@@ -111,7 +111,7 @@
             >
               <i class="fas fa-headset me-2"></i> الدعم الفني
             </a>
-              <a (click)="logout()"
+              <a 
               class="list-group-item list-group-item-action custom-tab"
             
             >
@@ -150,7 +150,7 @@
               </div>
               <a class="navbar-brand mb-1" href="#">
                 <img
-                  [src]="profileImageUrl"
+                  src="assets/Profil4.png"
                   width="35"
                   height="35"
                   alt="Profile"
@@ -163,8 +163,8 @@
 
         <div class="tab-content px-3 px-md-4" id="nav-tabContent">
           <div class="tab-pane fade show active" id="list-home" role="tabpanel">
-            <h4><i class="fas fa-home me-2"></i>محتوى الصفحة الرئيسية</h4>
-            <app-home-side></app-home-side>
+            
+             <app-first-component></app-first-component>
           </div>
           <div class="tab-pane fade" id="list-profile" role="tabpanel">
             <h4><i class="fas fa-user me-2"></i>الملف الشخصي</h4>
@@ -213,7 +213,7 @@
     </div>
   </div>
 
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+  <!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title">منصة البسيط</h5>
       <button
@@ -234,7 +234,7 @@
           href="#list-home"
           role="tab"
         >
-          <i class="fas fa-home me-2"></i> الصفحة الرئيسية
+          <i class="fas fa-home me-2"></i> المستخدمين
         </a>
         <a
           class="list-group-item list-group-item-action custom-tab mb-3"
@@ -319,4 +319,4 @@
     
       </div>
     </div>
-  </div>
+  </div> -->

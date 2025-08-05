@@ -8,11 +8,11 @@
           <div class="title mb-4">
             <div class="row align-items-center">
               <div class="col-4">
-                <img
+                <a routerLink="/"><img
                   src="assets/Logo.png"
                   class="LogoInLogin img-fluid"
                   alt="Logo"
-                />
+                /></a>
               </div>
               <div class="col-6">
                 <h1 class="LogingHeader text-dark">إنشاء حساب</h1>
@@ -177,35 +177,68 @@
 
                   }
                 </div>
-                <div class="col-12 col-md-6 mt-3 mt-md-0">
-                  <div class="input-group">
-                    <span class="input-group-text bg-white">
-                      <i class="fas fa-calendar text-muted"></i>
-                    </span>
-                    <input
-                      type="password"
-                      class="form-control"
-                      placeholder="تأكيد كلمة المرور"
-                      aria-label="تأكيد كلمة المرور"
-                      formControlName="confirmPassword"
-                    />
-                  </div>
-                  @if (registrationForm.get('confirmPassword')?.invalid&&registrationForm.get('confirmPassword')?.touched) {
-                    <small class="text-danger ms-5">كلمة السر مش صح</small>
-                    
-                  } @else if(registrationForm.get('confirmPassword')?.valid&&registrationForm.get('confirmPassword')?.touched) {
-                    <small class="text-success ms-5">كلمة السر كدا صح</small>
+<div class="col-12 col-md-6 mt-3 mt-md-0">
+  <div class="input-group">
+    <span class="input-group-text bg-white">
+      <i class="fas fa-calendar text-muted"></i>
+    </span>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="تأكيد كلمة المرور"
+      aria-label="تأكيد كلمة المرور"
+      formControlName="confirmPassword"
+    />
+  </div>
 
-                  }
-                </div>
+  @if (
+    registrationForm.get('confirmPassword')?.touched &&
+    (
+      registrationForm.get('confirmPassword')?.invalid ||
+      registrationForm.errors?.['passwordsMismatch']
+    )
+  ) {
+    <small class="text-danger ms-5">
+      اكتب نفس كلمة السر اللى لسا كاتبها
+    </small>
+  } @else if (
+    registrationForm.get('confirmPassword')?.valid &&
+    registrationForm.get('Password')?.valid &&
+    !registrationForm.errors?.['passwordsMismatch'] &&
+    registrationForm.get('confirmPassword')?.touched
+  ) {
+    <small class="text-success ms-5">
+      كلمة المرور وتأكيدها تمام التمام
+    </small>
+  }
+</div>
+
               </div>
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="input-group">
+      <span class="input-group-text bg-white">
+        <i class="fas fa-image text-muted"></i>
+      </span>
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onImageSelected($event)"
+        class="form-control"
+      />
+    </div>
+    <small class="text-muted">ارفع صورة شخصية (jpg / png)</small>
+  </div>
+</div>
 
               <div class="d-flex justify-content-center">
+        
                 <button type="submit" class="btn btn-primary w-75 mt-2 p-2">
                   أنشاء حساب
                 </button>
               </div>
             </div>
+            
           </form>
 
           <div class="py-5 mx-5">

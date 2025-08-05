@@ -3,6 +3,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { MainComponent } from './Components/main/main.component';
+import { UsersComponent } from './Components/dashboardComp/users/users.component';
 
 export const routes: Routes = [
   {
@@ -21,4 +22,8 @@ export const routes: Routes = [
     path: 'MainPage',
     component: MainComponent,
   },
+  {
+    path:'DashboardAdmin',
+    component:UsersComponent
+  }
 ];

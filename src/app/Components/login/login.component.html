@@ -8,21 +8,23 @@
           <div class="title">
             <div class="row">
               <div class="col-4">
-                <img src="assets/Logo.png" class="LogoInLogin" alt="" />
+                <a routerLink="/"><img src="assets/Logo.png" class="LogoInLogin" alt="" /></a>
               </div>
               <div class="col-6">
                 <h1 class="LogingHeader">تسجيل الدخول</h1>
               </div>
             </div>
           </div>
-          <form class="pt-5">
+          <form class="pt-5" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <input
-                type="number"
+                type="text"
                 class="form-control"
-                id="PhoneNumber"
-                aria-describedby="PhoneNumber"
-                placeholder="رقم الموبايل"
+                id="UserName"
+                name="userName"
+                aria-describedby="UserName"
+                [(ngModel)]="Login.userLogin.userName"
+                placeholder="أسم المستخدم"
               />
               >
             </div>
@@ -31,6 +33,8 @@
                 type="password"
                 class="form-control"
                 id="Password"
+                name="Password"
+                [(ngModel)]="Login.userLogin.password"
                 placeholder="كلمة المرور"
               />
             </div>
@@ -63,3 +67,4 @@
     </div>
   </div>
 </section>
+<!-- <button class="btn btn-success hover:ch-grow">زر يهتز</button> -->

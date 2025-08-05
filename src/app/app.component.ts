@@ -4,11 +4,12 @@ import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { LottieComponent } from 'ngx-lottie';
+import { UsersComponent } from "./Components/dashboardComp/users/users.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent, LoginComponent, RegisterComponent,LottieComponent],
+  imports: [RouterOutlet, UsersComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

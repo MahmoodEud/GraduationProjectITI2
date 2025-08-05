@@ -1,12 +1,25 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import player from 'lottie-web'; // ✅ import player من lottie-web
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+import { provideToastr } from 'ngx-toastr';
+import { provideLottieOptions } from 'ngx-lottie';
+import player from 'lottie-web';
 
 import { routes } from './app.routes';
-import { provideCacheableAnimationLoader, provideLottieOptions } from 'ngx-lottie';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
-    provideLottieOptions({ player: () => player })
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    provideAnimations(),
+    provideToastr({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false,
+      progressBar: true,
+    }),
+    provideLottieOptions({ player: () => player }),
   ],
 };
