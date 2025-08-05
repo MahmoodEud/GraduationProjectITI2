@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUser } from '../../Interfaces/iuser';
 import { ToastrService } from 'ngx-toastr';
-import { ILogin } from '../../Interfaces/ilogin';
 import { environment } from './environment';
 import { Router } from '@angular/router';
 
@@ -22,13 +21,13 @@ export class registerService {
       confirmPassword:""
     };;
 
-  constructor(private httpClient:HttpClient,private toaster:ToastrService,private router:Router) { 
+  constructor(private httpClient:HttpClient,private toaster:ToastrService,private router:Router) {
   }
 
   registerUserAPI(formData: FormData){
      return this.httpClient.post(`${environment.apiUrl}/Account/Register`, formData);
   }
- onChange(formData: FormData) 
+ onChange(formData: FormData)
 {
   this.registerUserAPI(formData).subscribe(
     (res:any) => {

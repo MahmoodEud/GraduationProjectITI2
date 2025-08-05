@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { LoginService } from '../../Services/Login/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../Services/register/environment';
+import { AccountService } from '../../Services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { environment } from '../../Services/register/environment';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
- 
+  /*
   constructor(public Login:LoginService,private router: Router,private toaster:ToastrService) {}
   onSubmit(){
     this.Login.login().subscribe({
@@ -27,5 +27,21 @@ export class LoginComponent {
       }
     })
   }
+  */
 
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
+  accoutnService = inject(AccountService);
+  model: any = {};
+
+  onSubmit() {
+    this.accoutnService.login(this.model).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/MainPage');
+      },
+      // The error will not always be related to the client
+      // Maybe it is a server error...so we will not make any assumptions
+      error: error => this.toastr.error(error.error)
+    });
+  }
 }

@@ -1,5 +1,4 @@
 export interface IUser {
-    
   name: string
   userName: string,
   phone: string,
@@ -7,6 +6,6 @@ export interface IUser {
   birthdate: Date,
   studentYear: number,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
+  photoUrl?: string
 }
-

@@ -22,6 +22,7 @@
     "bootstrap": "^5.3.7",
     "gsap": "^3.13.0",
     "lottie-web": "^5.13.0",
+    "hover.css": "^2.3.2",
     "ngx-lottie": "^11.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",

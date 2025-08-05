@@ -113,7 +113,7 @@
             </a>
               <a (click)="logout()"
               class="list-group-item list-group-item-action custom-tab"
-            
+
             >
             <i class="fas fa-right-from-bracket me-2"></i> تسجيل الخروج
             </a>
@@ -150,7 +150,7 @@
               </div>
               <a class="navbar-brand mb-1" href="#">
                 <img
-                  [src]="profileImageUrl"
+                  src="{{accountService.currentUser()?.photoUrl}}"
                   width="35"
                   height="35"
                   alt="Profile"
@@ -316,7 +316,7 @@
         >
           <i class="fas fa-headset me-2"></i> الدعم الفني
         </a>
-    
+
       </div>
     </div>
   </div>
