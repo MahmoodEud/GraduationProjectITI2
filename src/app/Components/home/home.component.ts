@@ -21,9 +21,8 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements AfterViewInit {
-  @ViewChild('progressBar') progressBar!: ElementRef;
-  @ViewChild('myBtn') myBtn!: ElementRef;
+export class HomeComponent   {
+
 
   animationOptions = {
     path: '/assets/Animation/svg.json',
@@ -31,31 +30,6 @@ export class HomeComponent implements AfterViewInit {
     loop: true
   };
 
-  ngAfterViewInit(): void {
-    const bar = this.progressBar.nativeElement;
 
-    gsap.to(bar, {
-      width: '100%',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true
-      }
-    });
-  setTimeout(() => {
-    ScrollTrigger.refresh();
-  }, 100);
-  }
-  @HostListener('window:scroll', [])
-  onScroll(): void {
-    const bar = this.progressBar.nativeElement;
-    if (window.scrollY > 10) {
-      bar.style.opacity = '1';
-    } else {
-      bar.style.opacity = '0';
-    }
-  }
 
 }

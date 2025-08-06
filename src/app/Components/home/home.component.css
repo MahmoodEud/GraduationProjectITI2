@@ -1,6 +1,14 @@
-.firstDiv {
-    margin-bottom: 100px;
+.section1 {
+    background-image: url("/assets/arabic.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #0b6ccb;
+    text-align: center;
+    transition: all 1ms ease-in-out;
+
 }
+
 
 .telegram {
     color: #0b6ccb;
@@ -36,84 +44,23 @@ ng-lottie {
     width: 300px;
 }
 
-/*Nav Bar*/
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
 
-/*Scroll Bar */
-
-.scroll-progress-bar {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    height: 7px;
-    width: 0%;
-    background: linear-gradient(to right, rgba(52, 112, 223, 0.829), rgb(0, 191, 255));
-    z-index: 9999;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-
-
-}
-
-.section1 {
-    background-image: url("/assets/arabic.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding-top: 150px;
-}
-
-
-.profile1 {
-    margin-left: 100px;
-}
-
-.gsap-btn {
-    margin-top: 100px;
-    padding: 10px 20px;
-    font-size: 18px;
-}
 
 
 
 .elbasitTextOnHover:hover {
     color: #0b6ccb;
-    transform: scale(1.1);
-}
-
-.el3rabiaTextOnHover {
-    color: #000;
-    transition: color 0.5s ease, transform 0.5s ease;
-    font-weight: 700;
+    transform: scale(1.7);
 
 }
+
 
 .el3rabiaTextOnHover {
     color: #0b6ccb;
     display: inline-block;
     margin: 0 0.8rem;
-
     animation: bounce;
     animation-duration: 3s;
+    font-weight: 700;
 
-}
-
-.fancy-hover {
-    color: #000;
-    transition: color 0.5s ease, transform 0.5s ease;
-    cursor: pointer;
-}
-
-.fancy-hover:hover {
-    color: #2aabee;
-    transform: scale(1.1);
-    /* يكبر شوية */
 }

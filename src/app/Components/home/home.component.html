@@ -1,123 +1,102 @@
-<!-- !Nav Bar -->
-<div class="container-fluid p-0 m-0 firstDiv fixed-navbar  firstDiv">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
-    <a class="navbar-brand">
-      <img src="assets/Logo.png" alt="Logo Elbasit" style="height: 60px" />
-    </a>
-    <button
-      class="navbar-toggler m-3"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="تبديل القائمة"
-      appButtonsAnimation
-      
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div
-      class="collapse navbar-collapse justify-content-between"
-      id="navbarNav"
-    >
-      <ul class="navbar-nav mb-2 mb-lg-0 mx-2">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"
-            >الصفحة الرئيسية</a
-          >
-        </li>
-        <li class="nav-item">
-          <a href="#mnNhn" class="nav-link">من نحن</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#CoursesSection">الدورات التعليمية</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#PrentSection">ولى الأمر</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#PopularQuestionSection">الأسئلة الشائعة</a>
-        </li>
-      </ul>
-      <div class="d-flex flex-wrap">
-        <a routerLink="Register" class="btn btn-outline-primary m-2" appButtonsAnimation animation="shake" appButtonsAnimation animation="pulse">
-          إنشاء حساب <i class="fas fa-plus"></i>
-        </a>
-        <a routerLink="/Login" class="btn btn-primary m-2" appButtonsAnimation animation="shake" >
-          تسجيل الدخول <i class="fas fa-right-from-bracket ms-2"></i>
-        </a>
-      </div>
-    </div>
-  </nav>
-</div>
-<div class="scroll-progress-bar " #progressBar></div>
-<div class="mb-5 ">
-</div>
-<!-- ! Section 2  -->
-<div class="container-fluid py-5 box section1 " [appScrollReveal]="'zoomIn'"
->
-  <div class="row align-items-center text-center text-md-start mb-5" >
+<div class="container section1" [appScrollReveal]="'zoomIn'">
+  <div class="row align-items-center text-center text-md-start mb-5">
     <!-- !Part 1 Photo -->
-    <div class="col-12 col-md-6 mb-4 mb-md-0 ms-4 text-center animate__animated animate__fadeInDown order-2 order-md-1 ">
+    <div
+      class="col-12 col-md-6 mb-4 mb-md-0 me-md-4 text-center animate__animated animate__fadeInDown order-2 order-md-1"
+    >
       <span></span>
-      <h1>رحلة التميّز في <span class="el3rabiaTextOnHover animation ">العربية</span></h1>
-      <h1>تبدأ بخطوة على <span class="elbasitTextOnHover">البسيط</span> </h1>
+      <h1>
+        رحلة التميّز في
+        <span class="el3rabiaTextOnHover animation">العربية</span>
+      </h1>
+      <h1>تبدأ بخطوة على <span class="elbasitTextOnHover">البسيط</span></h1>
       <div class="mt-3">
         <h3 class="fs-5">
           تقدّم المنصة فيديوهات، تدريبات، واختبارات تساعد على الفهم العميق
           والاستعداد الجيد للامتحانات
         </h3>
         <div class="text-center mt-4">
-          <a routerLink="/MainPage" class="btn btn-primary px-4 py-2 " appButtonsAnimation  animation="rotate">
+          <a
+            routerLink="/MainPage"
+            class="btn btn-primary px-4 py-2"
+            appButtonsAnimation
+            animation="rotate"
+          >
             تواصل معانا أسرع <i class="fas fa-headset fs-4 mr-auto"></i>
           </a>
           <div class="mt-3">
-            <a href="https://wa.me/+201127597047" class="mx-2 text-decoration-none" target="_blank" rel="noopener noreferrer" 
-              ><i class="fab fa-whatsapp text-success fs-2" appButtonsAnimation></i>
+            <a
+              href="https://wa.me/+201127597047"
+              class="mx-2 text-decoration-none"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i
+                class="fab fa-whatsapp text-success fs-2"
+                appButtonsAnimation
+              ></i>
             </a>
-            <a href="https://www.facebook.com/p/%D9%86%D8%A7%D8%AF%D8%B1-%D9%85%D8%AF%D9%83%D9%88%D8%B1-%D9%80%D9%80-%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D9%84%D8%BA%D9%87-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D8%A8%D8%A9-100081637487311/" class="mx-2 text-decoration-none"  target="_blank" rel="noopener noreferrer" 
+            <a
+              href="https://www.facebook.com/p/%D9%86%D8%A7%D8%AF%D8%B1-%D9%85%D8%AF%D9%83%D9%88%D8%B1-%D9%80%D9%80-%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D9%84%D8%BA%D9%87-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D8%A8%D8%A9-100081637487311/"
+              class="mx-2 text-decoration-none"
+              target="_blank"
+              rel="noopener noreferrer"
               ><i class="fab fa-facebook fs-2" appButtonsAnimation></i>
             </a>
-            <a   href="https://t.me/ElBasitPlatform"  target="_blank" rel="noopener noreferrer" class="mx-2 text-decoration-none">
-              <i class="fab fa-telegram-plane fs-2 telegram2" appButtonsAnimation></i>
+            <a
+              href="https://t.me/ElBasitPlatform"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mx-2 text-decoration-none"
+            >
+              <i
+                class="fab fa-telegram-plane fs-2 telegram2"
+                appButtonsAnimation
+              ></i>
             </a>
           </div>
         </div>
       </div>
     </div>
-<!-- !Nader Photo -->
-<div class="col-12 col-md-5 zoom-wrapper animate__animated animate__jackInTheBox d-flex justify-content-center  order-1 order-md-2">
-  <div style="position: relative; width: 100%; max-width: 1000px; aspect-ratio: 5 / 3; margin: auto;">
-    
-  <div style="display: flex; justify-content: center; align-items: center;">
-    <ng-lottie
-      [options]="animationOptions"
-      style="width: 600px; height: 600px;">
-    </ng-lottie>
-  </div>
+    <!-- !Nader Photo -->
+    <div
+      class="col-12 col-md-5 zoom-wrapper animate__animated animate__jackInTheBox d-flex justify-content-center order-1 order-md-2"
+    >
+      <div
+        style="position: relative; width: 100%; max-width: 1000px; margin: auto"
+      >
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <ng-lottie
+            [options]="animationOptions"
+            style="width: 600px; height: 600px"
+          >
+          </ng-lottie>
+        </div>
 
-    <img src="/assets/profile6.png"
-         style="position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 400px;
-                height: auto;
-                max-width: 100%;
-                max-height: 100%;" />
-  </div>
-</div>
-
+        <img
+          src="/assets/profile6.png"
+          style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+          "
+        />
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- !Section 3 -->
-<div class="container-fluid" id="mnNhn " [appScrollReveal]="'bounce'"  >
+<div class="container ms-3" id="ElbasitDef" [appScrollReveal]="'bounce'">
   <div class="row text-md-start">
-    <div class="col-12 col-md-9 ms-5">
+    <div class="col-12 col-md-9 me-md-5">
       <h2 class="fw-bold telegram">منصة البسيط</h2>
-      <a href="#MnNhn"></a>
       <p class="text-muted fs-4">
         هي منصة تعليمية متخصصة في اللغة العربية تهدف إلى تأهيل طلاب المرحلة
         الثانوية من خلال محتوى مبسط وشامل.
@@ -126,9 +105,9 @@
   </div>
 </div>
 <!-- !Section 4 -->
-<div class="container-fluid" [appScrollReveal]="'scale'">
-  <div class="row ms-3">
-    <div class="col-12 col-md-6">
+<div class="container-fluid ms-3" [appScrollReveal]="'scale'" >
+  <div class="row me-md-4">
+    <div class="col-12 col-md-6 order-2 order-md-1 mb">
       <div class="d-flex mb-4">
         <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck"></i>
         <div>
@@ -169,13 +148,17 @@
     </div>
 
     <div
-      class="col-12 col-md-6 d-flex align-items-center justify-content-center mt-4 mt-md-0"
+      class="col-12 col-md-6 d-flex align-items-center justify-content-center mt-4 mt-md-0 order-1 order-md-2"
     >
       <img src="assets/Profile1.png" class="img-fluid" alt="Profile" />
     </div>
   </div>
 </div>
-<div class="container-fluid py-5 position-relative" id="CoursesSection"  [appScrollReveal]="'fadeDown'">
+<div
+  class="container-fluid py-5 position-relative"
+  id="CoursesSection"
+  [appScrollReveal]="'fadeDown'"
+>
   <div class="row">
     <div class="col-12">
       <h2 class="p-1 mx-5 fw-bold telegram">الدورات التعليمية</h2>
@@ -192,7 +175,12 @@
                   <p class="card-text">
                     <i class="fas fa-play-circle"></i> 10 محاضرات
                   </p>
-                  <a href="#" class="btn btn-primary buttonss" appButtonsAnimation>سجل الأن</a>
+                  <a
+                    routerLink="Login"
+                    class="btn btn-primary buttonss"
+                    appButtonsAnimation
+                    >سجل الأن</a
+                  >
                 </div>
               </div>
             </div>
@@ -208,7 +196,12 @@
                   <p class="card-text">
                     <i class="fas fa-play-circle"></i> 10 محاضرات
                   </p>
-                  <a href="#" class="btn btn-primary buttonss" appButtonsAnimation>سجل الأن</a>
+                  <a
+                    routerLink="Login"
+                    class="btn btn-primary buttonss"
+                    appButtonsAnimation
+                    >سجل الأن</a
+                  >
                 </div>
               </div>
             </div>
@@ -224,7 +217,12 @@
                   <p class="card-text">
                     <i class="fas fa-play-circle"></i> 10 محاضرات
                   </p>
-                  <a href="#" class="btn btn-primary buttonss" appButtonsAnimation>سجل الأن</a>
+                  <a
+                    href="Login"
+                    class="btn btn-primary buttonss"
+                    appButtonsAnimation
+                    >سجل الأن</a
+                  >
                 </div>
               </div>
             </div>
@@ -234,7 +232,11 @@
     </div>
   </div>
 </div>
-<div class="container-fluid py-5" id="PrentSection" [appScrollReveal]="'fadeDown'">
+<div
+  class="container-fluid py-5"
+  id="PrentSection"
+  [appScrollReveal]="'fadeDown'"
+>
   <div class="row align-items-center ms-4">
     <div class="col-12 col-md-6 mb-4 mb-md-0">
       <h2 class="p-1 text-md-start text-center fw-bold telegram">
@@ -278,7 +280,11 @@
   </div>
 </div>
 
-<div class="container-fluid py-5 accordionns" id="PopularQuestionSection" [appScrollReveal]="'zoomIn'">
+<div
+  class="container-fluid py-5 accordionns"
+  id="PopularQuestionSection"
+  [appScrollReveal]="'zoomIn'"
+>
   <div class="row justify-content-start">
     <div class="col-12 col-md-10">
       <h2 class="p-1 fw-bold ms-3 telegram">الأسئلة الشائعة</h2>
@@ -374,7 +380,6 @@
               data-bs-target="#collapseFour"
               aria-expanded="false"
               aria-controls="collapseFour"
-              
             >
               ماذا أفعل إذا واجهت مشكلة فنية أثناء الكورس؟
             </button>
@@ -396,21 +401,40 @@
   </div>
 </div>
 
-<div class="container-fluid py-5 text-center d-flex justify-content-center" appScrollReveal>
+<div
+  class="container-fluid py-5 text-center d-flex justify-content-center"
+  appScrollReveal
+>
   <div class="row w-100">
     <div class="col-12 col-md-8 mx-auto">
       <h5>مازال هناك أسئلة أخرى؟ لا تتردد في التواصل معنا</h5>
-          <div class="mt-3">
-            <a href="https://wa.me/+201127597047" class="mx-2 text-decoration-none" target="_blank" rel="noopener noreferrer" 
-              ><i class="fab fa-whatsapp text-success fs-2" appButtonsAnimation></i>
-            </a>
-            <a href="https://www.facebook.com/p/%D9%86%D8%A7%D8%AF%D8%B1-%D9%85%D8%AF%D9%83%D9%88%D8%B1-%D9%80%D9%80-%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D9%84%D8%BA%D9%87-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D8%A8%D8%A9-100081637487311/" class="mx-2 text-decoration-none"  target="_blank" rel="noopener noreferrer" 
-              ><i class="fab fa-facebook fs-2" appButtonsAnimation></i>
-            </a>
-            <a   href="https://t.me/ElBasitPlatform"  target="_blank" rel="noopener noreferrer" class="mx-2 text-decoration-none">
-              <i class="fab fa-telegram-plane fs-2 telegram2" appButtonsAnimation></i>
-            </a>
-          </div>
+      <div class="mt-3">
+        <a
+          href="https://wa.me/+201127597047"
+          class="mx-2 text-decoration-none"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><i class="fab fa-whatsapp text-success fs-2" appButtonsAnimation></i>
+        </a>
+        <a
+          href="https://www.facebook.com/p/%D9%86%D8%A7%D8%AF%D8%B1-%D9%85%D8%AF%D9%83%D9%88%D8%B1-%D9%80%D9%80-%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D9%84%D8%BA%D9%87-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D8%A8%D8%A9-100081637487311/"
+          class="mx-2 text-decoration-none"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><i class="fab fa-facebook fs-2" appButtonsAnimation></i>
+        </a>
+        <a
+          href="https://t.me/ElBasitPlatform"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mx-2 text-decoration-none"
+        >
+          <i
+            class="fab fa-telegram-plane fs-2 telegram2"
+            appButtonsAnimation
+          ></i>
+        </a>
+      </div>
     </div>
   </div>
 </div>

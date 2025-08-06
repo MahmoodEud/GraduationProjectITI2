@@ -2,76 +2,73 @@
   class="full-screen-section d-flex justify-content-center align-items-center text-white"
 >
   <div class="container-fluid">
-    <div class="row h-100 w-100">
+    <div class="row">
       <div class="col-12 col-md-6">
         <div class="h-100 w-100 white-half p-4">
-          <div class="title mb-4">
-            <div class="row align-items-center">
-              <div class="col-4">
-                <a routerLink="/"><img
-                  src="assets/Logo.png"
-                  class="LogoInLogin img-fluid"
-                  alt="Logo"
-                /></a>
-              </div>
-              <div class="col-6">
-                <h1 class="LogingHeader text-dark">إنشاء حساب</h1>
-              </div>
-            </div>
+          <div class="title text-center LogingHeader">
+            <h1>إنشاء حساب</h1>
           </div>
-
           <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
             <div class="container-fluid">
-              <div class="row mb-3">
-                <div class="col-7">
-                  <div class="input-group">
-                    <span class="input-group-text bg-white">
-                      <i class="fas fa-user text-muted"></i>
-                    </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="الأسم رباعى"
-                      aria-label=" الأسم رباعى"
-                      formControlName="name"
-                    />
-                  </div>
-                  @if
-                  (registrationForm.get("name")?.invalid&&registrationForm.get("name")?.touched)
-                  {
-                  <small class="text-danger text-center ms-5">
-                    الأسم لازم يبقا رباعي
-                  </small>
-                  }@else if(registrationForm.get('name')?.valid &&
-                  registrationForm.get('name')?.touched) {
-                  <small class="text-success text-center ms-5"
-                    >الأسم تمام التمام</small
-                  >
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="input-group">
+      <span class="input-group-text bg-white">
+        <i class="fas fa-user text-muted"></i>
+      </span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="الأسم رباعى"
+        aria-label=" الأسم رباعى"
+        formControlName="name"
+      />
+    </div>
+    @if (registrationForm.get("name")?.invalid && registrationForm.get("name")?.touched) {
+      <small class="text-danger text-center ms-5">الأسم لازم يبقا رباعي</small>
+    } @else if (registrationForm.get('name')?.valid && registrationForm.get('name')?.touched) {
+      <small class="text-success text-center ms-5">الأسم تمام التمام</small>
+    }
+  </div>
+</div>
 
-                  }
-                </div>
-                <div class="col-5">
-                  <div class="input-group">
-                    <span class="input-group-text bg-white">
-                      <i class="fas fa-user text-muted"></i>
-                    </span>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="أسم المستخدم"
-                      aria-label=" أسم المستخدم"
-                      formControlName="username"
-                    />
-                  </div>
-                  @if (registrationForm.get('username')?.invalid &&
-                  registrationForm.get('username')?.touched) {
-                  <small class="text-danger ">غير اسم المستخدم بعد إذنك</small>
-                  }@else if(registrationForm.get('username')?.valid&&registrationForm.get('username')?.touched)
-                  {
-                  <small class="text-success ">كمل انتا زي الفل</small>
-                  }
-                </div>
-              </div>
+<div class="row mb-3">
+  <div class="col-12 col-md-6 mt-3">
+    <div class="input-group">
+      <span class="input-group-text bg-white">
+        <i class="fas fa-image text-muted"></i>
+      </span>
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onImageSelected($event)"
+        class="form-control"
+      />
+    </div>
+    <small class="text-muted">ارفع صورة شخصية (jpg / png)</small>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <div class="input-group">
+      <span class="input-group-text bg-white">
+        <i class="fas fa-user text-muted"></i>
+      </span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="أسم المستخدم"
+        aria-label=" أسم المستخدم"
+        formControlName="username"
+      />
+    </div>
+    @if (registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched) {
+      <small class="text-danger">غير اسم المستخدم بعد إذنك</small>
+    } @else if (registrationForm.get('username')?.valid && registrationForm.get('username')?.touched) {
+      <small class="text-success">كمل انتا زي الفل</small>
+    }
+  </div>
+</div>
+
 
               <div class="row mb-3">
                 <div class="col-12 col-md-6">
@@ -214,22 +211,7 @@
 </div>
 
               </div>
-<div class="row mb-3">
-  <div class="col-12">
-    <div class="input-group">
-      <span class="input-group-text bg-white">
-        <i class="fas fa-image text-muted"></i>
-      </span>
-      <input
-        type="file"
-        accept="image/*"
-        (change)="onImageSelected($event)"
-        class="form-control"
-      />
-    </div>
-    <small class="text-muted">ارفع صورة شخصية (jpg / png)</small>
-  </div>
-</div>
+
 
               <div class="d-flex justify-content-center">
         

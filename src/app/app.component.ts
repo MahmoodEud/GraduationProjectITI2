@@ -5,11 +5,12 @@ import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { LottieComponent } from 'ngx-lottie';
 import { UsersComponent } from "./Components/dashboardComp/users/users.component";
+import { NavbarComponent } from "./Components/navbar/navbar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, UsersComponent],
+  imports: [RouterOutlet, UsersComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
