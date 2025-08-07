@@ -1,8 +1,10 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ButtonsAnimationDirective } from '../../directives/ButtonsAnimation/buttons-animation.directive';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { AccountService } from '../../Services/account.service';
+import { environment } from '../../Services/register/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -11,22 +13,41 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   @ViewChild('progressBar') progressBar!: ElementRef;
   @ViewChild('myBtn') myBtn!: ElementRef;
 
   currentRoute: string = '';
 
+  public acc=inject(AccountService);
   constructor(private router: Router) {
   
      this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        console.log(event.urlAfterRedirects);
+        // console.log(event.urlAfterRedirects);
         
         this.currentRoute = event.url;
       }
     })
   }
+
+    profileImageUrl: string = '';
+    ngOnInit(): void {
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+      this.profileImageUrl = `${environment.imageBaseUrl}${storedImage}`;
+    } else {
+      this.profileImageUrl = 'assets/Profil4.png';
+    }
+  }
+    
+
+
+
+
+
+
+
 
     ngAfterViewInit(): void {
     const bar = this.progressBar.nativeElement;
@@ -55,5 +76,8 @@ export class NavbarComponent {
       bar.style.opacity = '0';
     }
   }
-
+toggleDarkMode(e:any){
+  console.log("Dark");
+  
+}
 }

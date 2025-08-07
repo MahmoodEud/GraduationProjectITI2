@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { LoginService } from '../../Services/Login/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../Services/register/environment';
+import { AccountService } from '../../Services/account.service';
+import { ILoginUser } from '../../Interfaces/ilogin-user';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { environment } from '../../Services/register/environment';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
- 
+  /*
   constructor(public Login:LoginService,private router: Router,private toaster:ToastrService) {}
   onSubmit(){
     this.Login.login().subscribe({
@@ -27,5 +28,28 @@ export class LoginComponent {
       }
     })
   }
+  */
 
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
+  accoutnService = inject(AccountService);
+  // model:any;
+  model: ILoginUser = { 
+    username:'',
+    password:''
+  };
+
+  onSubmit() {
+    this.accoutnService.login(this.model).subscribe({
+      next: (res) => {
+          this.toastr.success('تم تسجيل الدخول بنجاح');
+        this.router.navigateByUrl('/main');
+      },
+      // The error will not always be related to the client
+      // Maybe it is a server error...so we will not make any assumptions
+      error: error =>{ 
+        this.toastr.error('خطأ في اسم المستخدم أو كلمة المرور');
+        this.toastr.error(error.error)}
+    });
+  }
 }

@@ -6,11 +6,12 @@ import { RegisterComponent } from './Components/register/register.component';
 import { LottieComponent } from 'ngx-lottie';
 import { UsersComponent } from "./Components/dashboardComp/users/users.component";
 import { NavbarComponent } from "./Components/navbar/navbar.component";
+import { MainComponent } from "./Components/main/main.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, UsersComponent, NavbarComponent],
+  imports: [RouterOutlet, UsersComponent, NavbarComponent, MainComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -19,5 +19,13 @@ nav {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 
+}
 
+.bellll {
+    cursor: pointer;
+}
+
+.profileImage {
+    width: 95px;
+    height: 56px;
 }

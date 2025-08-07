@@ -1,44 +1,11 @@
-  .full-screen-section {
+  /* .full-screen-section {
 
       min-height: 100vh;
       width: 100%;
       background-color: #0b6ccb;
-  }
+  } */
 
   .container-fluid {
       margin: 0px;
       padding: 0px;
-  }
-
-  .white-half {
-      height: 100%;
-      width: 100%;
-      background-color: white;
-      border-radius: 100px 0px 0px 50px;
-  }
-
-  .LogoInLogin {
-      width: 70px;
-      height: 100px;
-  }
-
-  .LogingHeader {
-      color: #0b6ccb;
-      padding: 15px;
-      margin: 20px;
-  }
-
-  form {
-      margin-top: 90px;
-      margin-right: 50px;
-  }
-
-  .form-group {
-      margin: 5px;
-      width: 80%;
-  }
-
-  .form-control {
-      padding: 15px;
-      text-align: center;
   }

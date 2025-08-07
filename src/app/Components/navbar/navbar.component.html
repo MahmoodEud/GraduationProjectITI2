@@ -1,4 +1,4 @@
-<div class="container-fluid p-0 m-0  fixed-navbar  navBarDiv">
+<div class="container-fluid p-0 m-0 fixed-navbar navBarDiv">
   <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
     <a href="#" class="navbar-brand">
       <img src="assets/Logo.png" alt="Logo Elbasit" style="height: 60px" />
@@ -12,49 +12,116 @@
       aria-expanded="false"
       aria-label="تبديل القائمة"
       appButtonsAnimation
-      
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div
-      class="collapse navbar-collapse justify-content-between"
-      id="navbarNav"
-    >
-    @if (currentRoute ==='/Login') {
-      
-    } @else {
-      
-    }
-      <ul class="navbar-nav mb-2 mb-lg-0 mx-2">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"
-            >الصفحة الرئيسية</a
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      @if (currentRoute == '/Login') {
+        <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
+          <div class="form-check form-switch m-2">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              id="darkModeSwitch"
+              style="transform: scale(1.6); cursor: pointer;" 
+              (change)="toggleDarkMode($event)"
+            >
+          </div>
+
+          <a
+            routerLink="Register"
+            class="btn btn-outline-primary m-2 px-4 py-2"
+            appButtonsAnimation
+            animation="pulse"
           >
-        </li>
-        <li class="nav-item" >
-          <a href="#ElbasitDef" class="nav-link">من نحن</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#CoursesSection">الدورات التعليمية</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#PrentSection">ولى الأمر</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#PopularQuestionSection">الأسئلة الشائعة</a>
-        </li>
-      </ul>
-      <div class="d-flex flex-wrap">
-        <a routerLink="Register" class="btn btn-outline-primary m-2" appButtonsAnimation animation="shake" appButtonsAnimation animation="pulse">
-          إنشاء حساب <i class="fas fa-plus"></i>
-        </a>
-        <a routerLink="/Login" class="btn btn-primary m-2" appButtonsAnimation animation="shake" >
-          تسجيل الدخول <i class="fas fa-right-from-bracket ms-2"></i>
-        </a>
-      </div>
+            إنشاء حساب <i class="fas fa-plus"></i>
+          </a>
+        </div>
+
+      }@else if(currentRoute == '/Register'){
+        <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
+          <div class="form-check form-switch m-2">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              id="darkModeSwitch"
+              style="transform: scale(1.6); cursor: pointer;" 
+              (change)="toggleDarkMode($event)"
+            >
+          </div>
+      <a
+            routerLink="/Login"
+            class="btn btn-outline-primary m-2 px-4 py-2"
+            appButtonsAnimation
+            animation="pulse"
+          >
+            تسحيل الدخول <i class="fas fa-plus"></i>
+          </a>
+        </div>
+      } 
+      @else if (acc.currentUser()) {
+       <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
+          <div class="form-check form-switch m-2">
+            <i class="fas fa-bell fs-3 bellll"></i>
+          </div>
+            <div class="form-check form-switch m-2">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              id="darkModeSwitch"
+              style="transform: scale(1.6); cursor: pointer;" 
+              (change)="toggleDarkMode($event)"
+            >
+          </div>
+          <img [src]="profileImageUrl"
+          (error)="profileImageUrl = 'assets/Profil4.png'"
+          alt="Profil4.png"
+            class="m-2 px-4 py-2 rounded-circle profileImage"
+            appButtonsAnimation
+            animation="pulse"
+          >          
+        </div>    
+        }
+      @else {
+        <ul class="navbar-nav mb-2 mb-lg-0 mx-2">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">الصفحة الرئيسية</a>
+          </li>
+          <li class="nav-item">
+            <a href="#ElbasitDef" class="nav-link">من نحن</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#CoursesSection">الدورات التعليمية</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#PrentSection">ولى الأمر</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#PopularQuestionSection">الأسئلة الشائعة</a>
+          </li>
+        </ul>
+        <div class="d-flex flex-wrap">
+          <a
+            routerLink="Register"
+            class="btn btn-outline-primary m-2"
+            appButtonsAnimation
+            animation="pulse"
+          >
+            إنشاء حساب <i class="fas fa-plus"></i>
+          </a>
+          <a
+            routerLink="/Login"
+            class="btn btn-primary m-2"
+            appButtonsAnimation
+            animation="pulse"
+          >
+            تسجيل الدخول <i class="fas fa-right-from-bracket ms-2"></i>
+          </a>
+        </div>
+      }
     </div>
   </nav>
 </div>
+
 <div class="scroll-progress-bar " #progressBar></div>
-<!-- <div class="mb-5 ">
-</div> -->

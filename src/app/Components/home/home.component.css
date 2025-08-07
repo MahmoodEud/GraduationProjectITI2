@@ -46,6 +46,17 @@ ng-lottie {
 
 
 
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0;
+    background-color: #007bff;
+    z-index: 9999;
+    transition: width 0.2s ease-out;
+    opacity: 0;
+}
 
 
 .elbasitTextOnHover:hover {

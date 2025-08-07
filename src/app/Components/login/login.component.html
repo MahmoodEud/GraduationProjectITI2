@@ -18,10 +18,9 @@
               <input
                 type="text"
                 class="form-control"
-                id="UserName"
-                name="userName"
+                name="username"
                 aria-describedby="UserName"
-                [(ngModel)]="Login.userLogin.userName"
+                [(ngModel)]="model.username"
                 placeholder="أسم المستخدم"
               />
               >
@@ -30,9 +29,8 @@
               <input
                 type="password"
                 class="form-control"
-                id="Password"
-                name="Password"
-                [(ngModel)]="Login.userLogin.password"
+                name="password"
+                [(ngModel)]="model.password"
                 placeholder="كلمة المرور"
               />
             </div>
