@@ -6,12 +6,10 @@ import { ToastrService } from "ngx-toastr";
 export const authGuard: CanActivateFn = (route, state) => {
     const accountService = inject(AccountService);
     const toastr = inject(ToastrService);
-
+//  const user = accountService.currentUser.value;
     if (accountService.currentUser()) {
-        debugger;
         return true;
     } else {
-        debugger;
         toastr.info('*سجل دخول الاول*');
         return false;
     }

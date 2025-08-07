@@ -1,8 +1,8 @@
 export interface IUser {
   name: string
-  userName: string,
+  username: string,
   phone: string,
-  parentPhone: string,
+  parentPhoneNumber: string,
   birthdate: Date,
   studentYear: number,
   password: string,

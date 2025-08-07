@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ButtonsAnimationDirective } from '../../directives/ButtonsAnimation/buttons-animation.directive';
 import gsap from 'gsap';
@@ -76,8 +76,11 @@ export class NavbarComponent implements OnInit {
       bar.style.opacity = '0';
     }
   }
-toggleDarkMode(e:any){
-  console.log("Dark");
   
-}
+  @Input() isDarkMode: boolean = false;
+  @Output() darkModeToggled = new EventEmitter<void>();
+
+  toggleMode() {
+    this.darkModeToggled.emit();
+  }
 }

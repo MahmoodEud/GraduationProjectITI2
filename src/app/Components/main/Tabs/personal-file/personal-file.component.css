@@ -1,0 +1,13 @@
+.personalFile {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 20px 25px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.personalFile:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}

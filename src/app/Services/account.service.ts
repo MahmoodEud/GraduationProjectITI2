@@ -21,8 +21,15 @@ export class AccountService {
       })
     );
   }
+// Load Data From Local storage
+  loadCurrentUser() {
+  const userJson = localStorage.getItem('user');
+  if (userJson) {
+    const user: IUser = JSON.parse(userJson);
+    this.currentUser.set(user);
+  }
+}
 
-  
 
   logout() {
     localStorage.removeItem('user');

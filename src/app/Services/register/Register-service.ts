@@ -12,9 +12,9 @@ export class registerService {
 
   RegisterUser:IUser={
       name:"",
-      userName:"",
+      username:"",
       phone:"",
-      parentPhone:"",
+      parentPhoneNumber:"",
       birthdate:new Date("2000-01-01"),
       studentYear:0,
       password:"",

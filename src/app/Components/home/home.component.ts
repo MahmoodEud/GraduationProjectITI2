@@ -1,16 +1,14 @@
 import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostListener,
-  ViewChild
+  Component
+ 
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LottieComponent } from 'ngx-lottie';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollRevealDirective } from '../../directives/onScrollAnimation/scroll-reveal.directive';
 import { ButtonsAnimationDirective } from '../../directives/ButtonsAnimation/buttons-animation.directive';
+import { AccountService } from '../../Services/account.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,12 +22,18 @@ gsap.registerPlugin(ScrollTrigger);
 export class HomeComponent   {
 
 
+constructor(private account:AccountService,private router:Router) {
+      const user = this.account.currentUser();
+      if (user)   {
+      this.router.navigate(['/main']);
+}
+
+}
   animationOptions = {
     path: '/assets/Animation/svg.json',
     autoplay: true,
     loop: true
   };
-
 
 
 }

@@ -1,11 +1,4 @@
-  /* .full-screen-section {
-
-      min-height: 100vh;
-      width: 100%;
-      background-color: #0b6ccb;
-  } */
-
-  .container-fluid {
-      margin: 0px;
-      padding: 0px;
-  }
+.container-fluid {
+    margin: 0px;
+    padding: 0px;
+}

@@ -21,12 +21,12 @@
         <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
           <div class="form-check form-switch m-2">
             <input 
-              class="form-check-input" 
-              type="checkbox" 
-              id="darkModeSwitch"
-              style="transform: scale(1.6); cursor: pointer;" 
-              (change)="toggleDarkMode($event)"
-            >
+                type="checkbox"
+                class="form-check-input"
+                [checked]="isDarkMode"
+                (change)="toggleMode()"
+                style="transform: scale(1.6); cursor: pointer;"
+              />
           </div>
 
           <a
@@ -42,13 +42,13 @@
       }@else if(currentRoute == '/Register'){
         <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
           <div class="form-check form-switch m-2">
-            <input 
-              class="form-check-input" 
-              type="checkbox" 
-              id="darkModeSwitch"
-              style="transform: scale(1.6); cursor: pointer;" 
-              (change)="toggleDarkMode($event)"
-            >
+       <input 
+          type="checkbox"
+          class="form-check-input"
+          [checked]="isDarkMode"
+          (change)="toggleMode()"
+          style="transform: scale(1.6); cursor: pointer;"
+        />
           </div>
       <a
             routerLink="/Login"
@@ -66,13 +66,13 @@
             <i class="fas fa-bell fs-3 bellll"></i>
           </div>
             <div class="form-check form-switch m-2">
-            <input 
-              class="form-check-input" 
-              type="checkbox" 
-              id="darkModeSwitch"
-              style="transform: scale(1.6); cursor: pointer;" 
-              (change)="toggleDarkMode($event)"
-            >
+           <input 
+                type="checkbox"
+                class="form-check-input"
+                [checked]="isDarkMode"
+                (change)="toggleMode()"
+                style="transform: scale(1.6); cursor: pointer;"
+              />
           </div>
           <img [src]="profileImageUrl"
           (error)="profileImageUrl = 'assets/Profil4.png'"
@@ -102,6 +102,15 @@
           </li>
         </ul>
         <div class="d-flex flex-wrap">
+           <div class="form-check form-switch m-2">
+           <input 
+                type="checkbox"
+                class="form-check-input"
+                [checked]="isDarkMode"
+                (change)="toggleMode()"
+                style="transform: scale(1.6); cursor: pointer;"
+              />
+          </div>
           <a
             routerLink="Register"
             class="btn btn-outline-primary m-2"
@@ -125,3 +134,5 @@
 </div>
 
 <div class="scroll-progress-bar " #progressBar></div>
+<!-- <div class="mb-5 ">
+</div> -->

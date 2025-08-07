@@ -1,0 +1,48 @@
+<div class="container my-5 allCardsWrapper">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+@if (currentUser() ) {
+  
+ 
+
+      <div class="personalFile mb-4 d-flex align-items-center">
+        <i class="fas fa-user-graduate fs-1 text-primary me-3"></i>
+        <div>
+          <h5 class="mb-1 fs-6 fw-bold">اسم الطالب</h5>
+        <p class="mb-0 text-muted fs-6">{{currentUser()?.name }}</p>
+        </div>
+      </div>
+     <div class="personalFile mb-4 d-flex align-items-center">
+        <i class="fas fa-user fs-1 text-primary me-3"></i>
+        <div>
+          <h5 class="mb-1 fs-6 fw-bold">اسم المستخدم</h5>
+          <p class="mb-0 text-muted fs-6">{{currentUser()?.username }}</p>
+        </div>
+      </div>
+      <div class="personalFile mb-4 d-flex align-items-center">
+        <i class="fas fa-phone fs-1 text-success me-3"></i>
+        <div>
+          <h5 class="mb-1 fs-6 fw-bold">رقم التليفون</h5>
+          <p class="mb-0 text-muted fs-6">{{currentUser()?.phone }}</p>
+        </div>
+      </div>
+
+      <div class="personalFile mb-4 d-flex align-items-center">
+        <i class="fas fa-user-tie fs-1 text-warning me-3"></i>
+        <div>
+          <h5 class="mb-1 fs-6 fw-bold">رقم تليفون الحج</h5>
+          <p class="mb-0 text-muted fs-6">{{currentUser()?.parentPhoneNumber }}</p>
+        </div>
+      </div> 
+
+      <div class="personalFile mb-4 d-flex align-items-center">
+        <i class="fas fa-book-reader fs-1 text-info me-3"></i>
+        <div>
+          <h5 class="mb-1 fs-6 fw-bold">السنة الدراسية</h5>
+          <p class="mb-0 text-muted fs-6"> {{currentUser()?.studentYear }}</p>
+        </div>
+      </div>
+    }
+    </div>
+  </div>
+</div>

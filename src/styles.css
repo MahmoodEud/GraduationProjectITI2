@@ -36,4 +36,67 @@ body,
 html {
     width: 100%;
     overflow-x: hidden;
+    background-color: #ffffff;
+    color: #222222;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'cairo', sans-serif;
+}
+
+body.dark-mode {
+    background-color: #181818;
+    color: #e0e0e0;
+}
+
+body.dark-mode a {
+    color: #f4b400;
+}
+
+body.dark-mode a:hover {
+    color: #ffca28;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #252525;
+    border-color: #3c3c3c;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-outline-primary {
+    border-color: #f4b400;
+    color: #f4b400;
+}
+
+body.dark-mode .btn-outline-primary:hover {
+    background-color: #3c3c3c;
+    border-color: #ffca28;
+    color: #ffca28;
+}
+
+body.dark-mode .card {
+    background-color: #252525;
+    color: #e0e0e0;
+    border: 1px solid #3c3c3c;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #2f2f2f;
+    color: #e0e0e0;
+    border: 1px solid #4a4a4a;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #b0b0b0;
+}
+
+body.dark-mode .navbar {
+    background-color: #202020 !important;
+    border-bottom: 1px solid #3c3c3c;
+}
+
+body.dark-mode .form-check-input:checked {
+    background-color: #f4b400;
+    border-color: #f4b400;
 }

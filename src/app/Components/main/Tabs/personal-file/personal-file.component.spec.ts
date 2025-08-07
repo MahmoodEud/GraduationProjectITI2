@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeSideComponent } from './home-side.component';
+import { PersonalFileComponent } from './personal-file.component';
 
-describe('HomeSideComponent', () => {
-  let component: HomeSideComponent;
-  let fixture: ComponentFixture<HomeSideComponent>;
+describe('PersonalFileComponent', () => {
+  let component: PersonalFileComponent;
+  let fixture: ComponentFixture<PersonalFileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeSideComponent]
+      imports: [PersonalFileComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(HomeSideComponent);
+    fixture = TestBed.createComponent(PersonalFileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
