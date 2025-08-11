@@ -3,32 +3,29 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from './register/environment';
 import { Course } from '../Interfaces/ICourse';
 import { CourseUpdate } from '../Interfaces/ICourseUpdate';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
   private http = inject(HttpClient);
-  baseUrl = environment.apiUrl;
-  controllerUrl = this.baseUrl + 'Course/'
+  baseUrl = environment.apiUrl;              
+  controllerUrl = `${this.baseUrl}Course`; 
 
-  getAllCourses() {
-    return this.http.get(this.controllerUrl);
+   getAllCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.controllerUrl); 
   }
 
-  getCourseById(courseId: number) {
-    return this.http.get(this.controllerUrl + courseId);
+getCourseById(id: number) { return this.http.get(`${this.controllerUrl}/${id}`); }
+
+  createCourse(form: FormData) {
+    return this.http.post<any>(this.controllerUrl, form);
   }
 
-  createCourse(course: CourseUpdate) {
-    return this.http.post(this.controllerUrl, course);
-  }
 
-  deleteCourseById(id: number) {
-    return this.http.delete(this.controllerUrl + id);
-  }
+deleteCourseById(id: number) { return this.http.delete(`${this.controllerUrl}/${id}`); }
 
-  updateCourse(id: number, course: CourseUpdate) {
-    return this.http.put<Course>(this.controllerUrl + id, course);
-  }
+updateCourse(id: number, form: FormData) { return this.http.put(`${this.controllerUrl}/${id}`, form); }
+
 }

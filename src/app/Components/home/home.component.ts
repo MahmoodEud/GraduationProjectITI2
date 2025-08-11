@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, LottieComponent,ScrollRevealDirective,ButtonsAnimationDirective],
+  imports: [RouterModule, LottieComponent, ScrollRevealDirective, ButtonsAnimationDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

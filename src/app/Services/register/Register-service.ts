@@ -18,8 +18,11 @@ export class registerService {
       birthdate:new Date("2000-01-01"),
       studentYear:0,
       password:"",
-      confirmPassword:""
-    };;
+      confirmPassword:"",
+      role:"",
+      token:"",
+      photoUrl:""
+    };
 
   constructor(private httpClient:HttpClient,private toaster:ToastrService,private router:Router) {
   }

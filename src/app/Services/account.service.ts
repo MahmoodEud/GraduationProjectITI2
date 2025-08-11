@@ -3,12 +3,14 @@ import { inject, Injectable, signal } from '@angular/core';
 import { environment } from './register/environment';
 import { IUser } from '../Interfaces/iuser';
 import { map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   private http = inject(HttpClient);
+  private router=inject(Router)
   baseUrl = environment.apiUrl;
   currentUser = signal<IUser | null>(null);
 
@@ -31,7 +33,20 @@ export class AccountService {
 }
 
 
+getCurrentUser() {
+  return this.currentUser(); 
+}
+getCurrentUserId(): string {
+  return this.getCurrentUser()?.id || '';
+}
+
+hasRole(role: string): boolean {
+  const u = this.getCurrentUser();
+  if (!u) return false;
+  return (u.role ?? '').toLowerCase() === role.toLowerCase();
+}
   logout() {
+    this.router.navigateByUrl('Login')
     localStorage.removeItem('user');
     this.currentUser.set(null);
   }
@@ -40,4 +55,12 @@ export class AccountService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.set(user);
   }
+patchCurrentUser(patch: Partial<IUser>) {
+  const cur = this.getCurrentUser();
+  if (!cur) return;
+  const merged: IUser = { ...cur, ...patch };
+  localStorage.setItem('user', JSON.stringify(merged));
+  this.currentUser.set(merged);
+}
+
 }

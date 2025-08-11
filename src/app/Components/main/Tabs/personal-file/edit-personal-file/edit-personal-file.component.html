@@ -1,0 +1,104 @@
+<div class="container py-4" dir="rtl">
+  <!-- Loading -->
+  <ng-container *ngIf="isLoading; else formTpl">
+    <div class="d-flex justify-content-center align-items-center py-5">
+      <div class="spinner-border" role="status" aria-hidden="true"></div>
+      <span class="ms-3">جارِ تحميل البيانات...</span>
+    </div>
+  </ng-container>
+
+  <ng-template #formTpl>
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xxl-8">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-white border-0 pt-4">
+            <h5 class="mb-0">تعديل ملفي الشخصي</h5>
+          </div>
+
+          <div class="card-body">
+            <div *ngIf="errorMsg" class="alert alert-warning d-flex align-items-center" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              <div>{{ errorMsg }}</div>
+            </div>
+
+            <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="name" class="form-label">الاسم الرباعي</label>
+                  <input id="name" type="text" class="form-control"
+                         formControlName="name"
+                         [class.is-invalid]="form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)">
+                  <div class="invalid-feedback">
+                    برجاء إدخال اسم رباعي صحيح.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="username" class="form-label">اسم المستخدم</label>
+                  <input id="username" type="text" class="form-control"
+                         formControlName="username" autocomplete="username"
+                         [class.is-invalid]="form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty)">
+                  <div class="invalid-feedback">
+                    اسم المستخدم يجب أن يكون من 4 إلى 18 (حروف/أرقام/._) بدون تكرار متتالي لـ . أو _.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="PhoneNumber" class="form-label">رقم الموبايل</label>
+                  <input id="PhoneNumber" type="tel" class="form-control"
+                         formControlName="PhoneNumber" placeholder="01XXXXXXXXX"
+                         [class.is-invalid]="form.get('PhoneNumber')?.invalid && (form.get('PhoneNumber')?.touched || form.get('PhoneNumber')?.dirty)">
+                  <div class="invalid-feedback">
+                    أدخل رقم موبايل مصري صحيح يبدأ بـ 010/011/012/015.
+                  </div>
+                </div>
+
+                <!-- رقم ولي الأمر -->
+                <div class="col-md-6">
+                  <label for="parentphonenumber" class="form-label">رقم ولي الأمر</label>
+                  <input id="parentphonenumber" type="tel" class="form-control"
+                         formControlName="parentphonenumber" placeholder="01XXXXXXXXX"
+                         [class.is-invalid]="form.get('parentphonenumber')?.invalid && (form.get('parentphonenumber')?.touched || form.get('parentphonenumber')?.dirty)">
+                  <div class="invalid-feedback">
+                    أدخل رقم موبايل مصري صحيح.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="Grade" class="form-label">الصف الدراسي</label>
+                  <select id="Grade" class="form-select"
+                          formControlName="Grade"
+                          [class.is-invalid]="form.get('Grade')?.invalid && (form.get('Grade')?.touched || form.get('Grade')?.dirty)">
+                    <option value="" disabled>اختر الصف</option>
+                    <option *ngFor="let y of years" [ngValue]="y.value">{{ y.label }}</option>
+                  </select>
+                  <div class="invalid-feedback">برجاء اختيار الصف الدراسي.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="BirthDate" class="form-label">تاريخ الميلاد</label>
+                  <input id="BirthDate" type="date" class="form-control"
+                         formControlName="BirthDate"
+                         [class.is-invalid]="form.get('BirthDate')?.invalid && (form.get('BirthDate')?.touched || form.get('BirthDate')?.dirty)">
+                  <div class="invalid-feedback">برجاء اختيار تاريخ الميلاد.</div>
+                </div>
+              </div>
+
+              <hr class="my-4">
+
+              <div class="d-flex gap-2 justify-content-end">
+                <button type="button" class="btn btn-outline-secondary" (click)="cancel()" [disabled]="isLoading">
+                  إلغاء
+                </button>
+                <button type="submit" class="btn btn-primary" [disabled]="isLoading || form.invalid">
+                  حفظ التعديلات
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

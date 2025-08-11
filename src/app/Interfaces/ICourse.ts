@@ -7,9 +7,11 @@ export interface Course {
 
     Year: string,
 
+    Price:string,
     Description: string,
 
     Status: boolean,
 
     PicturalUrl?: string
+
 }

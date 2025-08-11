@@ -1,0 +1,110 @@
+<div class="row g-3 mb-4 align-items-center">
+  <div class="col-md-6 col-lg-4">
+    <label for="yearSelect" class="form-label fw-semibold">السنة</label>
+    <select id="yearSelect" [(ngModel)]="selectedYear" (change)="onYearChange()" class="form-select">
+      <option [ngValue]="null">كل السنوات</option>
+      @for ( y of years ; track y.value ) {
+        
+        <option  [ngValue]="y.value">{{ y.label }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="col-md-6 col-lg-4">
+    <label for="roleSelect" class="form-label fw-semibold">الدور</label>
+    <select id="roleSelect" [(ngModel)]="selectedRole" (change)="onRoleChange()" class="form-select">
+      <option [ngValue]="null">كل الأدوار</option>
+      @for ( r of roles ; track r ) {
+        
+        <option  [ngValue]="r">{{ r }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+<table class="table table-bordered table-striped table-hover align-middle text-center shadow rounded overflow-hidden">
+  <caption class="bg-light p-3 text-center border-bottom">
+    <div class="d-flex flex-wrap gap-2 justify-content-between">
+      <span class="d-flex align-items-center gap-1 bg-primary bg-opacity-10 text-primary px-2 py-1 rounded">
+        📚 إجمالي الطلاب: <strong>{{ state?.totalStudents }}</strong>
+      </span>
+      <span class="d-flex align-items-center gap-1 bg-success bg-opacity-10 text-success px-2 py-1 rounded">
+        🎓 الصف الأول: <strong>{{ state?.firstYearStudents }}</strong>
+      </span>
+      <span class="d-flex align-items-center gap-1 bg-warning bg-opacity-10 text-warning px-2 py-1 rounded">
+        🎓 الصف الثاني: <strong>{{ state?.secondYearStudents }}</strong>
+      </span>
+      <span class="d-flex align-items-center gap-1 bg-warning bg-opacity-25 text-warning px-2 py-1 rounded">
+        🎓 الصف الثالث: <strong>{{ state?.thirdYearStudents }}</strong>
+      </span>
+      <span class="d-flex align-items-center gap-1 bg-danger bg-opacity-10 text-danger px-2 py-1 rounded">
+        🛡️ الإدمن: <strong>{{ state?.totalAdmins }}</strong>
+      </span>
+      <span class="d-flex align-items-center gap-1 bg-purple bg-opacity-10 text-dark px-2 py-1 rounded">
+        🤝 المساعدين: <strong>{{ state?.totalAssistants }}</strong>
+      </span>
+    </div>
+  </caption>
+
+  <thead class="table-dark">
+    <tr>
+      <th class="text-end">الاسم</th>
+      <th class="text-end">اسم المستخدم</th>
+      <th class="text-end">السنة الدراسية</th>
+      <th class="text-end">رقم الهاتف</th>
+      <th class="text-end">الدور</th>
+      <th class="text-end">إجراءات</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (s of students; track s.id; let i = $index) {
+      <tr>
+        <td class="text-end">{{ s.name }}</td>
+        <td class="text-end">{{ s.userName }}</td>
+        <td class="text-end">{{ s.studentLevel }}</td>
+        <td class="text-end">{{ s.phoneNumber }}</td>
+        <td class="text-end">{{ s.role }}</td>
+        <td class="text-end">
+          <div class="btn-group btn-group-sm " role="group" aria-label="Actions">
+        <button 
+          class="btn btn-primary rounded-pill mx-1"
+          [routerLink]="['/admin/users', s.id, 'edit']">
+          <i class="fas fa-edit"></i> تعديل
+        </button>
+            <button class="btn btn-danger rounded-pill" (click)="onDelete(s.id)">
+              <i class="fas fa-trash-alt"></i> حذف
+            </button>
+            <button class="btn btn-success rounded-pill mx-1" [routerLink]="['../student', s.id]">
+              <i class="fas fa-eye"></i> عرض
+            </button>
+          </div>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="6" class="text-center text-muted py-3">
+          لا توجد بيانات لعرضها
+        </td>
+      </tr>
+    }
+  </tbody>
+
+  <tfoot class="table-light">
+    <tr>
+      <td colspan="6" class="text-center px-3">
+        إجمالي عدد الطلاب المعروضين: 
+        <strong class="text-danger">{{ students.length || 0 }}</strong>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
+<div class="d-flex align-items-center justify-content-between mt-3">
+  <button (click)="prevPage()" class="btn btn-outline-secondary btn-sm">السابق</button>
+  <span>صفحة {{ pageNumber }} من {{ totalPages }}</span>
+  <button (click)="nextPage()" class="btn btn-outline-secondary btn-sm">التالي</button>
+</div>
+
+

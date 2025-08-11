@@ -4,7 +4,6 @@ import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { LottieComponent } from 'ngx-lottie';
-import { UsersComponent } from "./Components/dashboardComp/users/users.component";
 import { NavbarComponent } from "./Components/navbar/navbar.component";
 import { MainComponent } from "./Components/main/main.component";
 import { AccountService } from './Services/account.service';
@@ -12,7 +11,7 @@ import { AccountService } from './Services/account.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, UsersComponent, NavbarComponent, MainComponent],
+  imports: [RouterOutlet, NavbarComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

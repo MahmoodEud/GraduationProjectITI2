@@ -1,0 +1,72 @@
+<h4 class="text-center text-primary my-3">كل الكورسات</h4>
+<hr />
+
+@if (loading) {
+  <div class="text-center my-4">
+    <div class="spinner-border" role="status" aria-hidden="true"></div>
+  </div>
+} @else {
+  @if (error) {
+    <div class="alert alert-danger text-center">{{ error }}</div>
+  }
+
+  <div class="row g-3">
+    @for (c of courses; track c.Id) {
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm">
+          
+          <div class="card-img-wrap">
+                <img 
+                [src]="c.PicturalUrl || 'https://picsum.photos/seed/picsum/200/300'"
+                class="card-img-top" alt="صورة الكورس" />
+                <span class="status-chip" [class.available]="c.Status" [class.unavailable]="!c.Status">
+                {{ c.Status ? 'متاح' : 'غير متاح' }}
+                </span>
+            </div>
+            
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary fw-bold">{{ c.Title }}</h5>
+
+            <p class="mb-1">
+              <span class="badge bg-info text-dark">{{ c.Category }}</span>
+              <span class="badge bg-secondary">سنة: {{ c.Year }}</span>
+            </p>
+                <p class="fw-bold text-success mb-1 price">
+                السعر: {{ c.Price | currency:'EGP':'symbol':'1.0-0' }}
+                </p>
+
+             <p class="mb-1">
+              <span class="badge" 
+                [ngClass]="c.Status ? 'bg-success' : 'bg-danger'">
+                {{ c.Status ? 'متاح' : 'غير متاح' }}
+              </span>
+            </p>
+
+
+            <div class="mt-auto d-flex justify-content-between">
+              <div class="mt-auto d-flex justify-content-between">
+                <a href="#" class="btn btn-outline-primary btn-sm">تفاصيل</a>
+
+                <button class="btn btn-outline-danger btn-sm"
+                        (click)="deleteCourse(c.Id)"
+                        [disabled]="deletingId === c.Id">
+                  @if (deletingId === c.Id) {
+                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                  } @else {
+                    حذف
+                  }
+                </button>
+              </div>
+              <a href="#" class="btn btn-outline-success btn-sm">تسجيل</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-12">
+        <div class="alert alert-warning text-center">لا توجد كورسات لعرضها</div>
+      </div>
+    }
+  </div>
+}
