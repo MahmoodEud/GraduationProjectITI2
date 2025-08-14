@@ -1,0 +1,96 @@
+<div class="container mt-5">
+  <h2 class="mb-4">تعديل الكورس</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="edit-course-form">
+    <div class="mb-3">
+      <label for="title" class="form-label">عنوان الكورس</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="form-control"
+        [class.is-invalid]="editForm.get('title')?.invalid && editForm.get('title')?.touched"
+      />
+      <div *ngIf="editForm.get('title')?.invalid && editForm.get('title')?.touched" class="invalid-feedback">
+        العنوان مطلوب ويجب أن يكون 3 أحرف على الأقل
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">الوصف</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        class="form-control"
+        [class.is-invalid]="editForm.get('description')?.invalid && editForm.get('description')?.touched"
+      ></textarea>
+      <div *ngIf="editForm.get('description')?.invalid && editForm.get('description')?.touched" class="invalid-feedback">
+        الوصف مطلوب ويجب أن يكون 10 أحرف على الأقل
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">السعر (0 للكورسات المجانية)</label>
+      <input
+        type="number"
+        id="price"
+        formControlName="price"
+        class="form-control"
+        [class.is-invalid]="editForm.get('price')?.invalid && editForm.get('price')?.touched"
+      />
+      <div *ngIf="editForm.get('price')?.invalid && editForm.get('price')?.touched" class="invalid-feedback">
+        السعر مطلوب ويجب أن يكون 0 أو أكبر
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="year" class="form-label">السنة الدراسية</label>
+      <select
+        id="year"
+        formControlName="year"
+        class="form-select"
+        [class.is-invalid]="editForm.get('year')?.invalid && editForm.get('year')?.touched"
+      >
+        <option value="">اختر السنة</option>
+        <option value="1">الصف الأول الثانوي</option>
+        <option value="2">الصف الثاني الثانوي</option>
+        <option value="3">الصف الثالث الثانوي</option>
+      </select>
+      <div *ngIf="editForm.get('year')?.invalid && editForm.get('year')?.touched" class="invalid-feedback">
+        السنة الدراسية مطلوبة
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">الفئة (اختياري)</label>
+      <input
+        type="text"
+        id="category"
+        formControlName="category"
+        class="form-control"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="imageFile" class="form-label">صورة الكورس (اختياري)</label>
+      <input
+        type="file"
+        id="imageFile"
+        class="form-control"
+        (change)="onFileChange($event)"
+        accept="image/*"
+      />
+      <div *ngIf="imagePreview" class="mt-2">
+        <img [src]="imagePreview" alt="Course Image Preview" class="img-preview" />
+      </div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || editForm.invalid">
+        {{ isSubmitting ? 'جاري التعديل...' : 'حفظ التعديلات' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">
+        إلغاء
+      </button>
+    </div>
+  </form>
+</div>

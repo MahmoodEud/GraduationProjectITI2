@@ -1,0 +1,75 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+.course-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+}
+
+.course-image {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.price-badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+}
+
+.btn-primary,
+.btn-outline-danger,
+.btn-outline-primary {
+    border-radius: 5px;
+    padding: 8px 16px;
+}
+
+.btn-primary i,
+.btn-outline-danger i,
+.btn-outline-primary i {
+    vertical-align: middle;
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+.no-courses,
+.alert {
+    border-radius: 8px;
+    font-size: 1.1rem;
+    padding: 20px;
+}

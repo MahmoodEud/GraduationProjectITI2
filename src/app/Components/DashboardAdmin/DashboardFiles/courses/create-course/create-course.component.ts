@@ -1,72 +1,107 @@
-import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CourseService } from '../../../../../Services/course.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { CommonModule, NgClass } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-course',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule, NgClass],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './create-course.component.html',
-  styleUrl: './create-course.component.css'
+  styleUrls: ['./create-course.component.css']
 })
 export class CreateCourseComponent {
-  
-  submitting = false;
-  previewUrl: string | null = null;
-  serverError: string | null = null;
-  form = this.fb.group({
-    Title: ['', [Validators.required, Validators.maxLength(50)]],
-    Category: ['', [Validators.required, Validators.maxLength(50)]],
-    Year: [1, [Validators.required]],
-    Price: [0, [Validators.required, Validators.min(0)]],
-    Description: ['', [Validators.required, Validators.maxLength(500)]],
-    Status: [true, [Validators.required]],
-    PicturalUrl: [null as File | null]
-  });
+  private fb = inject(FormBuilder);
+  private courseService = inject(CourseService);
+  private toastr = inject(ToastrService);
+  private router = inject(Router);
 
-  constructor(private fb: FormBuilder, private api: CourseService,private toast:ToastrService) {}
+  createForm: FormGroup;
+  isSubmitting: boolean = false;
+  imagePreview: string | ArrayBuffer | null = null;
 
-  onFileChange(ev: Event) {
-    const input = ev.target as HTMLInputElement;
-    const file = input.files?.[0] ?? null;
-    this.form.patchValue({ PicturalUrl: file });
-    this.previewUrl && URL.revokeObjectURL(this.previewUrl);
-    this.previewUrl = file ? URL.createObjectURL(file) : null;
+  constructor() {
+    this.createForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
+      price: [0, [Validators.required, Validators.min(0)]],
+      year: ['', Validators.required],
+      category: [''],
+      imageFile: [null]
+    });
   }
 
-  submit() {
-    this.serverError = null;
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      console.log('Selected file:', { name: file.name, size: file.size, type: file.type });
+      if (!file.type.startsWith('image/')) {
+        this.toastr.error('من فضلك، اختر ملف صورة صالح (jpg, png, إلخ)');
+        input.value = '';
+        return;
+      }
+      this.createForm.patchValue({ imageFile: file });
+      this.createForm.get('imageFile')?.updateValueAndValidity();
+
+      // Preview the image
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+        console.log('Image preview set:', !!this.imagePreview);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      console.log('No file selected');
+      this.createForm.patchValue({ imageFile: null });
+      this.imagePreview = null;
+    }
+  }
+
+  onSubmit() {
+    if (this.createForm.invalid) {
+      this.toastr.error('من فضلك، املأ جميع الحقول المطلوبة');
+      this.createForm.markAllAsTouched();
       return;
     }
-    this.submitting = true;
 
-    const fd = new FormData();
-    fd.append('Title', this.form.value.Title!);
-    fd.append('Category', this.form.value.Category!);
-    fd.append('Year', String(this.form.value.Year!));
-    fd.append('Price', String(this.form.value.Price!));
-    fd.append('Description', this.form.value.Description!);
-    fd.append('Status', String(this.form.value.Status!));
-    const file = this.form.value.PicturalUrl as File | null;
-    if (file) fd.append('PicturalUrl', file);
+    this.isSubmitting = true;
+    const formData = new FormData();
+    formData.append('title', this.createForm.get('title')?.value || '');
+    formData.append('description', this.createForm.get('description')?.value || '');
+    formData.append('price', this.createForm.get('price')?.value.toString() || '0');
+    formData.append('year', this.createForm.get('year')?.value || '');
+    formData.append('category', this.createForm.get('category')?.value || '');
+    const imageFile = this.createForm.get('imageFile')?.value;
+    if (imageFile) {
+      formData.append('PicturalUrl', imageFile, imageFile.name); // تغيير imageFile إلى PicturalUrl
+      console.log('Image file added to FormData:', imageFile.name);
+    } else {
+      console.log('No image file included in FormData');
+    }
 
-    this.api.createCourse(fd).subscribe({
-      next: _ => {
-        this.submitting = false;
-        this.form.reset({ Year: 1, Status: true, Price: 0 });
-        if (this.previewUrl) URL.revokeObjectURL(this.previewUrl);
-        this.previewUrl = null;
-        this.toast.success('طرقعنا كورس جديد خش شوف يمكن يعجبك');
+    // طباعة FormData للتحقق
+    for (let pair of (formData as any).entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
+
+    this.courseService.createCourse(formData).subscribe({
+      next: (course) => {
+        console.log('Create course response:', course);
+        this.toastr.success('تم إنشاء الكورس بنجاح!');
+        this.router.navigate(['/admin/users']);
       },
-      error: (e: HttpErrorResponse) => {
-        this.submitting = false;
-        this.serverError = e.error?.title || e.error?.message || 'فشل إنشاء الكورس';
+      error: (err) => {
+        console.error('Error creating course:', err);
+        this.toastr.error('حدث خطأ أثناء إنشاء الكورس: ' + (err.error?.message || 'خطأ غير معروف'));
+        this.isSubmitting = false;
       }
     });
+  }
+
+  cancel() {
+    this.router.navigate(['/admin/users']);
   }
 }

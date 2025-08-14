@@ -1,72 +1,115 @@
-<h4 class="text-center text-primary my-3">كل الكورسات</h4>
-<hr />
-
-@if (loading) {
-  <div class="text-center my-4">
-    <div class="spinner-border" role="status" aria-hidden="true"></div>
+<div class="container py-4">
+  <!-- Filters Form -->
+  <div class="filters mb-4">
+    <form class="filter-form d-flex flex-wrap gap-3" (ngSubmit)="loadCourses()">
+      <div class="filter-group flex-grow-1">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="ابحث بالعنوان..."
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange($event)"
+          name="search"
+        />
+      </div>
+      <button type="button" (click)="resetFilters()" class="btn btn-danger">إعادة تعيين</button>
+    </form>
   </div>
-} @else {
-  @if (error) {
-    <div class="alert alert-danger text-center">{{ error }}</div>
+
+  <!-- Loading Spinner -->
+  @if (isLoading) {
+    <div class="loading-spinner text-center my-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">جاري تحميل الكورسات...</p>
+    </div>
   }
 
-  <div class="row g-3">
-    @for (c of courses; track c.Id) {
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card h-100 shadow-sm">
-          
-          <div class="card-img-wrap">
-                <img 
-                [src]="c.PicturalUrl || 'https://picsum.photos/seed/picsum/200/300'"
-                class="card-img-top" alt="صورة الكورس" />
-                <span class="status-chip" [class.available]="c.Status" [class.unavailable]="!c.Status">
-                {{ c.Status ? 'متاح' : 'غير متاح' }}
-                </span>
-            </div>
-            
+  <!-- Error Message -->
+  @if (errorMessage && !isLoading) {
+    <div class="alert alert-danger text-center my-4" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
 
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-primary fw-bold">{{ c.Title }}</h5>
-
-            <p class="mb-1">
-              <span class="badge bg-info text-dark">{{ c.Category }}</span>
-              <span class="badge bg-secondary">سنة: {{ c.Year }}</span>
-            </p>
-                <p class="fw-bold text-success mb-1 price">
-                السعر: {{ c.Price | currency:'EGP':'symbol':'1.0-0' }}
-                </p>
-
-             <p class="mb-1">
-              <span class="badge" 
-                [ngClass]="c.Status ? 'bg-success' : 'bg-danger'">
-                {{ c.Status ? 'متاح' : 'غير متاح' }}
+  <!-- Courses Cards -->
+  @if (!isLoading && !errorMessage && courses.length > 0) {
+    <div class="courses-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      @for (course of courses; track course.id) {
+        <div class="col">
+          <div class="course-card card h-100">
+            <div class="position-relative">
+              <img
+                [src]="getImageUrl(course.picturalUrl || 'default.jpg')"
+                alt="{{ course.title }}"
+                class="card-img-top course-image"
+                (error)="handleImageError($event)"
+              />
+              <span
+                class="badge price-badge position-absolute top-0 start-0 m-2"
+                [ngClass]="{'bg-success': course.price === 0, 'bg-warning': course.price > 0}"
+              >
+                {{ course.price === 0 ? 'مجاني' : course.price + ' جنيه' }}
               </span>
-            </p>
-
-
-            <div class="mt-auto d-flex justify-content-between">
-              <div class="mt-auto d-flex justify-content-between">
-                <a href="#" class="btn btn-outline-primary btn-sm">تفاصيل</a>
-
-                <button class="btn btn-outline-danger btn-sm"
-                        (click)="deleteCourse(c.Id)"
-                        [disabled]="deletingId === c.Id">
-                  @if (deletingId === c.Id) {
-                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                  } @else {
-                    حذف
-                  }
-                </button>
+              @if (enrolledCourseIds.includes(course.id)) {
+                <span class="badge bg-success position-absolute top-0 end-0 m-2">مشترك</span>
+              }
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ course.title }}</h5>
+              <p class="card-text">{{ course.description | slice:0:100 }}...</p>
+              <p class="card-text"><strong>السنة:</strong> {{ course.year }}</p>
+              <div class="d-flex flex-column gap-2">
+                @if (enrolledCourseIds.includes(course.id)) {
+                  <button class="btn btn-outline-danger" (click)="unenroll(course.id)">
+                    <i class="bi bi-trash me-2"></i>إلغاء التسجيل
+                  </button>
+                } @else if (course.price === 0) {
+                  <button class="btn btn-primary" (click)="enrollInCourse(course.id)">
+                    <i class="bi bi-person-plus me-2"></i>تسجيل
+                  </button>
+                }
+                <a [routerLink]="['/courses', course.id]" class="btn btn-outline-primary">عرض التفاصيل</a>
               </div>
-              <a href="#" class="btn btn-outline-success btn-sm">تسجيل</a>
             </div>
           </div>
         </div>
-      </div>
-    } @empty {
-      <div class="col-12">
-        <div class="alert alert-warning text-center">لا توجد كورسات لعرضها</div>
-      </div>
-    }
-  </div>
-}
+      } @empty {
+        <div class="no-courses text-center my-5">
+          لا توجد كورسات متاحة
+        </div>
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination d-flex justify-content-center gap-2 mt-4">
+      <button
+        [disabled]="page === 1"
+        (click)="onPageChange(page - 1)"
+        class="btn btn-outline-primary"
+      >
+        السابق
+      </button>
+      @for (pageNum of getPageNumbers(); track pageNum) {
+        <button
+          [class.active]="pageNum === page"
+          (click)="onPageChange(pageNum)"
+          class="btn"
+          [ngClass]="{'btn-primary': pageNum === page, 'btn-outline-primary': pageNum !== page}"
+        >
+          {{ pageNum }}
+        </button>
+      }
+      <button
+        [disabled]="page === totalPages"
+        (click)="onPageChange(page + 1)"
+        class="btn btn-outline-primary"
+      >
+        التالي
+      </button>
+    </div>
+  } @else if (!isLoading && !errorMessage) {
+    <div class="no-courses text-center my-5">
+      لا توجد كورسات متاحة
+    </div>
+  }
+</div>

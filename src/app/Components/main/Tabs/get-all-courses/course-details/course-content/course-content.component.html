@@ -1,0 +1,200 @@
+<div class="container-fluid py-4">
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 50vh;">
+      <div class="text-center">
+        <div class="spinner-border mb-3" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">جاري التحميل...</span>
+        </div>
+        <h5 class="text-muted">جاري تحميل المحتوى...</h5>
+      </div>
+    </div>
+  }
+
+  @if (errorMessage && !isLoading) {
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8">
+        <div class="alert alert-danger text-center py-4">
+          <i class="bi bi-exclamation-triangle-fill fs-1 mb-3" style="color: #f44336;"></i>
+          <h4>{{ errorMessage }}</h4>
+          <!-- @if (isNotEnrolled) {
+            <button (click)="enrollInCourse()" class="btn btn-primary btn-lg mt-3">
+              <i class="bi bi-plus-circle me-2"></i>
+              اشترك في الكورس
+            </button>
+          } -->
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (content && content.lessons && content.lessons.length > 0 && !isLoading && !errorMessage) {
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card shadow-sm mb-4">
+          <div class="card-header bg-primary">
+            <h4 class="mb-0">
+              <i class="bi bi-play-circle me-2"></i>
+              {{ content.title }}
+            </h4>
+          </div>
+          
+          @if (selectedLesson) {
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-center mb-4">
+                <i class="bi bi-play-fill text-primary fs-4 me-2"></i>
+                <h5 class="mb-0 text-center">{{ selectedLesson.title }}</h5>
+              </div>
+
+              @if (hasVideoContent()) {
+                <div class="d-flex justify-content-center mb-4">
+                  <div class="video-wrapper" style="max-width: 100%; width: 100%;">
+                    <video #videoPlayer 
+                           class="video-js vjs-default-skin" 
+                           controls 
+                           preload="auto"
+                           data-setup="{}">
+                      <source [src]="getCurrentVideoUrl()" type="video/mp4">
+                      <p class="vjs-no-js text-center py-4">
+                        المتصفح لا يدعم تشغيل الفيديو.
+                        <a href="https://videojs.com/html5-video-support/" target="_blank" class="text-primary">
+                          برجاء تحديث المتصفح
+                        </a>
+                      </p>
+                    </video>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+                  @if (selectedLesson.previewVideoUrl) {
+                    <button (click)="togglePreview()" 
+                            class="btn btn-outline-primary">
+                      <i class="bi bi-lightning-fill me-2"></i>
+                      {{ isPreviewMode ? 'الفيديو الكامل' : 'فيديو مختصر' }}
+                    </button>
+                  }
+                  
+                  @if (selectedLesson.pdfUrl) {
+                    <button (click)="downloadPDF()" class="btn btn-outline-success">
+                      <i class="bi bi-file-earmark-pdf me-2"></i>
+                      تحميل PDF
+                    </button>
+                  }
+                </div>
+                
+                <div class="text-center mb-3">
+                  @if (isPreviewMode) {
+                    <span class="badge bg-warning">
+                      <i class="bi bi-lightning-fill me-1"></i>
+                      فيديو مختصر
+                    </span>
+                  } @else {
+                    <span class="badge bg-success">
+                      <i class="bi bi-play-fill me-1"></i>
+                      فيديو كامل
+                    </span>
+                  }
+                </div>
+              } @else {
+                <div class="alert alert-info text-center py-4">
+                  <i class="bi bi-camera-video-off fs-1 text-muted mb-3"></i>
+                  <h5>لا يوجد فيديو متاح لهذا الدرس</h5>
+                  @if (selectedLesson.pdfUrl) {
+                    <button (click)="downloadPDF()" class="btn btn-primary mt-3">
+                      <i class="bi bi-file-earmark-pdf me-2"></i>
+                      تحميل محتوى الدرس (PDF)
+                    </button>
+                  }
+                </div>
+              }
+
+              @if (selectedLesson.title) {
+                <div class="mt-4 text-center">
+                  <h6 class="text-primary">
+                    <i class="bi bi-info-circle me-2"></i>وصف الدرس:
+                  </h6>
+                  <p class="text-muted">{{ selectedLesson.title }}</p>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card shadow-sm sticky-top" style="top: 20px;">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">
+              <i class="bi bi-list-ul me-2"></i>
+              قائمة الدروس
+              <span class="badge bg-primary ms-2">{{ content.lessons.length }}</span>
+            </h5>
+          </div>
+          
+          <div class="card-body p-0">
+            <div class="lessons-list" style="max-height: 500px; overflow-y: auto;">
+              @for (lesson of content.lessons; track lesson.id; let i = $index) {
+                <div class="lesson-item p-3 cursor-pointer position-relative"
+                     [ngClass]="{
+                       'bg-primary text-white': selectedLesson?.id === lesson.id
+                     }"
+                     (click)="selectLesson(lesson)">
+                  
+                  <div class="d-flex align-items-start">
+                    <span class="lesson-number me-3 flex-shrink-0">
+                      {{ i + 1 }}
+                    </span>
+                    
+                    <div class="flex-grow-1">
+                      <h6 class="mb-2 fw-bold">{{ lesson.title }}</h6>
+                      
+                      <div class="d-flex align-items-center gap-2 small mb-2">
+                        <i [class]="getLessonIcon(lesson)" class="text-primary"></i>
+                        
+                        <span class="badge bg-primary rounded-pill">
+                          {{ getLessonBadge(lesson) }}
+                        </span>
+                        
+                        @if (lesson.title) {
+                          <span class="text-muted">
+                            <i class="bi bi-clock me-1"></i>
+                            {{ lesson.title }}
+                          </span>
+                        }
+                      </div>
+                      
+                      <div class="d-flex gap-2">
+                        @if (lesson.videoUrl) {
+                          <i class="bi bi-play-circle text-primary" title="فيديو متاح"></i>
+                        }
+                        @if (lesson.previewVideoUrl) {
+                          <i class="bi bi-lightning text-warning" title="فيديو مختصر متاح"></i>
+                        }
+                        @if (lesson.pdfUrl) {
+                          <i class="bi bi-file-earmark-pdf text-success" title="ملف PDF متاح"></i>
+                        }
+                      </div>
+                    </div>
+                    
+                    @if (selectedLesson?.id === lesson.id) {
+                      <i class="bi bi-caret-right-fill fs-5" style="color: white;"></i>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else if (!isLoading && !errorMessage) {
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="alert alert-info text-center py-4">
+          <i class="bi bi-info-circle fs-1 text-muted mb-3"></i>
+          <h5>لا يوجد دروس متاحة لهذا الكورس</h5>
+        </div>
+      </div>
+    </div>
+  }
+</div>

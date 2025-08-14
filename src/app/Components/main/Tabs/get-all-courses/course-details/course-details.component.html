@@ -1,0 +1,56 @@
+<div class="container py-5">
+  <!-- Loading Spinner -->
+  @if (isLoading) {
+    <div class="loading-spinner text-center my-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">جاري تحميل تفاصيل الكورس...</p>
+    </div>
+  }
+
+  <!-- Error Message -->
+  @if (errorMessage && !isLoading) {
+    <div class="alert alert-danger text-center my-4" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <!-- Course Details -->
+  @if (!isLoading && !errorMessage && course) {
+    <div class="course-details card">
+      <div class="row g-0">
+        <div class="col-md-5">
+          <div class="position-relative">
+            <img
+              [src]="getImageUrl(course.picturalUrl || 'default-image.jpg')"
+
+              alt="{{ course.title }}"
+              class="course-image img-fluid w-100 h-100"
+              (error)="handleImageError($event)"
+            />
+            <span class="badge price-badge position-absolute top-0 start-0 m-3"
+                  [ngClass]="{'free': course.price === 0}">
+              {{ course.price === 0 ? 'مجاني' : course.price + ' جنيه' }}
+            </span>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <h2 class="card-title">{{ course.title }}</h2>
+            <p class="card-text"><strong>الوصف:</strong> {{ course.description }}</p>
+            <p class="card-text"><strong>السنة:</strong> {{ course.year }}</p>
+            <p class="card-text"><strong>السعر:</strong> {{ course.price === 0 ? 'مجاني' : course.price + ' جنيه' }}</p>
+            <div class="d-flex flex-column gap-2">
+              <!-- <button (click)="enrollInCourse(course.id)" class="btn btn-enroll">تسجيل في الكورس</button> -->
+              <a [routerLink]="['/courses', course.id, 'content']" class="btn btn-enroll">الذهاب الى الكورس</a>
+              <a [routerLink]="['/courses']" class="btn btn-secondary">رجوع للكورسات</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else if (!isLoading && !errorMessage) {
+    <div class="no-course text-center my-5">
+      الكورس غير موجود
+    </div>
+  }
+</div>

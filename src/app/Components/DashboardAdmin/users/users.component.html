@@ -14,7 +14,8 @@
           </a>
 
           <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-profile" role="tab">
-            <i class="fas fa-user me-2"></i> اضافة مستخدم
+            <i class="fas fa-user me-2"></i> 
+            إدارة الطلاب والكورسات
           </a>
 
           <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-courses" role="tab">
@@ -67,15 +68,13 @@
             <app-students></app-students>
         </div>
 
-        <div class="tab-pane fade" id="list-profile" role="tabpanel">
-          <h4><i class="fas fa-user me-2"></i>الملف الشخصي</h4>
-          <p>محتوى الملف الشخصي - يمكنك تعديل بياناتك الشخصية من هنا.</p>
-          <hr/>
-           <app-lesson></app-lesson> 
+        <div class="tab-pane fade" id="list-profile" role="tabpanel">         
+           <app-admin-course-management></app-admin-course-management>
         </div>
 
         <div class="tab-pane fade" id="list-courses" role="tabpanel">
-          <app-create-course></app-create-course>
+          <app-courses></app-courses>
+          <!-- <app-create-course></app-create-course> -->
 
         </div>
 

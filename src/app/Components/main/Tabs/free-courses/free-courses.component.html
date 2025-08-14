@@ -1,0 +1,68 @@
+<h4><i class="fas fa-graduation-cap me-2 "></i>الكورسات المجانية</h4>
+<p>جميع الكورسات المجانية المتاحة على المنصة.</p>
+<hr/>
+<div class="container py-1">
+  <!-- <h2 class="text-center mb-4">الكورسات المجانية</h2> -->
+
+  <!-- Loading Spinner -->
+  @if (isLoading) {
+    <div class="loading-spinner text-center my-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">جاري تحميل الكورسات...</p>
+    </div>
+  }
+
+  <!-- Error Message -->
+  @if (errorMessage && !isLoading) {
+    <div class="alert alert-danger text-center my-4" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <!-- Courses Cards -->
+  @if (!isLoading && !errorMessage && courses.length > 0) {
+    <div class="courses-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      @for (course of courses; track course.id) {
+        <div class="col">
+          <div class="course-card card h-100">
+            <div class="position-relative">
+              <img
+                [src]="getImageUrl(course.picturalUrl || 'default.jpg')"
+                alt="{{ course.title }}"
+                class="card-img-top course-image"
+                (error)="handleImageError($event)"
+              />
+              <span class="badge price-badge position-absolute top-0 start-0 m-2 bg-success">
+                مجاني
+              </span>
+              @if (enrolledCourseIds.includes(course.id)) {
+                <span class="badge bg-success position-absolute top-0 end-0 m-2">مشترك</span>
+              }
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ course.title }}</h5>
+              <p class="card-text">{{ course.description  }}...</p>
+              <p class="card-text"><strong>السنة:</strong> {{ course.year }}</p>
+              <div class="d-flex flex-column gap-2">
+                @if (enrolledCourseIds.includes(course.id)) {
+                  <button class="btn btn-outline-danger" (click)="unenroll(course.id)">
+                    <i class="bi bi-trash me-2"></i>إلغاء التسجيل
+                  </button>
+                } @else {
+                  <button class="btn btn-primary" (click)="enroll(course.id)">
+                    <i class="bi bi-person-plus me-2"></i>تسجيل
+                  </button>
+                }
+                <a [routerLink]="['/courses', course.id]" class="btn btn-outline-primary">عرض التفاصيل</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else if (!isLoading && !errorMessage) {
+    <div class="no-courses text-center my-5">
+      لا توجد كورسات مجانية متاحة
+    </div>
+  }
+</div>

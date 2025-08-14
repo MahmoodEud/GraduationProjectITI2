@@ -4,7 +4,7 @@ import { StudentService } from '../../../../Services/student.service';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule, DatePipe, JsonPipe } from '@angular/common';
-import { DashboardStats } from '../../../../Interfaces/dashboard-stats';
+import { DashboardStats } from '../../../../Interfaces/DashboardStats';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -57,7 +57,7 @@ this.studentService.getDashboardStats().subscribe({
 }
 // !Students
 getAllStudents(){
-   console.log('year=', this.selectedYear, 'role=', this.selectedRole); // تشيك سريع
+   console.log('year=', this.selectedYear, 'role=', this.selectedRole); 
   this.studentService.getAllStudents(
     this.selectedYear ?? undefined,
     (this.selectedRole?.trim()?.length ? this.selectedRole!.trim() : undefined),
@@ -66,7 +66,7 @@ getAllStudents(){
   ).subscribe({
     next:res => {
     this.students = res.items;
-    this.totalPages = res.totalPages;  
+    this.totalPages = res.page;  
   },
  error: (err) => {
   this.students = [];

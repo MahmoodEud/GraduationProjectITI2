@@ -4,7 +4,7 @@ import { environment } from './register/environment';
 import { IStudentUpdate } from '../Interfaces/istudent-update';
 import { IStudent } from '../Interfaces/istudent';
 import { Observable } from 'rxjs';
-import { DashboardStats } from '../Interfaces/dashboard-stats';
+import { DashboardStats } from '../Interfaces/DashboardStats'; 
 import { IPagedResult } from '../Interfaces/ipaged-result';
 
 @Injectable({
@@ -31,7 +31,6 @@ getAllStudents(year?: number, role?: string, pageNumber = 1, pageSize = 10): Obs
 
   return this.http.get<IPagedResult<IStudent>>(this.controllerUrl, { params });
   }
-  // ! finshed
 
 getRoles(): Observable<string[]> {
   return this.http.get<string[]>(`${this.baseUrl}Account/roles`);

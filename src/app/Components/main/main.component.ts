@@ -7,11 +7,14 @@ import { PDFsComponent } from "./Tabs/pdfs/pdfs.component";
 import { PersonalFileComponent } from "./Tabs/personal-file/personal-file.component";
 import { CoursesComponent } from "../DashboardAdmin/DashboardFiles/courses/courses.component";
 import { GetAllCoursesComponent } from "./Tabs/get-all-courses/get-all-courses.component";
+import { TechnecalSupportComponent } from "./Tabs/technecal-support/technecal-support.component";
+import { FreeCoursesComponent } from "./Tabs/free-courses/free-courses.component";
+import { MyCoursesComponent } from "./Tabs/my-courses/my-courses.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterModule, PrivacyComponent, PDFsComponent, PersonalFileComponent, CoursesComponent, GetAllCoursesComponent],
+  imports: [RouterModule, PrivacyComponent, PDFsComponent, PersonalFileComponent, CoursesComponent, GetAllCoursesComponent, TechnecalSupportComponent, FreeCoursesComponent, MyCoursesComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })

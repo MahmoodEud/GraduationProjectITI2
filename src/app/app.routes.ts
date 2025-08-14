@@ -12,17 +12,36 @@ import { AccessDeniedComponent } from './Components/DashboardAdmin/access-denied
 
 
 export const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'Login', component: LoginComponent},
-  {path: 'Register', component: RegisterComponent},
+  { path: '', component: HomeComponent },
+  { path: 'Login', component: LoginComponent },
+  { path: 'Register', component: RegisterComponent },
+  { path: 'access-denied', component: AccessDeniedComponent },
   {
    
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
-    children: [{path: 'main', component: MainComponent},
-   {  path: 'account/:id/edit',canActivate: [authGuard],loadComponent: () => import('./Components/main/Tabs/personal-file/edit-personal-file/edit-personal-file.component') .then(m => m.EditPersonalFileComponent)
-    }
+    children: [
+      { path: 'main', component: MainComponent },
+      {path: 'account/:id/edit',canActivate: [authGuard],loadComponent: () => import('./Components/main/Tabs/personal-file/edit-personal-file/edit-personal-file.component') .then(m => m.EditPersonalFileComponent)
+      },
+      {
+        path: 'courses',
+        loadComponent: () =>
+          import('./Components/main/Tabs/get-all-courses/get-all-courses.component').then((m) => m.GetAllCoursesComponent),
+      },
+      {
+        path: 'courses/:id',
+        loadComponent: () =>
+          import('./Components/main/Tabs/get-all-courses/course-details/course-details.component')
+          .then(m => m.CourseDetailsComponent)
+      },
+       {
+        path: 'courses/:id/content',
+        loadComponent: () =>
+          import('./Components/main/Tabs/get-all-courses/course-details/course-content/course-content.component')
+          .then(m => m.CourseContentComponent)
+      },
   
     ]
     
@@ -37,12 +56,24 @@ export const routes: Routes = [
       { path: 'overview', component: OverviewComponent },
       { path: 'users', component: UsersComponent },
       { path: 'student/:id', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/students/student-details/student-details.component').then(m => m.StudentDetailsComponent) },
+      // {
+      //   path: 'users/:id/edit',
+      //   loadComponent: () =>
+      //   import('./Components/DashboardAdmin/DashboardFiles/courses/create-course/create-course.component')
+      //   .then(m => m.CreateCourseComponent)
+      // },
       {
-        path: 'users/:id/edit',
+        path: 'createCourse/:id',
         loadComponent: () =>
-        import('./Components/DashboardAdmin/DashboardFiles/students/edit/edit.component')
-        .then(m => m.EditComponent)
-      }
+        import('./Components/DashboardAdmin/DashboardFiles/courses/edit-course/edit-course.component')
+        .then(m => m.EditCourseComponent)
+      },
+      {
+        path: 'createCourse',
+        canActivate: [adminRoleGuard],
+        loadComponent: () =>
+          import('./Components/DashboardAdmin/DashboardFiles/courses/create-course/create-course.component').then((m) => m.CreateCourseComponent),
+      },
     ],
 
   },

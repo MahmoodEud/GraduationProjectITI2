@@ -1,1 +1,146 @@
-<p>courses works!</p>
+<div class="container ">
+  @if (stats) {
+    <div class="stats-section">
+      <h3>إحصائيات الكورسات</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>إجمالي الكورسات</h4>
+          <p>{{ stats.total }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات المتاحة</h4>
+          <p>{{ stats.available }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات غير المتاحة</h4>
+          <p>{{ stats.unavailable }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات المجانية</h4>
+          <p>{{ stats.free }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات المدفوعة</h4>
+          <p>{{ stats.paid }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات حسب السنة</h4>
+          <ul>
+            @for (year of byYearKeys; track year) {
+              <li>{{ year }}: {{ stats.byYear[year] }} كورس</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="filters">
+    <form class="filter-form" (ngSubmit)="loadCourses()">
+      <div class="filter-group">
+        <input
+          type="text"
+          placeholder="ابحث بالعنوان..."
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange($event)"
+          name="search"
+          class="search-input"
+        />
+      </div>
+      <div class="filter-group mx-5">
+        <a [routerLink]="['/admin/createCourse']" class="btn btn-primary">إنشاء كورس جديد</a>
+      </div>
+      <div class="filter-group">
+        <select
+          [(ngModel)]="yearFilter"
+          (ngModelChange)="applyFilter('year', $event)"
+          name="year"
+          class="filter-select"
+        >
+          <option value="">كل السنوات</option>
+          <option value="FirstYear">السنة الأولى</option>
+          <option value="SecondYear">السنة الثانية</option>
+          <option value="ThirdYear">السنة الثالثة</option>
+        </select>
+      </div>
+      <button type="button" (click)="resetFilters()" class="reset-btn">إعادة تعيين</button>
+    </form>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>جاري تحميل الكورسات...</p>
+    </div>
+  }
+
+  @if (errorMessage && !isLoading) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (!isLoading && !errorMessage && courses.length > 0) {
+    <div class="courses-table">
+      <table>
+        <thead>
+          <tr>
+            <th>العنوان</th>
+            <th>التصنيف</th>
+            <th>السنة</th>
+            <th>السعر</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (course of courses; track course.id) {
+            <tr>
+              <td>{{ course.title }}</td>
+              <td>{{ course.category || 'غير محدد' }}</td>
+              <td>{{ course.year }}</td>
+              <td>{{ course.price === 0 ? 'مجاني' : course.price + ' جنيه' }}</td>
+              <td>
+                <button [routerLink]="['/admin/editCourse', course.id]" class="edit-btn">تعديل</button>
+                <button (click)="deleteCourse(course.id)" class="delete-btn" [disabled]="isDeleting">حذف</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5">لا توجد كورسات متاحة</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <button
+          [disabled]="page === 1"
+          (click)="onPageChange(page - 1)"
+          class="page-btn"
+        >
+          السابق
+        </button>
+        @for (pageNum of getPageNumbers(); track pageNum) {
+          <button
+            [class.active]="pageNum === page"
+            (click)="onPageChange(pageNum)"
+            class="page-btn"
+          >
+            {{ pageNum }}
+          </button>
+        }
+        <button
+          [disabled]="page === totalPages"
+          (click)="onPageChange(page + 1)"
+          class="page-btn"
+        >
+          التالي
+        </button>
+      </div>
+    </div>
+  } @else if (!isLoading && !errorMessage) {
+    <div class="no-courses">
+      لا توجد كورسات متاحة
+    </div>
+  }
+</div>

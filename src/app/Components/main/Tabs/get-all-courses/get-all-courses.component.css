@@ -1,80 +1,91 @@
-:host {
-    display: block;
-    direction: rtl;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* بوردر محترم + هوفر */
+.filters .filter-form {
+    display: flex;
+    gap: 10px;
+}
+
+.filters .form-control {
+    border-radius: 5px;
+}
+
 .course-card {
-    position: relative;
-    border: 2px solid #dee2e6;
-    /* البوردر */
-    border-radius: 16px;
-    overflow: hidden;
-    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
 }
 
 .course-card:hover {
-    border-color: #0d6efd;
-    box-shadow: 0 12px 28px rgba(13, 110, 253, .18);
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 }
 
-/* صورة مع غطاء مناسب */
-.card-img-wrap {
-    position: relative;
-}
-
-.card-img-wrap .card-img-top {
-    height: 190px;
-    width: 100%;
+.course-image {
+    height: 200px;
     object-fit: cover;
-    display: block;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
-/* شارة الحالة فوق الصورة */
-.status-chip {
-    position: absolute;
-    top: 12px;
-    inset-inline-end: 12px;
-    /* تدعم RTL */
-    padding: .38rem .7rem;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: .8rem;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}
-
-.status-chip.available {
-    background: linear-gradient(135deg, #20c997, #198754);
-    /* متاح */
-}
-
-.status-chip.unavailable {
-    background: linear-gradient(135deg, #dc3545, #b02a37);
-    /* غير متاح */
-}
-
-/* تحسينات نصية بسيطة */
 .card-title {
-    font-weight: 700;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 1.25rem;
+    color: #333;
 }
 
-.card-text.small {
-    color: #6c757d;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
 }
 
-.card-body>*+* {
-    margin-top: .45rem;
+.price-badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+}
+
+.btn-primary,
+.btn-outline-danger,
+.btn-outline-primary,
+.btn-details,
+.btn-enroll {
+    border-radius: 5px;
+    padding: 8px 16px;
+}
+
+.btn-primary i,
+.btn-outline-danger i,
+.btn-outline-primary i {
+    vertical-align: middle;
+}
+
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+.no-courses,
+.alert {
+    border-radius: 8px;
+    font-size: 1.1rem;
+    padding: 20px;
+}
+
+.pagination .btn {
+    min-width: 40px;
+    text-align: center;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
 }

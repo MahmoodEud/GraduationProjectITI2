@@ -1,6 +1,6 @@
 export interface IStudent {
-
   id: string;
+  studentId: number;
   name: string;
   userName?: string;
   year: number; 

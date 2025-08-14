@@ -1,0 +1,86 @@
+.container {
+    padding: 40px 20px;
+}
+
+.course-details {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.course-image {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.price-badge {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.price-badge.free {
+    background-color: #28a745;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.card-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.card-text {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.btn-enroll,
+.btn-secondary {
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-enroll {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+}
+
+.btn-enroll:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.loading-spinner {
+    margin: 50px 0;
+}
+
+.no-course {
+    text-align: center;
+    margin: 50px 0;
+    color: #666;
+    font-size: 1.2rem;
+}
