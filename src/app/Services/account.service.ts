@@ -4,6 +4,7 @@ import { environment } from './register/environment';
 import { IUser } from '../Interfaces/iuser';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
+import { IStudentChangePassword } from '../Interfaces/IStudentChangePassword';
 
 @Injectable({
   providedIn: 'root'
@@ -23,28 +24,34 @@ export class AccountService {
       })
     );
   }
-// Load Data From Local storage
-  loadCurrentUser() {
-  const userJson = localStorage.getItem('user');
-  if (userJson) {
-    const user: IUser = JSON.parse(userJson);
-    this.currentUser.set(user);
+
+  studentChangePassword(model: any) {
+    return this.http.post(this.baseUrl + 'Account/student-change-password', model);
   }
-}
 
+  // Load Data From Local storage
+  loadCurrentUser() {
+    const userJson = localStorage.getItem('user');
+    if (userJson) {
+      const user: IUser = JSON.parse(userJson);
+      this.currentUser.set(user);
+    }
+  }
 
-getCurrentUser() {
-  return this.currentUser(); 
-}
-getCurrentUserId(): string {
-  return this.getCurrentUser()?.id || '';
-}
+  getCurrentUser() {
+    return this.currentUser();
+  }
 
-hasRole(role: string): boolean {
-  const u = this.getCurrentUser();
-  if (!u) return false;
-  return (u.role ?? '').toLowerCase() === role.toLowerCase();
-}
+  getCurrentUserId(): string {
+    return this.getCurrentUser()?.id || '';
+  }
+
+  hasRole(role: string): boolean {
+    const u = this.getCurrentUser();
+    if (!u) return false;
+    return (u.role ?? '').toLowerCase() === role.toLowerCase();
+  }
+
   logout() {
     this.router.navigateByUrl('Login')
     localStorage.removeItem('user');
@@ -55,12 +62,12 @@ hasRole(role: string): boolean {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.set(user);
   }
-patchCurrentUser(patch: Partial<IUser>) {
-  const cur = this.getCurrentUser();
-  if (!cur) return;
-  const merged: IUser = { ...cur, ...patch };
-  localStorage.setItem('user', JSON.stringify(merged));
-  this.currentUser.set(merged);
-}
 
+  patchCurrentUser(patch: Partial<IUser>) {
+    const cur = this.getCurrentUser();
+    if (!cur) return;
+    const merged: IUser = { ...cur, ...patch };
+    localStorage.setItem('user', JSON.stringify(merged));
+    this.currentUser.set(merged);
+  }
 }

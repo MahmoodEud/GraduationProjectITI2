@@ -9,6 +9,7 @@ import { UsersComponent } from './Components/DashboardAdmin/users/users.componen
 import { adminRoleGuard } from './guards/admin.guard';
 import { OverviewComponent } from './Components/DashboardAdmin/overview/overview.component';
 import { AccessDeniedComponent } from './Components/DashboardAdmin/access-denied/access-denied.component';
+import { ChangePasswordFileComponent } from './Components/main/Tabs/personal-file/change-password-file/change-password-file.component';
 
 
 export const routes: Routes = [
@@ -17,14 +18,15 @@ export const routes: Routes = [
   { path: 'Register', component: RegisterComponent },
   { path: 'access-denied', component: AccessDeniedComponent },
   {
-   
+
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
     children: [
       { path: 'main', component: MainComponent },
-      {path: 'account/:id/edit',canActivate: [authGuard],loadComponent: () => import('./Components/main/Tabs/personal-file/edit-personal-file/edit-personal-file.component') .then(m => m.EditPersonalFileComponent)
-      },
+      {path: 'account/:id/edit',canActivate: [authGuard],loadComponent: () => import('./Components/main/Tabs/personal-file/edit-personal-file/edit-personal-file.component') .then(m => m.EditPersonalFileComponent)},
+      {path: 'account/student-change-password', component: ChangePasswordFileComponent},
+      // { path: 'account/student-change-password', loadComponent: () => import('./Components/main/Tabs/personal-file/change-password-file/change-password-file.component').then(m=>m.ChangePasswordFileComponent)},
       {
         path: 'courses',
         loadComponent: () =>
@@ -42,15 +44,15 @@ export const routes: Routes = [
           import('./Components/main/Tabs/get-all-courses/course-details/course-content/course-content.component')
           .then(m => m.CourseContentComponent)
       },
-  
+
     ]
-    
+
   },
    {
     path: 'admin',
     runGuardsAndResolvers: 'always',
     canActivate: [adminRoleGuard],
-    canActivateChild: [adminRoleGuard], 
+    canActivateChild: [adminRoleGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'users' },
       { path: 'overview', component: OverviewComponent },
