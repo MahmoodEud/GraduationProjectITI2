@@ -1,5 +1,4 @@
-<div class="container-fluid py-4">
-  <!-- Loading State -->
+<div class="container-fluid mt-5">
   @if (isLoading) {
     <div class="d-flex justify-content-center align-items-center" style="min-height: 50vh;">
       <div class="text-center">
@@ -17,12 +16,14 @@
         <div class="alert alert-danger text-center py-4">
           <i class="bi bi-exclamation-triangle-fill fs-1 mb-3" style="color: #f44336;"></i>
           <h4>{{ errorMessage }}</h4>
-          <!-- @if (isNotEnrolled) {
-            <button (click)="enrollInCourse()" class="btn btn-primary btn-lg mt-3">
+          @if (isNotEnrolled) {
+            <a href="https://wa.me/+201127597047"><button (click)="enrollInCourse()" class="btn btn-primary btn-lg mt-3">
               <i class="bi bi-plus-circle me-2"></i>
               اشترك في الكورس
+            
             </button>
-          } -->
+            </a>
+          }
         </div>
       </div>
     </div>
@@ -32,7 +33,7 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="card shadow-sm mb-4">
-          <div class="card-header bg-primary">
+          <div class="card-header bg-primary text-white">
             <h4 class="mb-0">
               <i class="bi bi-play-circle me-2"></i>
               {{ content.title }}
@@ -47,17 +48,17 @@
               </div>
 
               @if (hasVideoContent()) {
-                <div class="d-flex justify-content-center mb-4">
-                  <div class="video-wrapper" style="max-width: 100%; width: 100%;">
+                <div class="video-container mb-4">
+                  <div class="plyr-video-wrapper">
                     <video #videoPlayer 
-                           class="video-js vjs-default-skin" 
+                           class="plyr-video" 
                            controls 
-                           preload="auto"
-                           data-setup="{}">
+                           crossorigin
+                           playsinline>
                       <source [src]="getCurrentVideoUrl()" type="video/mp4">
-                      <p class="vjs-no-js text-center py-4">
+                      <p class="text-center py-4">
                         المتصفح لا يدعم تشغيل الفيديو.
-                        <a href="https://videojs.com/html5-video-support/" target="_blank" class="text-primary">
+                        <a href="https://plyr.io/" target="_blank" class="text-primary">
                           برجاء تحديث المتصفح
                         </a>
                       </p>
@@ -68,7 +69,8 @@
                 <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
                   @if (selectedLesson.previewVideoUrl) {
                     <button (click)="togglePreview()" 
-                            class="btn btn-outline-primary">
+                            class="btn"
+                            [ngClass]="isPreviewMode ? 'btn-success' : 'btn-outline-primary'">
                       <i class="bi bi-lightning-fill me-2"></i>
                       {{ isPreviewMode ? 'الفيديو الكامل' : 'فيديو مختصر' }}
                     </button>
@@ -79,23 +81,32 @@
                       <i class="bi bi-file-earmark-pdf me-2"></i>
                       تحميل PDF
                     </button>
+                    
+                  }
+                  @if (selectedLesson) {
+                    <button (click)="QuizRouter(selectedLesson.id)" class="btn btn-outline-danger">
+                      <i class="bi bi-file-earmark-pdf me-2"></i>
+                     أختبار الدرس
+                    </button>
+                    
                   }
                 </div>
                 
                 <div class="text-center mb-3">
                   @if (isPreviewMode) {
-                    <span class="badge bg-warning">
+                    <span class="badge bg-warning fs-6 px-3 py-2">
                       <i class="bi bi-lightning-fill me-1"></i>
                       فيديو مختصر
                     </span>
                   } @else {
-                    <span class="badge bg-success">
+                    <span class="badge bg-success fs-6 px-3 py-2">
                       <i class="bi bi-play-fill me-1"></i>
                       فيديو كامل
                     </span>
                   }
                 </div>
               } @else {
+                <!-- No Video Available -->
                 <div class="alert alert-info text-center py-4">
                   <i class="bi bi-camera-video-off fs-1 text-muted mb-3"></i>
                   <h5>لا يوجد فيديو متاح لهذا الدرس</h5>
@@ -108,12 +119,17 @@
                 </div>
               }
 
+              <!-- Lesson Description -->
               @if (selectedLesson.title) {
                 <div class="mt-4 text-center">
-                  <h6 class="text-primary">
-                    <i class="bi bi-info-circle me-2"></i>وصف الدرس:
-                  </h6>
-                  <p class="text-muted">{{ selectedLesson.title }}</p>
+                  <div class="card bg-light">
+                    <div class="card-body">
+                      <h6 class="text-primary mb-3">
+                        <i class="bi bi-info-circle me-2"></i>وصف الدرس
+                      </h6>
+                      <p class="text-muted mb-0">{{ selectedLesson.title }}</p>
+                    </div>
+                  </div>
                 </div>
               }
             </div>
@@ -121,6 +137,7 @@
         </div>
       </div>
 
+      <!-- Lessons List Sidebar -->
       <div class="col-lg-4">
         <div class="card shadow-sm sticky-top" style="top: 20px;">
           <div class="card-header bg-light">
@@ -132,52 +149,66 @@
           </div>
           
           <div class="card-body p-0">
-            <div class="lessons-list" style="max-height: 500px; overflow-y: auto;">
+            <div class="lessons-list" style="max-height: 600px; overflow-y: auto;">
               @for (lesson of content.lessons; track lesson.id; let i = $index) {
-                <div class="lesson-item p-3 cursor-pointer position-relative"
+                <div class="lesson-item p-3 cursor-pointer border-bottom position-relative"
                      [ngClass]="{
-                       'bg-primary text-white': selectedLesson?.id === lesson.id
+                       'bg-primary text-white': selectedLesson?.id === lesson.id,
+                       'hover-bg-light': selectedLesson?.id !== lesson.id
                      }"
-                     (click)="selectLesson(lesson)">
+                     (click)="selectLesson(lesson)"
+                     style="transition: all 0.2s ease;">
                   
                   <div class="d-flex align-items-start">
-                    <span class="lesson-number me-3 flex-shrink-0">
-                      {{ i + 1 }}
-                    </span>
+                    <!-- Lesson Number -->
+                    <div class="lesson-number me-3 flex-shrink-0">
+                      <span class="badge rounded-circle d-flex align-items-center justify-content-center" 
+                            style="width: 32px; height: 32px; font-size: 14px;"
+                            [ngClass]="selectedLesson?.id === lesson.id ? 'bg-white text-primary' : 'bg-primary text-white'">
+                        {{ i + 1 }}
+                      </span>
+                    </div>
                     
+                    <!-- Lesson Content -->
                     <div class="flex-grow-1">
-                      <h6 class="mb-2 fw-bold">{{ lesson.title }}</h6>
+                      <h6 class="mb-2 fw-bold" style="line-height: 1.3;">
+                        {{ lesson.title }}
+                      </h6>
                       
+                      <!-- Lesson Type and Icons -->
                       <div class="d-flex align-items-center gap-2 small mb-2">
-                        <i [class]="getLessonIcon(lesson)" class="text-primary"></i>
+                        <i [class]="getLessonIcon(lesson)" 
+                           [ngClass]="selectedLesson?.id === lesson.id ? 'text-white' : 'text-primary'"></i>
                         
-                        <span class="badge bg-primary rounded-pill">
+                        <span class="badge rounded-pill" 
+                              [ngClass]="selectedLesson?.id === lesson.id ? 'bg-white text-primary' : 'bg-primary text-white'">
                           {{ getLessonBadge(lesson) }}
                         </span>
-                        
-                        @if (lesson.title) {
-                          <span class="text-muted">
-                            <i class="bi bi-clock me-1"></i>
-                            {{ lesson.title }}
-                          </span>
-                        }
                       </div>
                       
-                      <div class="d-flex gap-2">
+                      <!-- Available Resources Icons -->
+                      <div class="d-flex gap-2 mb-1">
                         @if (lesson.videoUrl) {
-                          <i class="bi bi-play-circle text-primary" title="فيديو متاح"></i>
+                          <i class="bi bi-play-circle" 
+                             [ngClass]="selectedLesson?.id === lesson.id ? 'text-white' : 'text-success'" 
+                             title="فيديو متاح"></i>
                         }
                         @if (lesson.previewVideoUrl) {
-                          <i class="bi bi-lightning text-warning" title="فيديو مختصر متاح"></i>
+                          <i class="bi bi-lightning" 
+                             [ngClass]="selectedLesson?.id === lesson.id ? 'text-white' : 'text-warning'" 
+                             title="فيديو مختصر متاح"></i>
                         }
                         @if (lesson.pdfUrl) {
-                          <i class="bi bi-file-earmark-pdf text-success" title="ملف PDF متاح"></i>
+                          <i class="bi bi-file-earmark-pdf" 
+                             [ngClass]="selectedLesson?.id === lesson.id ? 'text-white' : 'text-danger'" 
+                             title="ملف PDF متاح"></i>
                         }
                       </div>
                     </div>
                     
+                    <!-- Selected Indicator -->
                     @if (selectedLesson?.id === lesson.id) {
-                      <i class="bi bi-caret-right-fill fs-5" style="color: white;"></i>
+                      <i class="bi bi-caret-left-fill fs-5 text-white"></i>
                     }
                   </div>
                 </div>

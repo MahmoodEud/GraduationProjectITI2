@@ -1,0 +1,141 @@
+<div class="container py-4" dir="rtl">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white text-center">
+          <h5 class="mb-0">
+            <i class="bi bi-person-gear me-2"></i>
+            إعدادات المستخدم
+          </h5>
+        </div>
+
+        <div class="card-body p-4">
+          @if (isLoading) {
+            <div class="text-center mb-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">جاري التحميل...</span>
+              </div>
+            </div>
+          }
+
+          @if (errorMsg && !isLoading) {
+            <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              <div>{{ errorMsg }}</div>
+            </div>
+          }
+
+          @if (successMsg && !isLoading) {
+            <div class="alert alert-success d-flex align-items-center mb-4" role="alert">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              <div>{{ successMsg }}</div>
+            </div>
+          }
+
+          <form #userSettingForm="ngForm" (ngSubmit)="submit(userSettingForm)" autocomplete="off" novalidate>
+            <div class="mb-3">
+              <label for="selectedUser" class="form-label fw-bold">اختر المستخدم</label>
+              <select
+                id="selectedUser"
+                class="form-select"
+                [(ngModel)]="selectedUserId"
+                name="selectedUser"
+                (ngModelChange)="onUserChange()"
+                required
+                [disabled]="isLoading"
+                [class.is-invalid]="userSettingForm.submitted && userSettingForm.controls['selectedUser'].errors">
+                <option value="">-- اختر المستخدم --</option>
+                @for (user of users; track user.id) {
+                  <option [value]="user.id">
+                    {{ user.name }} ||{{user.userName}}||({{ user.role || 'غير محدد' }})
+                  </option>
+                }
+              </select>
+              @if (userSettingForm.submitted && userSettingForm.controls['selectedUser'].errors?.['required']) {
+                <div class="invalid-feedback">
+                  يرجى اختيار مستخدم
+                </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="newPassword" class="form-label fw-bold">كلمة المرور الجديدة (اختياري)</label>
+              <div class="input-group">
+                <input
+                  [type]="showNewPassword ? 'text' : 'password'"
+                  id="newPassword"
+                  class="form-control"
+                  [(ngModel)]="newPassword"
+                  name="newPassword"
+                  minlength="8"
+                  [class.is-invalid]="userSettingForm.submitted && userSettingForm.controls['newPassword'].errors"
+                />
+                <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('new')">
+                  <i [class]="showNewPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </button>
+              </div>
+              @if (userSettingForm.submitted && userSettingForm.controls['newPassword'].errors?.['minlength']) {
+                <div class="invalid-feedback">
+                  كلمة المرور يجب أن تكون 8 أحرف على الأقل
+                </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label fw-bold">تأكيد كلمة المرور (اختياري)</label>
+              <div class="input-group">
+                <input
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  id="confirmPassword"
+                  class="form-control"
+                  [(ngModel)]="confirmPassword"
+                  name="confirmPassword"
+                  [class.is-invalid]="userSettingForm.submitted && (confirmPassword !== newPassword && newPassword)"
+                />
+                <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('confirm')">
+                  <i [class]="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </button>
+              </div>
+              @if (userSettingForm.submitted && (confirmPassword !== newPassword && newPassword)) {
+                <div class="invalid-feedback">
+                  كلمات المرور غير متطابقة
+                </div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="selectedRole" class="form-label fw-bold">اختر الدور (اختياري)</label>
+              <select
+                id="selectedRole"
+                class="form-select"
+                [(ngModel)]="selectedRole"
+                name="selectedRole"
+                [disabled]="isLoading"
+                [class.is-invalid]="userSettingForm.submitted && userSettingForm.controls['selectedRole'].errors">
+                <option value="">-- اختر الدور --</option>
+                @for (role of roles; track role) {
+                  <option [value]="role">{{ role }}</option>
+                }
+              </select>
+              @if (userSettingForm.submitted && userSettingForm.controls['selectedRole'].errors?.['required']) {
+                <div class="invalid-feedback">
+                  يرجى اختيار دور
+                </div>
+              }
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end">
+              <button type="button" class="btn btn-outline-secondary" (click)="resetForm()" [disabled]="isLoading">
+                إلغاء
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+                حفظ التعديلات
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,173 @@
+<div class="container-fluid px-2 px-md-4 mt-4 mt-md-5">
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body text-center py-5">
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+              <span class="visually-hidden">جارِ التحميل...</span>
+            </div>
+            <h5 class="text-muted mb-0">جارِ تحميل الملخص...</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  }@else if (error()) {
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <div class="alert alert-danger border-0 shadow-sm mb-4" role="alert">
+              <div class="d-flex align-items-center mb-3">
+                <i class="fas fa-exclamation-triangle me-2 fs-4"></i>
+                <h5 class="alert-heading mb-0 fw-bold">حدث خطأ!</h5>
+              </div>
+              <p class="mb-3 text-dark">{{ error() }}</p>
+              <button class="btn btn-outline-danger btn-sm px-4" (click)="back()">
+                <i class="fas fa-arrow-right me-2"></i>
+                رجوع
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } 
+    @else if (attempt()) {
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8 col-xl-6">
+        <!-- Header Card -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-primary text-white border-0 py-3">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-file-alt me-3 fs-4"></i>
+              <h4 class="mb-0 fw-bold">ملخص المحاولة</h4>
+            </div>
+          </div>
+          
+          <!-- Attempt Details -->
+          <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+              
+              <!-- Attempt Number -->
+              <div class="list-group-item border-0 py-3 px-4">
+                <div class="row align-items-center">
+                  <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-hashtag text-primary me-2"></i>
+                      <span class="fw-medium">رقم المحاولة</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="text-sm-end">
+                      <span class="badge bg-primary fs-6 px-3 py-2">{{ attempt()!.attemptNumber }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Start Time -->
+              <div class="list-group-item border-0 py-3 px-4 bg-light bg-opacity-50">
+                <div class="row align-items-center">
+                  <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-clock text-info me-2"></i>
+                      <span class="fw-medium">وقت البدء</span>
+                      <small class="text-muted ms-1">(UTC)</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="text-sm-end">
+                      <strong class="text-dark">{{ attempt()!.startedAt | date:'short' }}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Submit Time -->
+              <div class="list-group-item border-0 py-3 px-4">
+                <div class="row align-items-center">
+                  <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-paper-plane text-success me-2"></i>
+                      <span class="fw-medium">وقت التسليم</span>
+                      <small class="text-muted ms-1">(UTC)</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="text-sm-end">
+                      <strong class="text-dark">
+                        {{ attempt()!.submittedAt ? (attempt()!.submittedAt | date:'short') : '—' }}
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Score -->
+              <div class="list-group-item border-0 py-3 px-4 bg-light bg-opacity-50">
+                <div class="row align-items-center">
+                  <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-star text-warning me-2"></i>
+                      <span class="fw-medium">النتيجة</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="text-sm-end">
+                      @if (attempt()!.score !== null) {
+                        <span class="badge bg-success fs-6 px-3 py-2">{{ attempt()!.score }}</span>
+                      } @else {
+                        <span class="badge bg-secondary fs-6 px-3 py-2">لم تُصحح بعد</span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Grading Status -->
+              <div class="list-group-item border-0 py-3 px-4">
+                <div class="row align-items-center">
+                  <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-check-circle text-success me-2"></i>
+                      <span class="fw-medium">تم التصحيح؟</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="text-sm-end">
+                      @if (attempt()!.isGraded) {
+                        <span class="badge bg-success fs-6 px-3 py-2">
+                          <i class="fas fa-check me-1"></i>
+                          نعم
+                        </span>
+                      } @else {
+                        <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                          <i class="fas fa-hourglass-half me-1"></i>
+                          لا
+                        </span>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+          <!-- Footer with Back Button -->
+          <div class="card-footer bg-white border-0 py-4">
+            <div class="d-grid d-sm-flex justify-content-sm-center">
+              <button class="btn btn-primary btn-lg px-4 px-sm-5" (click)="back()">
+                <i class="fas fa-arrow-right me-2"></i>
+                رجوع
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+

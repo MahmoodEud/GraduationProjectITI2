@@ -1,0 +1,81 @@
+<div class="quiz-start-container mt-5">
+  @if (isLoading()) {
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">جارِ التحميل...</span>
+      </div>
+      <p class="mt-3">جارِ تحميل بيانات الكويز...</p>
+    </div>
+  } @else if (error()) {
+    <div class="alert alert-danger mt-5">
+      <h5 class="alert-heading">حدث خطأ!</h5>
+      <p class="mb-3">{{ error() }}</p>
+      <button type="button" class="btn btn-outline-danger" (click)="retry()">إعادة المحاولة</button>
+    </div>
+  } @else if (assessment()) {
+    <div class="quiz-info-card mt-5">
+      <div class="card">
+        <div class="card-header d-flex align-items-center gap-2">
+          <h4 class="card-title mb-0">كويز الدرس</h4>
+        </div>
+
+        <div class="card-body mt-4">
+          <div class="quiz-details">
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>عدد الأسئلة:</strong> {{ questionCount() }} سؤال</p>
+                <p><strong>الدرجة المطلوبة للنجاح:</strong> {{ assessment()!.passingScore }}%</p>
+              </div>
+              <div class="col-md-6">
+                @if (assessment()!.timeLimit) {
+                  <p><strong>الوقت المحدد:</strong> {{ assessment()!.timeLimit }} دقيقة</p>
+                }
+                @if (assessment()!.maxAttempts) {
+                  <p><strong>عدد المحاولات المسموحة:</strong> {{ assessment()!.maxAttempts }}</p>
+                }
+                @if (assessment()!.startingAt) {
+                  <p><strong>بداية الإتاحة:</strong> {{ assessment()!.startingAt | date:'medium' }}</p>
+                }
+                @if (endTime()) {
+                  <p><strong>نهاية الإتاحة:</strong> {{ endTime() | date:'medium' }}</p>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="alert" [ngClass]="notAvailableYet() ? 'alert-warning' : 'alert-info'">
+            <h6 class="alert-heading">تعليمات مهمة:</h6>
+            <ul class="mb-0">
+              <li>اقرأ كل سؤال بعناية قبل الإجابة</li>
+              @if (assessment()!.timeLimit) {
+                <li>لديك {{ assessment()!.timeLimit }} دقيقة لإكمال الكويز</li>
+              }
+              <li>يمكنك التنقل بين الأسئلة والعودة لتعديل إجاباتك</li>
+              <li>تأكد من الإجابة على جميع الأسئلة قبل التسليم</li>
+              @if (notAvailableYet() && hasNotStarted()) {
+                <li>الكويز غير متاح بعد (يبدأ عند {{ assessment()!.startingAt | date:'short' }})</li>
+              }
+              @if (notAvailableYet() && endTime()) {
+                <li>الكويز انتهى (انتهى عند {{ endTime() | date:'short' }})</li>
+              }
+            </ul>
+          </div>
+
+          <div class="text-center mt-4">
+            <button type="button"
+                    class="btn btn-primary btn-lg"
+                    [disabled]="!canStart()"
+                    (click)="startQuiz()">
+              @if (isStarting()) {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                جارِ البدء...
+              } @else {
+                بدء الكويز
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

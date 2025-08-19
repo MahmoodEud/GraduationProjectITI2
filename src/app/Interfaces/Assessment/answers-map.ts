@@ -1,0 +1,1 @@
+export type AnswersMap = Record<number, number>; 

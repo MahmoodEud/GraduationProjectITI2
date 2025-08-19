@@ -1,40 +1,5 @@
-<div class="container ">
-  @if (stats) {
-    <div class="stats-section">
-      <h3>إحصائيات الكورسات</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h4>إجمالي الكورسات</h4>
-          <p>{{ stats.total }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات المتاحة</h4>
-          <p>{{ stats.available }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات غير المتاحة</h4>
-          <p>{{ stats.unavailable }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات المجانية</h4>
-          <p>{{ stats.free }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات المدفوعة</h4>
-          <p>{{ stats.paid }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات حسب السنة</h4>
-          <ul>
-            @for (year of byYearKeys; track year) {
-              <li>{{ year }}: {{ stats.byYear[year] }} كورس</li>
-            }
-          </ul>
-        </div>
-      </div>
-    </div>
-  }
-
+<div class="container">
+ 
   <div class="filters">
     <form class="filter-form" (ngSubmit)="loadCourses()">
       <div class="filter-group">
@@ -47,9 +12,11 @@
           class="search-input"
         />
       </div>
-      <div class="filter-group mx-5">
-        <a [routerLink]="['/admin/createCourse']" class="btn btn-primary">إنشاء كورس جديد</a>
+      <div class="filter-group mx-5 ">
+        <button type="button" [routerLink]="['/admin/createCourse']" class="edit-btn pt-2">أنشاء كورس جديد</button>
       </div>
+            
+
       <div class="filter-group">
         <select
           [(ngModel)]="yearFilter"
@@ -143,4 +110,35 @@
       لا توجد كورسات متاحة
     </div>
   }
+</div>
+<div>
+   @if (stats) {
+    <div class="stats-section">
+      <h3>إحصائيات الكورسات</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>إجمالي الكورسات</h4>
+          <p>{{ stats.total }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات المجانية</h4>
+          <p>{{ stats.free }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات المدفوعة</h4>
+          <p>{{ stats.paid }}</p>
+        </div>
+        <div class="stat-card">
+          <h4>الكورسات حسب السنة</h4>
+          <ul>
+            @for (year of byYearKeys; track year) {
+              <li>{{ year }}: {{ stats.byYear[year] }} كورس</li>
+              <hr/>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  }
+
 </div>

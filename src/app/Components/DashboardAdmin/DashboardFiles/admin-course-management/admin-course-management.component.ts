@@ -46,7 +46,6 @@ export class AdminCourseManagementComponent implements OnInit {
   enrollStudent(): void {
     if (!this.isSelectionValid()) return;
 
-    // استخدام studentId في استدعاء الـ API
     this.studentCourseService.adminEnroll(this.selectedStudentId!, this.selectedCourseId!).subscribe({
       next: (response) => this.handleSuccess(response),
       error: (err) => this.handleError(err, 'فشل تسجيل الطالب')
@@ -56,7 +55,6 @@ export class AdminCourseManagementComponent implements OnInit {
   unenrollStudent(): void {
     if (!this.isSelectionValid()) return;
 
-    // استخدام studentId في استدعاء الـ API
     this.studentCourseService.adminUnenroll(this.selectedStudentId!, this.selectedCourseId!).subscribe({
       next: (response) => this.handleSuccess(response),
       error: (err) => this.handleError(err, 'فشل إلغاء تسجيل الطالب')

@@ -19,20 +19,20 @@
           </a>
 
           <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-courses" role="tab">
-            <i class="fas fa-graduation-cap me-2"></i> كورسات 
+            <i class="fas fa-graduation-cap me-2"></i> إدارة الكورسات 
           </a>
 
           <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-my-courses" role="tab">
-            <i class="fas fa-book-open me-2"></i> دروس
+            <i class="fas fa-book-open me-2"></i> إضافة الدروس
           </a>
 
           <!-- <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-educational" role="tab">
-            <i class="fas fa-chalkboard-teacher me-2"></i> الدورات التعليمية
+            <i class="fas fa-chalkboard-teacher me-2"></i> اعدادات اليوزر
           </a> -->
 
-          <!-- <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-assignments" role="tab">
-            <i class="fas fa-tasks me-2"></i> الواجبات
-          </a> -->
+          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-assignments" role="tab">
+            <i class="fas fa-tasks me-2"></i> 
+          </a>
 
           <!-- <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-exams" role="tab">
             <i class="fas fa-file-alt me-2"></i> الامتحانات
@@ -74,23 +74,21 @@
 
         <div class="tab-pane fade" id="list-courses" role="tabpanel">
           <app-courses></app-courses>
-          <!-- <app-create-course></app-create-course> -->
-
         </div>
 
         <div class="tab-pane fade" id="list-my-courses" role="tabpanel">
-          <h4><i class="fas fa-book-open me-2"></i>دوراتي</h4>
-          <p>الدورات المسجل بها والمتاحة لك.</p>
+         <app-lessons></app-lessons>
         </div>
 
-        <div class="tab-pane fade" id="list-educational" role="tabpanel">
-          <h4><i class="fas fa-chalkboard-teacher me-2"></i>الدورات التعليمية</h4>
-          <p>جميع الدورات التعليمية المتاحة.</p>
+      <div class="tab-pane fade" id="list-my-courses" role="tabpanel">
+          <h1></h1>
         </div>
 
         <div class="tab-pane fade" id="list-assignments" role="tabpanel">
-          <h4><i class="fas fa-tasks me-2"></i>الواجبات</h4>
-          <p>الواجبات المطلوبة منك وحالة تنفيذها.</p>
+          <!-- <h4><i class="fas fa-tasks me-2"></i>الواجبات</h4>
+          <p>الواجبات المطلوبة منك وحالة تنفيذها.</p> -->
+           <app-user-setting></app-user-setting> 
+
         </div>
 
         <div class="tab-pane fade" id="list-exams" role="tabpanel">

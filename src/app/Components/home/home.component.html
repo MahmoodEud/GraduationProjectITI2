@@ -1,227 +1,448 @@
-<div class="container section1" [appScrollReveal]="'zoomIn'">
-  <div class="row align-items-center text-center text-md-start mb-5">
-    <!-- !Part 1 Photo -->
-    <div
-      class="col-12 col-md-6 mb-4 mb-md-0 me-md-4 text-center animate__animated animate__fadeInDown order-2 order-md-1"
-    >
-      <span></span>
-      <h1>
-        رحلة التميّز في
-        <span class="el3rabiaTextOnHover animation">العربية</span>
-      </h1>
-      <h1>تبدأ بخطوة على <span class="elbasitTextOnHover">البسيط</span></h1>
-      <div class="mt-3">
-        <h3 class="fs-5">
-          تقدّم المنصة فيديوهات، تدريبات، واختبارات تساعد على الفهم العميق
-          والاستعداد الجيد للامتحانات
-        </h3>
-        <div class="text-center mt-4">
-          <a
-            routerLink="/mainpage"
-            class="btn btn-primary px-4 py-2"
-            appButtonsAnimation
-            animation="rotate"
-          >
-            تواصل معانا أسرع <i class="fas fa-headset fs-4 mr-auto"></i>
-          </a>
-          <div class="mt-3">
+<div class="container mt-5 section1" [appScrollReveal]="'zoomIn'">
+  <div class="row align-items-center text-center text-lg-start mb-5 g-4">
+    <!-- Hero Text Section -->
+    <div class="col-12 col-lg-6 order-2 order-lg-1 animate__animated animate__fadeInDown">
+      <div class="hero-content">
+        <h1 class="hero-main-title fw-bold mb-3">
+          رحلة التميّز في
+          <span class="arabic-text-highlight">العربية</span>
+        </h1>
+        <h2 class="hero-sub-title fw-bold mb-4">
+          تبدأ بخطوة على <span class="elbasit-text-highlight">البسيط</span>
+        </h2>
+        <div class="hero-description-section">
+          <p class="hero-description text-muted mb-4 lh-base">
+            تقدّم المنصة فيديوهات، تدريبات، واختبارات تساعد على الفهم العميق
+            والاستعداد الجيد للامتحانات
+          </p>
+          <div class="hero-actions text-center text-lg-start">
             <a
-              href="https://wa.me/+201127597047"
-              class="mx-2 text-decoration-none"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><i
-                class="fab fa-whatsapp text-success fs-2"
-                appButtonsAnimation
-              ></i>
-            </a>
-            <a
-              href="https://www.facebook.com/p/%D9%86%D8%A7%D8%AF%D8%B1-%D9%85%D8%AF%D9%83%D9%88%D8%B1-%D9%80%D9%80-%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D9%84%D8%BA%D9%87-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D8%A8%D8%A9-100081637487311/"
-              class="mx-2 text-decoration-none"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><i class="fab fa-facebook fs-2" appButtonsAnimation></i>
-            </a>
-            <a
-              href="https://t.me/ElBasitPlatform"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mx-2 text-decoration-none"
+              class="btn hero-cta-btn btn-lg px-4 py-3 rounded-pill mb-4"
+              appButtonsAnimation
+              animation="rotate"
             >
-              <i
-                class="fab fa-telegram-plane fs-2 telegram2"
-                appButtonsAnimation
-              ></i>
+              تواصل معانا أسرع <i class="fas fa-headset ms-2"></i>
             </a>
+            <div class="social-links d-flex justify-content-center justify-content-lg-start gap-3 flex-wrap">
+              <a
+                href="https://wa.me/+201127597047"
+                class="social-link whatsapp-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                appButtonsAnimation
+                title="واتساب"
+              >
+                <i class="fab fa-whatsapp"></i>
+              </a>
+              <a
+                href="https://www.facebook.com/p/%D9%86%D8%A7%D8%AF%D8%B1-%D9%85%D8%AF%D9%83%D9%88%D8%B1-%D9%80%D9%80-%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D9%84%D8%BA%D9%87-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D8%A8%D8%A9-100081637487311/"
+                class="social-link facebook-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                appButtonsAnimation
+                title="فيسبوك"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://t.me/ElBasitPlatform"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link telegram-link"
+                appButtonsAnimation
+                title="تليجرام"
+              >
+                <i class="fab fa-telegram-plane"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- !Nader Photo -->
-    <div
-      class="col-12 col-md-5 zoom-wrapper animate__animated animate__jackInTheBox d-flex justify-content-center order-1 order-md-2"
-    >
-      <div
-        style="position: relative; width: 100%; max-width: 1000px; margin: auto"
+    
+<div class="col-12 col-lg-6 order-1 order-lg-2 zoom-wrapper animate__animated animate__jackInTheBox">
+  <div class="hero-image-container position-relative">
+    <div class="hero-background-shape">
+      <svg
+        class="hero-svg"
+        viewBox="0 0 200 200"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <div
-          style="display: flex; justify-content: center; align-items: center"
-        >
-          <ng-lottie
-            [options]="animationOptions"
-            style="width: 600px; height: 600px"
-          >
-          </ng-lottie>
-        </div>
-
-        <img
-          src="/assets/profile6.png"
-          style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: auto;
-            max-width: 100%;
-            max-height: 100%;
-          "
-        />
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0056b3;stop-opacity:0.3" />
+            <stop offset="50%" style="stop-color:#4A90E2;stop-opacity:0.2" />
+            <stop offset="100%" style="stop-color:#28a745;stop-opacity:0.1" />
+          </linearGradient>
+          <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#0056b3;stop-opacity:0.4" />
+            <stop offset="100%" style="stop-color:#4A90E2;stop-opacity:0.2" />
+          </linearGradient>
+        </defs>
+        
+        <g class="book-animation">
+          <circle cx="100" cy="100" r="85" fill="url(#grad1)" />
+          <path d="M40 80 Q100 40 160 80 Q120 120 40 80" fill="url(#grad2)" />
+          <g transform="translate(70,60)">
+            <!-- Book Icon -->
+            <rect x="0" y="10" width="60" height="40" rx="5" fill="#0056b3" opacity="0.6"/>
+            <rect x="5" y="15" width="50" height="30" rx="3" fill="white" opacity="0.8"/>
+            
+            <!-- Arabic Text Lines -->
+            <line x1="10" y1="22" x2="45" y2="22" stroke="#0056b3" stroke-width="2" opacity="0.7"/>
+            <line x1="10" y1="28" x2="40" y2="28" stroke="#0056b3" stroke-width="2" opacity="0.7"/>
+            <line x1="10" y1="34" x2="42" y2="34" stroke="#0056b3" stroke-width="2" opacity="0.7"/>
+            <line x1="10" y1="40" x2="38" y2="40" stroke="#0056b3" stroke-width="2" opacity="0.7"/>
+            
+            <!-- Decorative Stars -->
+            <polygon points="25,5 27,10 32,10 28,14 30,19 25,16 20,19 22,14 18,10 23,10" fill="#28a745" opacity="0.8"/>
+          </g>
+          <circle cx="160" cy="60" r="8" fill="#4A90E2" opacity="0.6"/>
+          <circle cx="45" cy="140" r="6" fill="#28a745" opacity="0.7"/>
+          <circle cx="170" cy="130" r="5" fill="#0056b3" opacity="0.5"/>
+          <path d="M30 170 Q100 150 170 160" stroke="#4A90E2" stroke-width="3" fill="none" opacity="0.4" stroke-dasharray="5,5"/>
+        </g>
+      </svg>
+    </div>
+    <img
+      src="/assets/profile6.png"
+      class="hero-profile-img position-absolute top-50 start-50 translate-middle img-fluid"
+      alt="الأستاذ نادر"
+      loading="eager"
+    />
+  </div>
+</div>
+  </div>
+</div>
+<div class="container-fluid py-5 bg-light" id="ElbasitDef" [appScrollReveal]="'bounce'">
+  <div class="container">
+    <div class="row justify-content-center text-center text-lg-start">
+      <div class="col-12 col-lg-10">
+        <h2 class="fw-bold telegram display-5 mb-4 text-primary">منصة البسيط</h2>
+        <p class="text-muted fs-3 fs-md-2 lh-lg">
+          هي منصة تعليمية متخصصة في اللغة العربية تهدف إلى تأهيل طلاب المرحلة
+          الثانوية من خلال محتوى مبسط وشامل.
+        </p>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container ms-3" id="ElbasitDef" [appScrollReveal]="'bounce'">
-  <div class="row text-md-start">
-    <div class="col-12 col-md-9 me-md-5">
-      <h2 class="fw-bold telegram">منصة البسيط</h2>
-      <p class="text-muted fs-4">
-        هي منصة تعليمية متخصصة في اللغة العربية تهدف إلى تأهيل طلاب المرحلة
-        الثانوية من خلال محتوى مبسط وشامل.
-      </p>
+<div class="container-fluid py-5" [appScrollReveal]="'scale'">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-12 col-lg-6 order-2 order-lg-1">
+        <div class="features-list">
+          <div class="feature-item d-flex align-items-start mb-4 p-3 rounded-3 bg-light">
+            <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck text-success"></i>
+            <div>
+              <h3 class="mb-2 t3lemMrn fw-bold">تعليم مرن</h3>
+              <p class="mb-0 fs-5 text-muted lh-base">
+                دروس مسجلة تتيح لك التعلم في الوقت المناسب لك
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item d-flex align-items-start mb-4 p-3 rounded-3 bg-light">
+            <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck text-success"></i>
+            <div>
+              <h3 class="mb-2 t3lemMrn fw-bold">دعم فني</h3>
+              <p class="mb-0 fs-5 text-muted lh-base">تواصل سريع ومباشر لمساعدتك</p>
+            </div>
+          </div>
+
+          <div class="feature-item d-flex align-items-start mb-4 p-3 rounded-3 bg-light">
+            <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck text-success"></i>
+            <div>
+              <h3 class="mb-2 t3lemMrn fw-bold">تنوع المحتوى</h3>
+              <p class="mb-0 fs-5 text-muted lh-base">
+                دروس متنوعة تتيح لك تعلم كل ما تحتاجه
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item d-flex align-items-start p-3 rounded-3 bg-light">
+            <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck text-success"></i>
+            <div>
+              <h3 class="mb-2 t3lemMrn fw-bold">سهولة الوصول</h3>
+              <p class="mb-0 fs-5 text-muted lh-base">
+                نوفر لك تجربة سلسة وسهلة للوصول للمحتوى
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6 order-1 order-lg-2 text-center">
+        <img src="assets/Profile1.png" class="img-fluid rounded-4 shadow-lg" alt="Profile" />
+      </div>
     </div>
   </div>
 </div>
-<div class="container-fluid ms-3" [appScrollReveal]="'scale'" >
-  <div class="row me-md-4">
-    <div class="col-12 col-md-6 order-2 order-md-1 mb">
-      <div class="d-flex mb-4">
-        <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck"></i>
-        <div>
-          <h3 class="mb-2 t3lemMrn">تعليم مرن</h3>
-          <p class="mb-0 fs-5 text-muted">
-            دروس مسجله تتيح لك التعلم في الوقت المناسب لك
-          </p>
-        </div>
-      </div>
 
-      <div class="d-flex mb-4">
-        <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck"></i>
-        <div>
-          <h3 class="mb-2 t3lemMrn">دعم فني</h3>
-          <p class="mb-0 fs-5 text-muted">تواصل سريع و مباشر لمساعدتك</p>
-        </div>
-      </div>
-
-      <div class="d-flex mb-4">
-        <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck"></i>
-        <div>
-          <h3 class="mb-2 t3lemMrn">تنوع المحتوي</h3>
-          <p class="mb-0 fs-5 text-muted">
-            دروس متنوعه تتيح لك تعلم كل ما تحتاجه
-          </p>
-        </div>
-      </div>
-
-      <div class="d-flex">
-        <i class="fas fa-check fs-1 me-4 mt-1 iconeCheck"></i>
-        <div>
-          <h3 class="mb-2 t3lemMrn">سهوله الوصول</h3>
-          <p class="mb-0 fs-5 text-muted">
-            نوفر لك تجربه سلسه و سهله للوصول للمحتوي
-          </p>
-        </div>
+<div class="container-fluid py-5 position-relative bg-primary bg-opacity-10" id="CoursesSection" [appScrollReveal]="'fadeDown'">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="fw-bold telegram display-4 text-primary">الدورات التعليمية</h2>
+        <p class="lead text-muted">اختر الصف المناسب لك وابدأ رحلتك التعليمية</p>
       </div>
     </div>
-
-    <div
-      class="col-12 col-md-6 d-flex align-items-center justify-content-center mt-4 mt-md-0 order-1 order-md-2"
-    >
-      <img src="assets/Profile1.png" class="img-fluid" alt="Profile" />
-    </div>
-  </div>
-</div>
-<div
-  class="container-fluid py-5 position-relative"
-  id="CoursesSection"
-  [appScrollReveal]="'fadeDown'"
->
-  <div class="row">
-    <div class="col-12">
-      <h2 class="p-1 mx-5 fw-bold telegram">الدورات التعليمية</h2>
-      <div class="p-4 blueColor">
-        <div class="container-fluid">
-          <div
-            class="row justify-content-center row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"
-          >
-            <div class="col col-xl-4">
-              <div class="card h-100 shadow text-center cardImage">
-                <img class="card-img-top cardImage" src="assets/300x150.png" />
-                <div class="card-body">
-                  <h4 class="card-title">الصف الأول</h4>
-                  <p class="card-text">
-                    <i class="fas fa-play-circle"></i> 10 محاضرات
-                  </p>
-                  <a
-                    routerLink="Login"
-                    class="btn btn-primary buttonss"
-                    appButtonsAnimation
-                    >سجل الأن</a
-                  >
-                </div>
+    
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card h-100 shadow-lg border-0 rounded-4 course-card">
+          <div class="card-img-wrapper position-relative overflow-hidden rounded-top-4">
+            <img 
+              class="card-img-top course-img" 
+              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80"
+              alt="الصف الأول الثانوي"
+              style="height: 250px; object-fit: cover;"
+            />
+            <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+              <div class="play-button bg-white bg-opacity-90 rounded-circle p-3">
+                <i class="fas fa-play text-primary fs-2"></i>
               </div>
             </div>
-            <div class="col col-xl-4">
-              <div class="card h-100 shadow text-center cardImage">
-                <img
-                  class="card-img-top cardImage"
-                  src="assets/300x150.png"
-                  alt="Card image"
-                />
-                <div class="card-body">
-                  <h4 class="card-title">الصف الثاني</h4>
-                  <p class="card-text">
-                    <i class="fas fa-play-circle"></i> 10 محاضرات
-                  </p>
-                  <a
-                    routerLink="Login"
-                    class="btn btn-primary buttonss"
-                    appButtonsAnimation
-                    >سجل الأن</a
-                  >
-                </div>
+            <div class="grade-badge position-absolute top-0 end-0 m-3">
+              <span class="badge bg-primary fs-6 px-3 py-2 rounded-pill">الأول الثانوي</span>
+            </div>
+          </div>
+          <div class="card-body p-4 text-center">
+            <h4 class="card-title fw-bold mb-3 text-dark">الصف الأول الثانوي</h4>
+            <div class="course-info mb-4">
+              <div class="d-flex align-items-center justify-content-center mb-2">
+                <i class="fas fa-play-circle text-primary me-2"></i>
+                <span class="text-muted">10 محاضرات تفاعلية</span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center mb-2">
+                <i class="fas fa-clock text-warning me-2"></i>
+                <span class="text-muted">20 ساعة تدريبية</span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center">
+                <i class="fas fa-certificate text-success me-2"></i>
+                <span class="text-muted">شهادة معتمدة</span>
               </div>
             </div>
-            <div class="col col-xl-4">
-              <div class="card h-100 shadow text-center cardImage">
-                <img
-                  class="card-img-top cardImage"
-                  src="assets/300x150.png"
-                  alt="Card image"
-                />
-                <div class="card-body">
-                  <h4 class="card-title">الصف الثالت</h4>
-                  <p class="card-text">
-                    <i class="fas fa-play-circle"></i> 10 محاضرات
-                  </p>
-                  <a
-                    href="Login"
-                    class="btn btn-primary buttonss"
-                    appButtonsAnimation
-                    >سجل الأن</a
-                  >
-                </div>
+            <a
+              routerLink="Login"
+              class="btn btn-primary btn-lg w-100 rounded-pill py-3"
+              appButtonsAnimation
+            >
+              <i class="fas fa-user-plus me-2"></i>سجل الآن
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card h-100 shadow-lg border-0 rounded-4 course-card">
+          <div class="card-img-wrapper position-relative overflow-hidden rounded-top-4">
+            <img 
+              class="card-img-top course-img" 
+              src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              alt="الصف الثاني الثانوي"
+              style="height: 250px; object-fit: cover;"
+            />
+            <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+              <div class="play-button bg-white bg-opacity-90 rounded-circle p-3">
+                <i class="fas fa-play text-primary fs-2"></i>
+              </div>
+            </div>
+            <div class="grade-badge position-absolute top-0 end-0 m-3">
+              <span class="badge bg-success fs-6 px-3 py-2 rounded-pill">الثاني الثانوي</span>
+            </div>
+          </div>
+          <div class="card-body p-4 text-center">
+            <h4 class="card-title fw-bold mb-3 text-dark">الصف الثاني الثانوي</h4>
+            <div class="course-info mb-4">
+              <div class="d-flex align-items-center justify-content-center mb-2">
+                <i class="fas fa-play-circle text-primary me-2"></i>
+                <span class="text-muted">12 محاضرة تفاعلية</span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center mb-2">
+                <i class="fas fa-clock text-warning me-2"></i>
+                <span class="text-muted">25 ساعة تدريبية</span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center">
+                <i class="fas fa-certificate text-success me-2"></i>
+                <span class="text-muted">شهادة معتمدة</span>
+              </div>
+            </div>
+            <a
+              routerLink="Login"
+              class="btn btn-success btn-lg w-100 rounded-pill py-3"
+              appButtonsAnimation
+            >
+              <i class="fas fa-user-plus me-2"></i>سجل الآن
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card h-100 shadow-lg border-0 rounded-4 course-card">
+          <div class="card-img-wrapper position-relative overflow-hidden rounded-top-4">
+            <img 
+              class="card-img-top course-img" 
+              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              alt="الصف الثالث الثانوي"
+              style="height: 250px; object-fit: cover;"
+            />
+            <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+              <div class="play-button bg-white bg-opacity-90 rounded-circle p-3">
+                <i class="fas fa-play text-primary fs-2"></i>
+              </div>
+            </div>
+            <div class="grade-badge position-absolute top-0 end-0 m-3">
+              <span class="badge bg-warning fs-6 px-3 py-2 rounded-pill">الثالث الثانوي</span>
+            </div>
+          </div>
+          <div class="card-body p-4 text-center">
+            <h4 class="card-title fw-bold mb-3 text-dark">الصف الثالث الثانوي</h4>
+            <div class="course-info mb-4">
+              <div class="d-flex align-items-center justify-content-center mb-2">
+                <i class="fas fa-play-circle text-primary me-2"></i>
+                <span class="text-muted">15 محاضرة تفاعلية</span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center mb-2">
+                <i class="fas fa-clock text-warning me-2"></i>
+                <span class="text-muted">30 ساعة تدريبية</span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center">
+                <i class="fas fa-certificate text-success me-2"></i>
+                <span class="text-muted">شهادة معتمدة</span>
+              </div>
+            </div>
+            <a
+              href="Login"
+              class="btn btn-warning btn-lg w-100 rounded-pill py-3"
+              appButtonsAnimation
+            >
+              <i class="fas fa-user-plus me-2"></i>سجل الآن
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-5 bg-light" id="PopularQuestionSection" [appScrollReveal]="'zoomIn'">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        <h2 class="fw-bold text-center telegram display-4 text-primary mb-5">الأسئلة الشائعة</h2>
+
+        <div class="accordion shadow-lg rounded-4 border-0" id="accordionExample">
+          <div class="accordion-item border-0 rounded-top-4">
+            <h2 class="accordion-header" id="headingOne">
+              <button
+                class="accordion-button fw-bold fs-5 rounded-top-4"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+                appButtonsAnimation
+              >
+                <i class="fas fa-question-circle me-3 text-primary"></i>
+                كيف يمكنني الاشتراك في كورس على المنصة؟
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse show"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body p-4 fs-5 lh-lg">
+                يمكنك الاشتراك من خلال زيارة صفحة الكورسات، ثم اختيار الكورس
+                المطلوب والضغط على زر "اشترك الآن"، ثم اتباع خطوات الدفع.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header" id="headingTwo">
+              <button
+                class="accordion-button collapsed fw-bold fs-5"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+                appButtonsAnimation
+              >
+                <i class="fas fa-credit-card me-3 text-success"></i>
+                ما هي طرق الدفع المتاحة؟
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body p-4 fs-5 lh-lg">
+                نوفر لك طرق دفع متعددة تشمل: الدفع بالبطاقات الائتمانية، فودافون
+                كاش، وأيضًا التحويل البنكي.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header" id="headingThree">
+              <button
+                class="accordion-button collapsed fw-bold fs-5"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+                appButtonsAnimation
+              >
+                <i class="fas fa-certificate me-3 text-warning"></i>
+                هل يمكنني الحصول على شهادة بعد الانتهاء من الكورس؟
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body p-4 fs-5 lh-lg">
+                نعم، يمكنك الحصول على شهادة إلكترونية بعد اجتياز الكورس بنجاح
+                والانتهاء من جميع المتطلبات.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item border-0 rounded-bottom-4">
+            <h2 class="accordion-header" id="headingFour">
+              <button
+                class="accordion-button collapsed fw-bold fs-5 rounded-bottom-4"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+                aria-expanded="false"
+                aria-controls="collapseFour"
+                appButtonsAnimation
+              >
+                <i class="fas fa-headset me-3 text-info"></i>
+                ماذا أفعل إذا واجهت مشكلة فنية أثناء الكورس؟
+              </button>
+            </h2>
+            <div
+              id="collapseFour"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingFour"
+              data-bs-parent="#accordionExample"
+            >
+              <div class="accordion-body p-4 fs-5 lh-lg rounded-bottom-4">
+                يمكنك التواصل مع فريق الدعم الفني من خلال زر "الدعم" في الموقع أو
+                عبر قنوات التواصل الرسمية مثل واتساب أو البريد الإلكتروني.
               </div>
             </div>
           </div>
@@ -230,207 +451,185 @@
     </div>
   </div>
 </div>
-<div
-  class="container-fluid py-5"
-  id="PrentSection"
-  [appScrollReveal]="'fadeDown'"
->
-  <!-- <div class="row align-items-center ms-4">
-    <div class="col-12 col-md-6 mb-4 mb-md-0">
-      <h2 class="p-1 text-md-start text-center fw-bold telegram">
-        خدمات ولي الأمر
-      </h2>
-      <p class="py-3 text-md-start text-center">
-        من خلال إدخال كود الطالب ورقم ولي الأمر، يمكنك متابعة نتائج ابنك،
-        غياباته، والواجبات المكلف بها في المنصة.
-      </p>
-      <form dir="rtl" lang="ar ">
-        <div class="form-group mb-3">
-          <input
-            type="number"
-            class="form-control text-center p-3 w-75 ms-4 parent"
-            id="studentCode"
-            placeholder="كود الطالب"
-          />
-        </div>
-        <div class="form-group mb-4">
-          <input
-            type="number"
-            class="form-control text-center p-3 w-75 ms-4 parent"
-            id="parentNumber"
-            placeholder="رقم ولي الأمر"
-          />
-        </div>
-        <div class="text-center text-md-center">
-          <button
-            type="submit"
-            class="btn btn-outline-primary ms-auto p-1 w-50"
-            appButtonsAnimation
-          >
-            بحث
-          </button>
-        </div>
-      </form>
-    </div>
-    <div class="col-12 col-md-6 text-center">
-      <img src="assets/Profile3.png" alt="Profile3" class="img-fluid" />
-    </div>
-  </div> -->
-</div>
-<div
-  class="container-fluid py-5 accordionns"
-  id="PopularQuestionSection"
-  [appScrollReveal]="'zoomIn'"
->
-  <div class="row justify-content-start">
-    <div class="col-12 col-md-10">
-      <h2 class="p-1 fw-bold ms-3 telegram">الأسئلة الشائعة</h2>
 
-      <div class="accordion ms-3" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button
-              class="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-              appButtonsAnimation
-            >
-              كيف يمكنني الاشتراك في كورس على المنصة؟
-            </button>
-          </h2>
-          <div
-            id="collapseOne"
-            class="accordion-collapse collapse show"
-            aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              يمكنك الاشتراك من خلال زيارة صفحة الكورسات، ثم اختيار الكورس
-              المطلوب والضغط على زر "اشترك الآن"، ثم اتباع خطوات الدفع.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
-              aria-expanded="false"
-              aria-controls="collapseTwo"
-              appButtonsAnimation
-            >
-              ما هي طرق الدفع المتاحة؟
-            </button>
-          </h2>
-          <div
-            id="collapseTwo"
-            class="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              نوفر لك طرق دفع متعددة تشمل: الدفع بالبطاقات الائتمانية، فودافون
-              كاش، وأيضًا التحويل البنكي.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingThree">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseThree"
-              aria-expanded="false"
-              aria-controls="collapseThree"
-              appButtonsAnimation
-            >
-              هل يمكنني الحصول على شهادة بعد الانتهاء من الكورس؟
-            </button>
-          </h2>
-          <div
-            id="collapseThree"
-            class="accordion-collapse collapse"
-            aria-labelledby="headingThree"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              نعم، يمكنك الحصول على شهادة إلكترونية بعد اجتياز الكورس بنجاح
-              والانتهاء من جميع المتطلبات.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingFour">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseFour"
-              aria-expanded="false"
-              aria-controls="collapseFour"
-            >
-              ماذا أفعل إذا واجهت مشكلة فنية أثناء الكورس؟
-            </button>
-          </h2>
-          <div
-            id="collapseFour"
-            class="accordion-collapse collapse"
-            aria-labelledby="headingFour"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              يمكنك التواصل مع فريق الدعم الفني من خلال زر "الدعم" في الموقع أو
-              عبر قنوات التواصل الرسمية مثل واتساب أو البريد الإلكتروني.
-            </div>
-          </div>
-        </div>
+<div class="container-fluid py-5 bg-gradient-light" id="SuccessStoriesSlider">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="fw-bold telegram display-4 text-primary">قصص نجاح طلابنا</h2>
+        <p class="lead text-muted">تعرف على تجارب الطلاب الذين حققوا النجاح معنا</p>
       </div>
     </div>
-  </div>
-</div>
+    
+    <!-- New Moving Slider -->
+    <div class="success-stories-slider position-relative overflow-hidden">
+      <div class="slider-track">
+        <!-- Story 1 -->
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">أحمد محمد</h5>
+              <p class="card-text mb-3 small">"منصة البسيط غيرت حياتي الدراسية. حصلت على 95% في العربي بعد ما كنت متعثر فيها."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الثالث الثانوي</small>
+            </div>
+          </div>
+        </div>
 
-<div
-  class="container-fluid py-5 text-center d-flex justify-content-center"
-  appScrollReveal
->
-  <div class="row w-100">
-    <div class="col-12 col-md-8 mx-auto">
-      <h5>مازال هناك أسئلة أخرى؟ لا تتردد في التواصل معنا</h5>
-      <div class="mt-3">
-        <a
-          href="https://wa.me/+201127597047"
-          class="mx-2 text-decoration-none"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-whatsapp text-success fs-2" appButtonsAnimation></i>
-        </a>
-        <a
-          href="https://www.facebook.com/p/%D9%86%D8%A7%D8%AF%D8%B1-%D9%85%D8%AF%D9%83%D9%88%D8%B1-%D9%80%D9%80-%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D9%84%D8%BA%D9%87-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D8%A8%D8%A9-100081637487311/"
-          class="mx-2 text-decoration-none"
-          target="_blank"
-          rel="noopener noreferrer"
-          ><i class="fab fa-facebook fs-2" appButtonsAnimation></i>
-        </a>
-        <a
-          href="https://t.me/ElBasitPlatform"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mx-2 text-decoration-none"
-        >
-          <i
-            class="fab fa-telegram-plane fs-2 telegram2"
-            appButtonsAnimation
-          ></i>
-        </a>
+        <!-- Story 2 -->
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">فاطمة أحمد</h5>
+              <p class="card-text mb-3 small">"الشرح بسيط ومفهوم، والأستاذ نادر يجعل العربي سهل وممتع. أنصح كل الطلاب بالمنصة."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الثاني الثانوي</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">محمد علي</h5>
+              <p class="card-text mb-3 small">"من أفضل المنصات التعليمية اللي شوفتها. المحتوى منظم والشرح واضح جداً."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الأول الثانوي</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 4 -->
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">سارة محمود</h5>
+              <p class="card-text mb-3 small">"الدعم الفني ممتاز والمتابعة مستمرة. حسيت إني مش لوحدي في رحلة التعلم."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الثالث الثانوي</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 5 -->
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">خالد أحمد</h5>
+              <p class="card-text mb-3 small">"التطبيق سهل الاستخدام والمحاضرات مرتبة بطريقة ممتازة. شكراً منصة البسيط."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الثاني الثانوي</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 6 -->
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">نور الهدى</h5>
+              <p class="card-text mb-3 small">"بفضل المنصة، حصلت على الدرجة النهائية في العربي. الشرح واضح والأمثلة عملية."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الثالث الثانوي</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Duplicate cards for continuous loop -->
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">أحمد محمد</h5>
+              <p class="card-text mb-3 small">"منصة البسيط غيرت حياتي الدراسية. حصلت على 95% في العربي بعد ما كنت متعثر فيها."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الثالث الثانوي</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="card h-100 shadow-lg border-0 rounded-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="card-body p-4 text-center position-relative z-index-1">
+              <div class="student-avatar bg-white bg-opacity-20 rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-white fs-2"></i>
+              </div>
+              <h5 class="card-title fw-bold mb-3">فاطمة أحمد</h5>
+              <p class="card-text mb-3 small">"الشرح بسيط ومفهوم، والأستاذ نادر يجعل العربي سهل وممتع. أنصح كل الطلاب بالمنصة."</p>
+              <div class="rating text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <small class="text-white-50">الصف الثاني الثانوي</small>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

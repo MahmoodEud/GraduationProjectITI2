@@ -52,10 +52,14 @@ getMyCourses(): Observable<Course[]> {
     });
   }
   
-
+getStudentId(): Observable<number> {
+  return this.http.get<number>(`${this.controllerUrl}/my-student-id`).pipe(
+    catchError(err => throwError(() => new Error(err.error?.message || 'Failed to fetch student ID')))
+  );
+}
 // ! Admin Enroll Student in Course
 adminEnroll(studentId: number, courseId: number): Observable<string> {
-  const request = { studentId, courseId }; // استخدام studentId وcourseId مباشرة زي Postman
+  const request = { studentId, courseId };
   return this.http.post(`${this.controllerUrl}/admin/enroll`, request, { responseType: 'text' }).pipe(
     tap(() => this.refreshEnrolledCourses()),
     catchError(err => throwError(() => new Error(err.error?.message || 'فشل تسجيل الطالب')))

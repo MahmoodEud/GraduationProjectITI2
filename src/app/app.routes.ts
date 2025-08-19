@@ -10,45 +10,43 @@ import { adminRoleGuard } from './guards/admin.guard';
 import { OverviewComponent } from './Components/DashboardAdmin/overview/overview.component';
 import { AccessDeniedComponent } from './Components/DashboardAdmin/access-denied/access-denied.component';
 import { ChangePasswordFileComponent } from './Components/main/Tabs/personal-file/change-password-file/change-password-file.component';
+import { LessonsComponent } from './Components/DashboardAdmin/DashboardFiles/lessons/lessons.component';
 
 
 export const routes: Routes = [
+  // Public Page ..
   { path: '', component: HomeComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'Register', component: RegisterComponent },
   { path: 'access-denied', component: AccessDeniedComponent },
-  {
 
+  // Student Routing ...
+  {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
     children: [
       { path: 'main', component: MainComponent },
-      {path: 'account/:id/edit',canActivate: [authGuard],loadComponent: () => import('./Components/main/Tabs/personal-file/edit-personal-file/edit-personal-file.component') .then(m => m.EditPersonalFileComponent)},
-      {path: 'account/student-change-password', component: ChangePasswordFileComponent},
-      // { path: 'account/student-change-password', loadComponent: () => import('./Components/main/Tabs/personal-file/change-password-file/change-password-file.component').then(m=>m.ChangePasswordFileComponent)},
-      {
-        path: 'courses',
-        loadComponent: () =>
-          import('./Components/main/Tabs/get-all-courses/get-all-courses.component').then((m) => m.GetAllCoursesComponent),
-      },
-      {
-        path: 'courses/:id',
-        loadComponent: () =>
-          import('./Components/main/Tabs/get-all-courses/course-details/course-details.component')
-          .then(m => m.CourseDetailsComponent)
-      },
-       {
-        path: 'courses/:id/content',
-        loadComponent: () =>
-          import('./Components/main/Tabs/get-all-courses/course-details/course-content/course-content.component')
-          .then(m => m.CourseContentComponent)
-      },
+      { path: 'account/:id/edit', loadComponent: () => import('./Components/main/Tabs/personal-file/edit-personal-file/edit-personal-file.component').then(m => m.EditPersonalFileComponent) },
+      { path: 'account/student-change-password', component: ChangePasswordFileComponent },
+
+      { path: 'courses', loadComponent: () => import('./Components/main/Tabs/get-all-courses/get-all-courses.component').then(m => m.GetAllCoursesComponent) },
+      { path: 'courses/:id', loadComponent: () => import('./Components/main/Tabs/get-all-courses/course-details/course-details.component').then(m => m.CourseDetailsComponent) },
+      { path: 'courses/:id/content', loadComponent: () => import('./Components/main/Tabs/get-all-courses/course-details/course-content/course-content.component').then(m => m.CourseContentComponent) },
+
+      { path: 'quiz/:lessonId', loadComponent:() =>import('./Components/main/Tabs/get-all-courses/course-details/course-content/quiz/quiz.component').then(x=>x.QuizComponent) 
+       },
+       { path: 'quiz/attempt/:attemptId', loadComponent: () => import('./Components/main/Tabs/get-all-courses/course-details/course-content/quiz/quiz-attempts/quiz-attempts.component').then(m => m.QuizAttemptsComponent) },
+
+
+      { path: 'quiz/summary/:attemptId', loadComponent: () => import('./Components/main/Tabs/get-all-courses/course-details/course-content/quiz/quiz-summary/quiz-summary.component').then(m => m.QuizSummaryComponent) },
 
     ]
+      },
+       
 
-  },
-   {
+//Admin Routes
+  {
     path: 'admin',
     runGuardsAndResolvers: 'always',
     canActivate: [adminRoleGuard],
@@ -58,28 +56,23 @@ export const routes: Routes = [
       { path: 'overview', component: OverviewComponent },
       { path: 'users', component: UsersComponent },
       { path: 'student/:id', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/students/student-details/student-details.component').then(m => m.StudentDetailsComponent) },
-      // {
-      //   path: 'users/:id/edit',
-      //   loadComponent: () =>
-      //   import('./Components/DashboardAdmin/DashboardFiles/courses/create-course/create-course.component')
-      //   .then(m => m.CreateCourseComponent)
-      // },
-      {
-        path: 'createCourse/:id',
-        loadComponent: () =>
-        import('./Components/DashboardAdmin/DashboardFiles/courses/edit-course/edit-course.component')
-        .then(m => m.EditCourseComponent)
+      { 
+        path: 'users/:id/edit', 
+        loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/students/edit/edit.component')
+          .then(m => m.EditComponent) 
       },
-      {
-        path: 'createCourse',
-        canActivate: [adminRoleGuard],
-        loadComponent: () =>
-          import('./Components/DashboardAdmin/DashboardFiles/courses/create-course/create-course.component').then((m) => m.CreateCourseComponent),
-      },
-    ],
 
+
+      { path: 'lessons', component: LessonsComponent },
+      { path: 'create-lesson', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/lessons/create-lesson/create-lesson.component').then(m => m.CreateLessonComponent) },
+      { path: 'edit-lesson/:id', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/lessons/edit-lesson/edit-lesson.component').then(m => m.EditLessonComponent) },
+
+      { path: 'createCourse/:id', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/courses/edit-course/edit-course.component').then(m => m.EditCourseComponent) },
+      { path: 'createCourse', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/courses/create-course/create-course.component').then(m => m.CreateCourseComponent) },
+    ]
   },
- { path: 'access-denied', component: AccessDeniedComponent },
- {path: '**', component: NotFoundComponent, pathMatch:'full'},
 
+  // صفحة غير موجودة
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];
+

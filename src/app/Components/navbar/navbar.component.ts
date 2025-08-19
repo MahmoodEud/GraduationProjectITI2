@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { NavigationEnd, Router, RouterLinkActive, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { ButtonsAnimationDirective } from '../../directives/ButtonsAnimation/buttons-animation.directive';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -9,7 +9,7 @@ import { environment } from '../../Services/register/environment';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule, RouterLinkActive,ButtonsAnimationDirective],
+  imports: [RouterModule, RouterLinkActive,ButtonsAnimationDirective,RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })

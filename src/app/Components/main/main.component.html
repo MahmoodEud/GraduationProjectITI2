@@ -1,80 +1,227 @@
-<div class="container-fluid mainContainer fade-in pt-5">
-  <div class="row">
-    <!-- Sidebar -->
+<div class="container-fluid mainContainer fade-in pt-3 pt-md-5">
+  <div class="row g-0">
+    <!-- Desktop Sidebar -->
     <div
       id="sidebar"
-      class="Sidebar bg-white d-none d-md-block col-md-3 col-xl-2 p-3"
-      style="z-index: 999;"
+      class="Sidebar bg-white d-none d-lg-block col-lg-3 col-xl-2 p-3 shadow-sm border-end"
+      style="z-index: 999; min-height: 100vh;"
     >
       <div class="d-flex flex-column align-items-center navigationArea" tabindex="0">
+        <!-- Logo/Brand Area (اضافة جديدة) -->
+        <div class="mb-4 text-center">
+          <div class="brand-logo bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto" 
+               style="width: 60px; height: 60px; font-size: 1.5rem;">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h6 class="mt-2 mb-0 text-muted">منصة البسيط</h6>
+        </div>
+
         <!-- Navigation List -->
         <div class="list-group w-100 text-center" id="list-tab" role="tablist">
-          <a class="list-group-item list-group-item-action custom-tab active mb-3" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab">
-            <i class="fas fa-home me-2"></i> الصفحة الرئيسية
+          <a class="list-group-item list-group-item-action custom-tab active mb-2 rounded-3 border-0 shadow-sm" 
+             id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab">
+            <i class="fas fa-home me-2 text-primary"></i> 
+            <span class="nav-text">الصفحة الرئيسية</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-profile" role="tab">
-            <i class="fas fa-user me-2"></i> الملف الشخصي
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-profile" role="tab">
+            <i class="fas fa-user me-2"></i> 
+            <span class="nav-text">الملف الشخصي</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-courses" role="tab">
-            <i class="fas fa-graduation-cap me-2"></i> كورسات مجانية
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-courses" role="tab">
+            <i class="fas fa-graduation-cap me-2"></i> 
+            <span class="nav-text">كورسات مجانية</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-my-courses" role="tab">
-            <i class="fas fa-book-open me-2"></i> دوراتي
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-my-courses" role="tab">
+            <i class="fas fa-book-open me-2"></i> 
+            <span class="nav-text">دوراتي</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-educational" role="tab">
-            <i class="fas fa-chalkboard-teacher me-2"></i> الدورات التعليمية
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-educational" role="tab">
+            <i class="fas fa-chalkboard-teacher me-2"></i> 
+            <span class="nav-text">الدورات التعليمية</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-assignments" role="tab">
-            <i class="fas fa-tasks me-2"></i> الواجبات
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-assignments" role="tab">
+            <i class="fas fa-tasks me-2"></i> 
+            <span class="nav-text">الواجبات</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-exams" role="tab">
-            <i class="fas fa-file-alt me-2"></i> الامتحانات
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-exams" role="tab">
+            <i class="fas fa-file-alt me-2"></i> 
+            <span class="nav-text">الامتحانات</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-pdf" role="tab">
-            <i class="fas fa-file-pdf me-2 text-black"></i> ملفات PDF
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-pdf" role="tab">
+            <i class="fas fa-file-pdf me-2"></i> 
+            <span class="nav-text">ملفات PDF</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-live" role="tab">
-            <i class="fas fa-video me-2"></i> بث مباشر
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-live" role="tab">
+            <i class="fas fa-video me-2"></i> 
+            <span class="nav-text">بث مباشر</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" data-bs-toggle="list" href="#list-privacy" role="tab">
-            <i class="fas fa-shield-alt me-2"></i> سياسة الخصوصية
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-privacy" role="tab">
+            <i class="fas fa-shield-alt me-2"></i> 
+            <span class="nav-text">سياسة الخصوصية</span>
           </a>
 
-          <a class="list-group-item list-group-item-action custom-tab mb-3" id="list-contact-list" data-bs-toggle="list" href="#list-contact" role="tab">
-            <i class="fas fa-headset me-2"></i> الدعم الفني
+          <a class="list-group-item list-group-item-action custom-tab mb-3 rounded-3 border-0" 
+             id="list-contact-list" data-bs-toggle="list" href="#list-contact" role="tab">
+            <i class="fas fa-headset me-2"></i> 
+            <span class="nav-text">الدعم الفني</span>
           </a>
 
-          <!-- Logout -->
-          <a class="list-group-item list-group-item-action custom-tab text-danger" role="button" style="cursor: pointer;" (click)="logout()">
-            <i class="fas fa-right-from-bracket me-2"></i> تسجيل الخروج
+          <a class="list-group-item list-group-item-action custom-tab text-danger rounded-3 border-0 mt-auto" 
+             role="button" style="cursor: pointer;" (click)="logout()">
+            <i class="fas fa-right-from-bracket me-2"></i> 
+            <span class="nav-text">تسجيل الخروج</span>
           </a>
         </div>
       </div>
     </div>
 
-    <div class="col main-content px-0" id="mainContent">
-      <div class="tab-content px-3 px-md-4" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="list-home" role="tabpanel">
-          <h4><i class="fas fa-home me-2"></i>محتوى الصفحة الرئيسية
-            <button class="btn btn-outline-primary d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileSidebar">
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <div class="brand-logo bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
+               style="width: 40px; height: 40px;">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h5 class="offcanvas-title mb-0">منصة التعليم</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-3">
+        <div class="list-group w-100">
+          <a class="list-group-item list-group-item-action custom-tab active mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-home" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-home me-3 text-primary"></i>الصفحة الرئيسية
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-profile" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-user me-3"></i>الملف الشخصي
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-courses" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-graduation-cap me-3"></i>كورسات مجانية
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-my-courses" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-book-open me-3"></i>دوراتي
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-educational" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-chalkboard-teacher me-3"></i>الدورات التعليمية
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-assignments" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-tasks me-3"></i>الواجبات
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-exams" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-file-alt me-3"></i>الامتحانات
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-pdf" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-file-pdf me-3"></i>ملفات PDF
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-live" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-video me-3"></i>بث مباشر
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-privacy" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-shield-alt me-3"></i>سياسة الخصوصية
+          </a>
+          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-contact" role="tab" data-bs-dismiss="offcanvas">
+            <i class="fas fa-headset me-3"></i>الدعم الفني
+          </a>
+          <hr>
+          <a class="list-group-item list-group-item-action custom-tab text-danger rounded-3 border-0" 
+             role="button" (click)="logout()" data-bs-dismiss="offcanvas">
+            <i class="fas fa-right-from-bracket me-3"></i>تسجيل الخروج
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-9 col-xl-10 main-content px-0" id="mainContent">
+      <div class="d-lg-none bg-white shadow-sm border-bottom px-3 py-2 mb-3 sticky-top">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-primary me-3" type="button" 
+                    data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
               <i class="fas fa-bars"></i>
             </button>
-          </h4>
+            <div class="brand-logo bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" 
+                 style="width: 35px; height: 35px; font-size: 0.9rem;">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h6 class="mb-0">منصة البسيط</h6>
+          </div>
+          <!-- يمكن إضافة notifications أو user menu هنا -->
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user-circle"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>الملف الشخصي</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>الإعدادات</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" (click)="logout()">
+                <i class="fas fa-right-from-bracket me-2"></i>تسجيل الخروج
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content px-3 px-lg-4 py-3" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-home" role="tabpanel">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">
+              <i class="fas fa-home me-2 text-primary"></i>محتوى الصفحة الرئيسية
+            </h4>
+            <nav class="d-none d-md-block">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
+                <li class="breadcrumb-item active">الصفحة الرئيسية</li>
+              </ol>
+            </nav>
+          </div>
         </div>
 
         <div class="tab-pane fade" id="list-profile" role="tabpanel">
-          <h4><i class="fas fa-user me-2"></i>الملف الشخصي</h4>
-          <p>محتوى الملف الشخصي - يمكنك تعديل بياناتك الشخصية من هنا.</p>
-          <hr/>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">
+              <i class="fas fa-user me-2 text-primary"></i>الملف الشخصي
+            </h4>
+            <nav class="d-none d-md-block">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
+                <li class="breadcrumb-item active">الملف الشخصي</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="alert alert-info rounded-4" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
+            يمكنك تعديل بياناتك الشخصية من هنا.
+          </div>
+          <hr class="my-4"/>
           <app-personal-file></app-personal-file>
         </div>
 
@@ -83,7 +230,6 @@
         </div>
 
         <div class="tab-pane fade" id="list-my-courses" role="tabpanel">
-         
           <app-my-courses></app-my-courses>
         </div>
 
@@ -92,29 +238,80 @@
         </div>
 
         <div class="tab-pane fade" id="list-assignments" role="tabpanel">
-          <h4><i class="fas fa-tasks me-2"></i>الواجبات</h4>
-          <p>الواجبات المطلوبة منك وحالة تنفيذها.</p>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">
+              <i class="fas fa-tasks me-2 text-primary"></i>الواجبات
+            </h4>
+            <nav class="d-none d-md-block">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
+                <li class="breadcrumb-item active">الواجبات</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="alert alert-warning rounded-4" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            الواجبات المطلوبة منك وحالة تنفيذها.
+          </div>
         </div>
 
         <div class="tab-pane fade" id="list-exams" role="tabpanel">
-          <h4><i class="fas fa-file-alt me-2"></i>الامتحانات</h4>
-          <p>جميع الامتحانات والاختبارات المتاحة.</p>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">
+              <i class="fas fa-file-alt me-2 text-primary"></i>الامتحانات
+            </h4>
+            <nav class="d-none d-md-block">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
+                <li class="breadcrumb-item active">الامتحانات</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="alert alert-dark rounded-4" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            جميع الامتحانات الشهرية والاختبارات .
+          </div>
         </div>
 
         <div class="tab-pane fade" id="list-pdf" role="tabpanel">
-          <h4><i class="fas fa-file-pdf me-2"></i>ملفات PDF</h4>
-          <p>جميع ملفات PDF التعليمية والمراجع.</p>
-          <hr/>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">
+              <i class="fas fa-file-pdf me-2 text-danger"></i>ملفات PDF
+            </h4>
+            <nav class="d-none d-md-block">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
+                <li class="breadcrumb-item active">ملفات PDF</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="alert alert-secondary rounded-4" role="alert">
+            <i class="fas fa-download me-2"></i>
+            جميع ملفات PDF التعليمية والمراجع.
+          </div>
+          <hr class="my-4"/>
           <app-pdfs></app-pdfs>
         </div>
 
         <div class="tab-pane fade" id="list-live" role="tabpanel">
-          <h4><i class="fas fa-video me-2"></i>البث المباشر</h4>
-          <p>البث المباشر للمحاضرات والدروس.</p>
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">
+              <i class="fas fa-video me-2 text-danger"></i>البث المباشر
+            </h4>
+            <nav class="d-none d-md-block">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
+                <li class="breadcrumb-item active">البث المباشر</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="alert alert-danger rounded-4" role="alert">
+            <i class="fas fa-broadcast-tower me-2"></i>
+            البث المباشر للمحاضرات والدروس.
+          </div>
         </div>
 
         <div class="tab-pane fade" id="list-privacy" role="tabpanel">
-        
           <app-privacy></app-privacy>
         </div>
 
@@ -125,3 +322,7 @@
     </div>
   </div>
 </div>
+
+<style>
+
+</style>

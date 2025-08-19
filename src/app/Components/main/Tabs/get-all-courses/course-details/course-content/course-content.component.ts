@@ -9,6 +9,7 @@ import videojs from 'video.js';
 import Player from 'video.js/dist/types/player';
 import { StudentCourseService } from '../../../../../../Services/student-course.service';
 import { map, Observable } from 'rxjs';
+import Plyr from 'plyr';
 
 @Component({
   selector: 'app-course-content',
@@ -18,12 +19,299 @@ import { map, Observable } from 'rxjs';
   styleUrl: './course-content.component.css'
 })
 export class CourseContentComponent implements OnInit, AfterViewInit, OnDestroy {
-private courseService = inject(CourseService);
+// private courseService = inject(CourseService);
+//   private route = inject(ActivatedRoute);
+//   private router = inject(Router);
+//   private toastr = inject(ToastrService);
+//   private cdr = inject(ChangeDetectorRef);
+// private studentCourseService = inject(StudentCourseService); 
+//   courseId: number | null = null;
+//   content: CourseContent | null = null;
+//   isLoading: boolean = false;
+//   errorMessage: string | null = null;
+//   isNotEnrolled: boolean = false;
+//   selectedLesson: ILesson | null = null;
+//   isPreviewMode: boolean = false;
+//   private isInitializing = false;
+//   enrolledCourses$: Observable<number[]>; 
+
+
+//   @ViewChild('videoPlayer') videoPlayer!: ElementRef;
+//   private player: Player | null = null;
+// constructor() {
+//     this.enrolledCourses$ = this.studentCourseService.getMyCourses().pipe(
+//       map(courses => courses.map(course => course.id))
+//     );
+//   }
+//   ngOnInit(): void {
+// this.courseId = Number(this.route.snapshot.paramMap.get('id'));
+//     if (this.courseId) {
+//       debugger;
+//       this.enrolledCourses$.subscribe(enrolledIds => {
+//         console.log('Enrolled Course IDs:', enrolledIds); 
+//       console.log('Current Course ID:', this.courseId);
+//         if (!enrolledIds.includes(this.courseId ?? 0)) {
+//           this.isNotEnrolled = true;
+//           this.errorMessage = 'أنت غير مشترك في هذا الكورس';
+//           this.toastr.warning(this.errorMessage);
+//         } else {
+//           this.isNotEnrolled = false;
+//           this.loadContent();
+//         }
+//       });
+//     } 
+//     else {
+//       this.errorMessage = 'رقم الكورس غير صالح';
+//       this.toastr.error(this.errorMessage);
+//     }
+//   }
+
+//   ngAfterViewInit(): void {
+//     this.cdr.detectChanges();
+//     this.initializeVideoJs();
+//   }
+
+//   ngOnDestroy(): void {
+//     if (this.player) {
+//       this.player.dispose();
+//       this.player = null;
+//     }
+//   }
+
+//   initializeVideoJs() {
+//     if (this.isInitializing) {
+//       return;
+//     }
+
+//     this.isInitializing = true;
+
+//     if (this.player) {
+//       this.player.dispose();
+//       this.player = null;
+//     }
+
+//     if (!this.videoPlayer || !this.videoPlayer.nativeElement) {
+//       this.isInitializing = false;
+//       return;
+//     }
+
+//     if (this.selectedLesson && this.hasVideoContent()) {
+//       try {
+//         const videoSource = this.getCurrentVideoUrl();
+
+//         this.player = videojs(this.videoPlayer.nativeElement, {
+//           controls: true,
+//           autoplay: false,
+//           fluid: true,
+//           responsive: true,
+//           aspectRatio: '16:9',
+//           fill: false,
+//           playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
+//           sources: [{
+//             src: videoSource,
+//             type: 'video/mp4'
+//           }],
+//           userActions: {
+//             hotkeys: true
+//           }
+//         });
+
+//         this.player.ready(() => {
+//           console.log('Video.js player is ready');
+//           this.maintainVideoSize();
+//           this.isInitializing = false;
+//         });
+
+//         this.player.on('error', () => {
+//           this.toastr.error('حدث خطأ في تحميل الفيديو');
+//           this.isInitializing = false;
+//         });
+
+//         this.player.on('loadstart', () => {
+//           console.log('Video loading started');
+//           this.maintainVideoSize();
+//         });
+
+//         this.player.on('canplay', () => {
+//           this.maintainVideoSize();
+//         });
+
+//       } catch (error) {
+//         console.error('Error initializing Video.js:', error);
+//         this.toastr.error('حدث خطأ في تحميل مشغل الفيديو');
+//         this.isInitializing = false;
+//       }
+//     } else {
+//       this.isInitializing = false;
+//     }
+//   }
+
+//   maintainVideoSize() {
+//     if (this.player) {
+//       this.player.dimensions('100%', 'auto');
+//       this.player.fluid(true);
+//     }
+//   }
+
+//   selectLesson(lesson: ILesson) {
+//     this.selectedLesson = {
+//       ...lesson,
+//       videoUrl: lesson.videoUrl || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+//       previewVideoUrl: lesson.previewVideoUrl || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
+//     };
+//     this.isPreviewMode = false;
+
+//     this.cdr.detectChanges();
+//     this.initializeVideoJs();
+//   }
+
+//   togglePreview() {
+//     if (!this.selectedLesson?.previewVideoUrl) {
+//       this.toastr.warning('لا يوجد فيديو مختصر لهذا الدرس');
+//       return;
+//     }
+
+//     this.isPreviewMode = !this.isPreviewMode;
+//     this.updateVideoSourceOnly();
+//   }
+
+//   updateVideoSourceOnly() {
+//     if (this.player && this.selectedLesson && this.hasVideoContent()) {
+//       const videoSource = this.getCurrentVideoUrl();
+//       const currentTime = this.player.currentTime();
+
+//       this.player.src({
+//         src: videoSource,
+//         type: 'video/mp4'
+//       });
+
+//       setTimeout(() => {
+//         this.maintainVideoSize();
+//       }, 100);
+//     }
+//   }
+
+//   updateVideoSource() {
+//     if (this.player && this.selectedLesson && this.hasVideoContent()) {
+//       const videoSource = this.getCurrentVideoUrl();
+
+//       this.player.src([{
+//         src: videoSource,
+//         type: 'video/mp4'
+//       }]);
+
+//       this.player.load();
+
+//       setTimeout(() => {
+//         this.maintainVideoSize();
+//       }, 100);
+//     } else {
+//       this.initializeVideoJs();
+//     }
+//   }
+
+//   getCurrentVideoUrl(): string {
+//     if (!this.selectedLesson) return '';
+
+//     return this.isPreviewMode && this.selectedLesson.previewVideoUrl
+//       ? this.selectedLesson.previewVideoUrl
+//       : this.selectedLesson.videoUrl || '';
+//   }
+
+//   hasVideoContent(): boolean {
+//     return !!(this.selectedLesson?.videoUrl || this.selectedLesson?.previewVideoUrl);
+//   }
+
+//   downloadPDF() {
+//     if (this.selectedLesson?.pdfUrl) {
+//       window.open(this.selectedLesson.pdfUrl, '_blank');
+//     } else {
+//       this.toastr.warning('لا يوجد ملف PDF لهذا الدرس');
+//     }
+//   }
+
+//   loadContent() {
+//     if (!this.courseId) return;
+
+//     this.isLoading = true;
+//     this.errorMessage = null;
+
+//     this.courseService.getCourseContent(this.courseId).subscribe({
+//       next: (content: CourseContent) => {
+//         this.content = content;
+//         this.isLoading = false;
+//         console.log('Course content loaded:', content);
+
+//         if (content.lessons && content.lessons.length > 0) {
+//           this.selectLesson(content.lessons[0]);
+//         }
+//       },
+//       error: (err) => {
+//         this.isLoading = false;
+//         this.handleLoadError(err);
+//       }
+//     });
+//   }
+
+//   private handleLoadError(err: any) {
+//     if (err.status === 401) {
+//       this.errorMessage = 'برجاء تسجيل الدخول أولاً';
+//       this.toastr.error(this.errorMessage);
+//       this.router.navigate(['/login']);
+//     } else if (err.status === 403) {
+//       this.isNotEnrolled = true;
+//       this.errorMessage = 'أنت غير مشترك في هذا الكورس';
+//       this.toastr.error(this.errorMessage);
+//     } else if (err.status === 404) {
+//       this.errorMessage = 'محتوى الكورس غير متوفر';
+//       this.toastr.error(this.errorMessage);
+//     } else {
+//       this.errorMessage = 'حدث خطأ أثناء تحميل المحتوى';
+//       this.toastr.error(this.errorMessage);
+//     }
+//     console.error('Error loading course content:', err);
+//   }
+
+//   enrollInCourse() {
+//     if (!this.courseId) return;
+
+//     this.courseService.enrollInCourse(this.courseId).subscribe({
+//       next: () => {
+//         this.toastr.success('تم الاشتراك في الكورس بنجاح');
+//         this.isNotEnrolled = false;
+//         this.loadContent();
+//       },
+//       error: (err) => {
+//         this.toastr.warning(err.error?.message || 'من فضلك تواصل مع الدعم للأشتراك');
+//         console.error('Error enrolling in course:', err);
+//       }
+//     });
+//   }
+
+//   getLessonIcon(lesson: ILesson): string {
+//     if (lesson.videoUrl|| lesson.previewVideoUrl) {
+//       return 'bi-play-circle-fill';
+//     } else if (lesson.pdfUrl) {
+//       return 'bi-file-earmark-pdf';
+//     }
+//     return 'bi-book';
+//   }
+
+//   getLessonBadge(lesson: ILesson): string {
+//     if (lesson.videoUrl || lesson.previewVideoUrl) {
+//       return 'فيديو';
+//     } else if (lesson.pdfUrl) {
+//       return 'PDF';
+//     }
+//     return 'درس';
+//   }
+ private courseService = inject(CourseService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private toastr = inject(ToastrService);
   private cdr = inject(ChangeDetectorRef);
-private studentCourseService = inject(StudentCourseService); 
+  private studentCourseService = inject(StudentCourseService);
+
   courseId: number | null = null;
   content: CourseContent | null = null;
   isLoading: boolean = false;
@@ -31,179 +319,245 @@ private studentCourseService = inject(StudentCourseService);
   isNotEnrolled: boolean = false;
   selectedLesson: ILesson | null = null;
   isPreviewMode: boolean = false;
-  private isInitializing = false;
-  enrolledCourses$: Observable<number[]>; 
+  enrolledCourses$: Observable<number[]>;
 
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
+  private player: any = null;
+  private isPlayerInitializing = false;
 
-  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
-  private player: Player | null = null;
-constructor() {
+  constructor() {
     this.enrolledCourses$ = this.studentCourseService.getMyCourses().pipe(
       map(courses => courses.map(course => course.id))
     );
   }
+
   ngOnInit(): void {
-   this.courseId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.courseId) {
-      debugger;
-      this.enrolledCourses$.subscribe(enrolledIds => {
-        if (!enrolledIds.includes(this.courseId ?? 0)) {
-          this.isNotEnrolled = true;
-          this.errorMessage = 'أنت غير مشترك في هذا الكورس';
-          this.toastr.warning(this.errorMessage);
-        } else {
-          this.isNotEnrolled = false;
-          this.loadContent();
-        }
-      });
-    } 
-    else {
-      this.errorMessage = 'رقم الكورس غير صالح';
-      this.toastr.error(this.errorMessage);
-    }
+    // تحميل Plyr scripts و styles
+    this.loadPlyrAssets().then(() => {
+      this.courseId = Number(this.route.snapshot.paramMap.get('id'));
+      if (this.courseId) {
+        this.enrolledCourses$.subscribe(enrolledIds => {
+          console.log('Enrolled Course IDs:', enrolledIds);
+          console.log('Current Course ID:', this.courseId);
+          if (!enrolledIds.includes(this.courseId ?? 0)) {
+            this.isNotEnrolled = true;
+            this.errorMessage = 'أنت غير مشترك في هذا الكورس';
+            this.toastr.warning(this.errorMessage);
+          } else {
+            this.isNotEnrolled = false;
+            this.loadContent();
+          }
+        });
+      } else {
+        this.errorMessage = 'رقم الكورس غير صالح';
+        this.toastr.error(this.errorMessage);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
-    this.initializeVideoJs();
   }
 
   ngOnDestroy(): void {
-    if (this.player) {
-      this.player.dispose();
-      this.player = null;
-    }
+    this.destroyPlayer();
   }
 
-  initializeVideoJs() {
-    if (this.isInitializing) {
-      return;
-    }
-
-    this.isInitializing = true;
-
-    if (this.player) {
-      this.player.dispose();
-      this.player = null;
-    }
-
-    if (!this.videoPlayer || !this.videoPlayer.nativeElement) {
-      this.isInitializing = false;
-      return;
-    }
-
-    if (this.selectedLesson && this.hasVideoContent()) {
-      try {
-        const videoSource = this.getCurrentVideoUrl();
-
-        this.player = videojs(this.videoPlayer.nativeElement, {
-          controls: true,
-          autoplay: false,
-          fluid: true,
-          responsive: true,
-          aspectRatio: '16:9',
-          fill: false,
-          playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
-          sources: [{
-            src: videoSource,
-            type: 'video/mp4'
-          }],
-          userActions: {
-            hotkeys: true
-          }
-        });
-
-        this.player.ready(() => {
-          console.log('Video.js player is ready');
-          this.maintainVideoSize();
-          this.isInitializing = false;
-        });
-
-        this.player.on('error', () => {
-          this.toastr.error('حدث خطأ في تحميل الفيديو');
-          this.isInitializing = false;
-        });
-
-        this.player.on('loadstart', () => {
-          console.log('Video loading started');
-          this.maintainVideoSize();
-        });
-
-        this.player.on('canplay', () => {
-          this.maintainVideoSize();
-        });
-
-      } catch (error) {
-        console.error('Error initializing Video.js:', error);
-        this.toastr.error('حدث خطأ في تحميل مشغل الفيديو');
-        this.isInitializing = false;
+  private async loadPlyrAssets(): Promise<void> {
+    return new Promise((resolve) => {
+      // تحقق إذا كان Plyr محمل بالفعل
+      if (typeof Plyr !== 'undefined') {
+        resolve();
+        return;
       }
-    } else {
-      this.isInitializing = false;
-    }
+
+      const cssLink = document.createElement('link');
+      cssLink.rel = 'stylesheet';
+      cssLink.href = 'https://cdn.plyr.io/3.7.8/plyr.css';
+      document.head.appendChild(cssLink);
+
+      const script = document.createElement('script');
+      script.src = 'https://cdn.plyr.io/3.7.8/plyr.polyfilled.js';
+      script.onload = () => {
+        console.log('Plyr loaded successfully');
+        resolve();
+      };
+      script.onerror = () => {
+        console.error('Failed to load Plyr');
+        this.toastr.error('فشل في تحميل مشغل الفيديو');
+        resolve();
+      };
+      document.head.appendChild(script);
+    });
   }
 
-  maintainVideoSize() {
+  private destroyPlayer(): void {
     if (this.player) {
-      this.player.dimensions('100%', 'auto');
-      this.player.fluid(true);
+      try {
+        this.player.destroy();
+        this.player = null;
+        console.log('Plyr player destroyed');
+      } catch (error) {
+        console.error('Error destroying Plyr player:', error);
+      }
     }
   }
 
-  selectLesson(lesson: ILesson) {
+  private initializePlayer(): void {
+    if (this.isPlayerInitializing || typeof Plyr === 'undefined') {
+      return;
+    }
+
+    this.isPlayerInitializing = true;
+
+    // تدمير المشغل السابق
+    this.destroyPlayer();
+
+    // التأكد من وجود عنصر الفيديو
+    if (!this.videoPlayer?.nativeElement) {
+      this.isPlayerInitializing = false;
+      return;
+    }
+
+    // التأكد من وجود محتوى فيديو
+    if (!this.selectedLesson || !this.hasVideoContent()) {
+      this.isPlayerInitializing = false;
+      return;
+    }
+
+    try {
+      // تعيين مصدر الفيديو
+      const videoSource = this.getCurrentVideoUrl();
+      this.videoPlayer.nativeElement.src = videoSource;
+
+      // إنشاء مشغل Plyr جديد
+      this.player = new Plyr(this.videoPlayer.nativeElement, {
+        controls: [
+          'play-large',
+          'play',
+          'progress', 
+          'current-time',
+          'duration',
+          'mute',
+          'volume',
+          'settings',
+          'pip',
+          'airplay',
+          'fullscreen'
+        ],
+        settings: ['quality', 'speed'],
+        speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] },
+        ratio: '16:9',
+        fullscreen: { enabled: true, fallback: true, iosNative: true },
+        keyboard: { focused: true, global: false },
+        tooltips: { controls: true, seek: true },
+        captions: { active: false, update: false, language: 'ar' },
+        quality: { default: 720, options: [480, 720, 1080] }
+      });
+
+      // معالجة الأحداث
+      this.player.on('ready', () => {
+        console.log('Plyr player is ready');
+        this.isPlayerInitializing = false;
+      });
+
+      this.player.on('error', (event: any) => {
+        console.error('Plyr error:', event.detail);
+        this.toastr.error('حدث خطأ في تشغيل الفيديو');
+        this.isPlayerInitializing = false;
+      });
+
+      this.player.on('loadstart', () => {
+        console.log('Video loading started');
+      });
+
+      this.player.on('canplay', () => {
+        console.log('Video can start playing');
+      });
+
+      this.player.on('play', () => {
+        console.log('Video started playing');
+      });
+
+      this.player.on('pause', () => {
+        console.log('Video paused');
+      });
+
+    } catch (error) {
+      console.error('Error initializing Plyr player:', error);
+      this.toastr.error('حدث خطأ في تحميل مشغل الفيديو');
+      this.isPlayerInitializing = false;
+    }
+  }
+
+  selectLesson(lesson: ILesson): void {
+    // حفظ الوقت الحالي قبل التغيير (اختياري)
+    let currentTime = 0;
+    if (this.player) {
+      currentTime = this.player.currentTime || 0;
+    }
+
+    // تحديث الدرس المحدد
     this.selectedLesson = {
       ...lesson,
-      videoUrl: lesson.videoUrl || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      previewVideoUrl: lesson.previewVideoUrl || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
+      videoUrl: lesson.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      previewVideoUrl: lesson.previewVideoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
     };
+    
     this.isPreviewMode = false;
 
+    // إعادة تشغيل الكشف عن التغييرات وتهيئة المشغل
     this.cdr.detectChanges();
-    this.initializeVideoJs();
+    
+    // انتظار قصير لضمان تحديث الـ DOM
+    setTimeout(() => {
+      this.initializePlayer();
+    }, 100);
   }
 
-  togglePreview() {
+  togglePreview(): void {
     if (!this.selectedLesson?.previewVideoUrl) {
       this.toastr.warning('لا يوجد فيديو مختصر لهذا الدرس');
       return;
     }
 
-    this.isPreviewMode = !this.isPreviewMode;
-    this.updateVideoSourceOnly();
-  }
-
-  updateVideoSourceOnly() {
-    if (this.player && this.selectedLesson && this.hasVideoContent()) {
-      const videoSource = this.getCurrentVideoUrl();
-      const currentTime = this.player.currentTime();
-
-      this.player.src({
-        src: videoSource,
-        type: 'video/mp4'
-      });
-
-      setTimeout(() => {
-        this.maintainVideoSize();
-      }, 100);
+    // حفظ الوقت الحالي
+    let currentTime = 0;
+    if (this.player) {
+      currentTime = this.player.currentTime || 0;
     }
+
+    this.isPreviewMode = !this.isPreviewMode;
+    this.updateVideoSource();
   }
 
-  updateVideoSource() {
-    if (this.player && this.selectedLesson && this.hasVideoContent()) {
-      const videoSource = this.getCurrentVideoUrl();
+  private updateVideoSource(): void {
+    if (!this.player || !this.selectedLesson || !this.hasVideoContent()) {
+      return;
+    }
 
-      this.player.src([{
-        src: videoSource,
-        type: 'video/mp4'
-      }]);
+    const videoSource = this.getCurrentVideoUrl();
+    
+    try {
+      // تحديث مصدر الفيديو بطريقة آمنة
+      this.player.source = {
+        type: 'video',
+        sources: [
+          {
+            src: videoSource,
+            type: 'video/mp4'
+          }
+        ]
+      };
 
-      this.player.load();
-
+      console.log('Video source updated:', videoSource);
+      
+    } catch (error) {
+      console.error('Error updating video source:', error);
+      // في حالة فشل التحديث، إعادة تهيئة المشغل
       setTimeout(() => {
-        this.maintainVideoSize();
+        this.initializePlayer();
       }, 100);
-    } else {
-      this.initializeVideoJs();
     }
   }
 
@@ -219,15 +573,21 @@ constructor() {
     return !!(this.selectedLesson?.videoUrl || this.selectedLesson?.previewVideoUrl);
   }
 
-  downloadPDF() {
+  downloadPDF(): void {
     if (this.selectedLesson?.pdfUrl) {
       window.open(this.selectedLesson.pdfUrl, '_blank');
     } else {
       this.toastr.warning('لا يوجد ملف PDF لهذا الدرس');
     }
   }
-
-  loadContent() {
+  QuizRouter(lessonId: number): void {
+    if (this.selectedLesson) {
+    this.router.navigate(['/quiz', lessonId]);
+    } else {
+      this.toastr.warning('لا يوجد امتحان لهذا الدرس');
+    }
+  }
+  loadContent(): void {
     if (!this.courseId) return;
 
     this.isLoading = true;
@@ -240,7 +600,9 @@ constructor() {
         console.log('Course content loaded:', content);
 
         if (content.lessons && content.lessons.length > 0) {
-          this.selectLesson(content.lessons[0]);
+          setTimeout(() => {
+            this.selectLesson(content.lessons[0]);
+          }, 200);
         }
       },
       error: (err) => {
@@ -250,7 +612,7 @@ constructor() {
     });
   }
 
-  private handleLoadError(err: any) {
+  private handleLoadError(err: any): void {
     if (err.status === 401) {
       this.errorMessage = 'برجاء تسجيل الدخول أولاً';
       this.toastr.error(this.errorMessage);
@@ -269,7 +631,7 @@ constructor() {
     console.error('Error loading course content:', err);
   }
 
-  enrollInCourse() {
+  enrollInCourse(): void {
     if (!this.courseId) return;
 
     this.courseService.enrollInCourse(this.courseId).subscribe({
@@ -279,7 +641,7 @@ constructor() {
         this.loadContent();
       },
       error: (err) => {
-        this.toastr.warning(err.error?.message || 'من فضلك تواصل مع الدعم للأشتراك');
+        this.toastr.warning(err.error?.message || 'من فضلك تواصل مع الدعم للاشتراك');
         console.error('Error enrolling in course:', err);
       }
     });
@@ -302,4 +664,6 @@ constructor() {
     }
     return 'درس';
   }
+
+
 }

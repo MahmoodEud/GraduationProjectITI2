@@ -1,0 +1,100 @@
+<div class="container mt-4">
+  <h2 class="mb-4">قائمة الدروس</h2>
+
+  <div class="mb-3">
+    <button class="btn btn-success" (click)="createLesson()">إنشاء درس جديد</button>
+  </div>
+
+  @if (isLoading) {
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">جاري التحميل...</span>
+      </div>
+    </div>
+  }
+
+  @if (errorMessage && !isLoading) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (!isLoading && lessons.length > 0) {
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">الرقم</th>
+            <th scope="col">العنوان</th>
+            <th scope="col">رقم الكورس</th>
+            <th scope="col">رابط الفيديو</th>
+            <th scope="col">رابط فيديو المعاينة</th>
+            <th scope="col">رابط PDF</th>
+            <th scope="col">إجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (lesson of lessons; track lesson.id) {
+            <tr>
+              <td>{{ lesson.id }}</td>
+              <td>{{ lesson.title }}</td>
+              <td>{{ lesson.courseId }}</td>
+              <td>
+                @if (lesson.videoUrl) {
+                  <a [href]="lesson.videoUrl" target="_blank" class="text-primary">عرض الفيديو</a>
+                } @else {
+                  <span>غير متوفر</span>
+                }
+              </td>
+              <td>
+                @if (lesson.previewVideoUrl) {
+                  <a [href]="lesson.previewVideoUrl" target="_blank" class="text-primary">عرض المعاينة</a>
+                } @else {
+                  <span>غير متوفر</span>
+                }
+              </td>
+              <td>
+                @if (lesson.pdfUrl) {
+                  <a [href]="lesson.pdfUrl" target="_blank" class="text-primary">تحميل PDF</a>
+                } @else {
+                  <span>غير متوفر</span>
+                }
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm me-2" (click)="updateLesson(lesson.id)">تعديل</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteLesson(lesson.id)">حذف</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else if (!isLoading) {
+    <div class="alert alert-info" role="alert">
+      لا توجد دروس متاحة.
+    </div>
+  }
+
+  <!-- Pagination -->
+  @if (totalPages > 1) {
+    <nav aria-label="Page navigation" class="mt-4">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="pageNumber === 1">
+          <a class="page-link" (click)="changePage(pageNumber - 1)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        @for (page of [].constructor(totalPages); track $index) {
+          <li class="page-item" [class.active]="pageNumber === $index + 1">
+            <a class="page-link" (click)="changePage($index + 1)">{{ $index + 1 }}</a>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="pageNumber === totalPages">
+          <a class="page-link" (click)="changePage(pageNumber + 1)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  }
+</div>

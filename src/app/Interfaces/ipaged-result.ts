@@ -3,4 +3,7 @@ export interface IPagedResult<T> {
   totalCount: number;
   page: number;
   pageSize: number;
+  totalPages: number;
+
 }
+

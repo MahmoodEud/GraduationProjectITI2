@@ -70,12 +70,16 @@ export class CourseService {
     return this.http.get<CourseStats>(`${this.controllerUrl}/stats`);
   }
 
-  // getCourseContent(id: number): Observable<CourseContent> {
-  //   return this.http.get<CourseContent>(`${this.controllerUrl}/${id}/content`);
-  // }
- getCourseContent(id: number): Observable<CourseContent> {
-    return this.http.get<CourseContent>(`${this.controllerUrl}/${id}/content`);
+
+getCourseContent(id: number, studentId?: number): Observable<CourseContent> {
+  let params = new HttpParams();
+  if (studentId) {
+    params = params.set('studentId', studentId);
   }
+  return this.http.get<CourseContent>(`${this.controllerUrl}/${id}/content`, { params }).pipe(
+    catchError(err => throwError(() => new Error(err.error?.message || 'Failed to fetch course content')))
+  );
+}
 
   enrollInCourse(courseId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/${courseId}`, {}).pipe(

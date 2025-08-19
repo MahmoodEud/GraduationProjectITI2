@@ -3,9 +3,8 @@
     <label for="yearSelect" class="form-label fw-semibold">السنة</label>
     <select id="yearSelect" [(ngModel)]="selectedYear" (change)="onYearChange()" class="form-select">
       <option [ngValue]="null">كل السنوات</option>
-      @for ( y of years ; track y.value ) {
-        
-        <option  [ngValue]="y.value">{{ y.label }}</option>
+      @for (y of years; track y.value) {
+        <option [ngValue]="y.value">{{ y.label }}</option>
       }
     </select>
   </div>
@@ -14,9 +13,8 @@
     <label for="roleSelect" class="form-label fw-semibold">الدور</label>
     <select id="roleSelect" [(ngModel)]="selectedRole" (change)="onRoleChange()" class="form-select">
       <option [ngValue]="null">كل الأدوار</option>
-      @for ( r of roles ; track r ) {
-        
-        <option  [ngValue]="r">{{ r }}</option>
+      @for (r of roles; track r) {
+        <option [ngValue]="r">{{ r }}</option>
       }
     </select>
   </div>
@@ -66,12 +64,12 @@
         <td class="text-end">{{ s.phoneNumber }}</td>
         <td class="text-end">{{ s.role }}</td>
         <td class="text-end">
-          <div class="btn-group btn-group-sm " role="group" aria-label="Actions">
-        <button 
-          class="btn btn-primary rounded-pill mx-1"
-          [routerLink]="['/admin/users', s.id, 'edit']">
-          <i class="fas fa-edit"></i> تعديل
-        </button>
+          <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+            <button 
+              class="btn btn-primary rounded-pill mx-1"
+              [routerLink]="['/admin/users', s.id, 'edit']">
+              <i class="fas fa-edit"></i> تعديل
+            </button>
             <button class="btn btn-danger rounded-pill" (click)="onDelete(s.id)">
               <i class="fas fa-trash-alt"></i> حذف
             </button>
@@ -100,11 +98,16 @@
   </tfoot>
 </table>
 
-
 <div class="d-flex align-items-center justify-content-between mt-3">
-  <button (click)="prevPage()" class="btn btn-outline-secondary btn-sm">السابق</button>
-  <span>صفحة {{ pageNumber }} من {{ totalPages }}</span>
-  <button (click)="nextPage()" class="btn btn-outline-secondary btn-sm">التالي</button>
+  <button (click)="prevPage()" class="btn btn-outline-secondary btn-sm" [disabled]="pageNumber === 1">السابق</button>
+  <div>
+    @for (page of [].constructor(totalPages); track $index) {
+      <button class="btn btn-outline-secondary btn-sm mx-1" 
+              [class.active]="pageNumber === $index + 1" 
+              (click)="pageNumber = $index + 1; getAllStudents()">
+        {{ $index + 1 }}
+      </button>
+    }
+  </div>
+  <button (click)="nextPage()" class="btn btn-outline-secondary btn-sm" [disabled]="pageNumber === totalPages || totalPages === 0">التالي</button>
 </div>
-
-

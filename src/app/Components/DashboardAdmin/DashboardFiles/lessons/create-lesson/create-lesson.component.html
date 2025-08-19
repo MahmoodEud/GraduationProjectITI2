@@ -1,0 +1,120 @@
+<div class="container my-5">
+  <h2 class="mb-4 text-center">إنشاء درس جديد</h2>
+
+  <form (ngSubmit)="submit()" #lessonForm="ngForm" class="p-4 shadow rounded bg-light">
+    <!-- العنوان -->
+    <div class="mb-3">
+      <label for="title" class="form-label">عنوان الدرس</label>
+      <input
+        [(ngModel)]="lesson.title"
+        name="title"
+        id="title"
+        class="form-control"
+        placeholder="أدخل عنوان الدرس"
+        required
+        maxlength="500"
+        #titleCtrl="ngModel"
+        [ngClass]="{ 'is-invalid': titleCtrl.invalid && titleCtrl.touched }"
+      >
+      <div class="invalid-feedback">
+        عنوان الدرس مطلوب ويجب ألا يتجاوز 500 حرف.
+      </div>
+    </div>
+
+    <!-- الكورس -->
+    <div class="mb-3">
+      <label for="courseId" class="form-label">الكورس</label>
+      <select
+        [(ngModel)]="lesson.courseId"
+        name="courseId"
+        id="courseId"
+        class="form-select"
+        required
+        #courseCtrl="ngModel"
+        [ngClass]="{ 'is-invalid': courseCtrl.invalid && courseCtrl.touched }"
+      >
+        <option value="0" disabled>اختر كورس</option>
+        @for (course of courses; track course.id) {
+          <option [value]="course.id">{{ course.title }}</option>
+        }
+      </select>
+      <div class="invalid-feedback">
+        اختيار الكورس مطلوب.
+      </div>
+    </div>
+
+    <!-- الفيديو -->
+    <div class="mb-3">
+      <label for="videoUrl" class="form-label">رابط الفيديو</label>
+      <input
+        [(ngModel)]="lesson.videoUrl"
+        name="videoUrl"
+        id="videoUrl"
+        class="form-control"
+        placeholder="أدخل رابط الفيديو"
+        required
+        pattern="https?://.+"
+        #videoCtrl="ngModel"
+        [ngClass]="{ 'is-invalid': videoCtrl.invalid && videoCtrl.touched }"
+      >
+      <div class="invalid-feedback">
+        رابط الفيديو مطلوب ويجب أن يكون رابطًا صالحًا.
+      </div>
+    </div>
+
+    <!-- فيديو المعاينة -->
+    <div class="mb-3">
+      <label for="previewVideoUrl" class="form-label">رابط فيديو المعاينة (اختياري)</label>
+      <input
+        [(ngModel)]="lesson.previewVideoUrl"
+        name="previewVideoUrl"
+        id="previewVideoUrl"
+        class="form-control"
+        placeholder="أدخل رابط فيديو المعاينة"
+        pattern="https?://.+"
+        #previewCtrl="ngModel"
+        [ngClass]="{ 'is-invalid': previewCtrl.invalid && previewCtrl.touched }"
+      >
+      <div class="invalid-feedback">
+        رابط فيديو المعاينة يجب أن يكون رابطًا صالحًا إذا تم إدخاله.
+      </div>
+    </div>
+
+    <!-- PDF -->
+    <div class="mb-3">
+      <label for="pdfUrl" class="form-label">رابط الـ PDF</label>
+      <input
+        [(ngModel)]="lesson.pdfUrl"
+        name="pdfUrl"
+        id="pdfUrl"
+        class="form-control"
+        placeholder="أدخل رابط الـ PDF"
+        required
+        pattern="https?://.+"
+        #pdfCtrl="ngModel"
+        [ngClass]="{ 'is-invalid': pdfCtrl.invalid && pdfCtrl.touched }"
+      >
+      <div class="invalid-feedback">
+        رابط الـ PDF مطلوب ويجب أن يكون رابطًا صالحًا.
+      </div>
+    </div>
+
+    <!-- زر الإنشاء -->
+    <div class="d-flex justify-content-center">
+      <button
+        type="submit"
+        class="btn btn-primary px-5"
+        [disabled]="isSubmitting || lessonForm.invalid"
+      >
+        {{ isSubmitting ? 'جاري الإنشاء...' : 'إنشاء الدرس' }}
+      </button>
+    </div>
+
+    <!-- رسالة خطأ -->
+    @if (errorMessage) {
+      <div class="alert alert-danger mt-3 text-center">
+        {{ errorMessage }}
+      </div>
+    }
+  </form>
+</div>

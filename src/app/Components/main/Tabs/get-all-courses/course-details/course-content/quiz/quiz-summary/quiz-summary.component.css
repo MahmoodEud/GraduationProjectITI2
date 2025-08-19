@@ -1,0 +1,92 @@
+.list-group-item {
+    border-radius: 5px;
+}
+
+.btn-primary {
+    margin-top: 1rem;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.list-group-item {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+    background-color: rgba(0, 123, 255, 0.05) !important;
+}
+
+.btn {
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.spinner-border {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 576px) {
+    .card-header h4 {
+        font-size: 1.1rem;
+    }
+
+    .list-group-item {
+        padding: 1rem 0.75rem !important;
+    }
+
+    .badge {
+        font-size: 0.75rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+}
+
+.fas {
+    font-size: 1rem;
+}
+
+.text-sm-end {
+    text-align: start;
+}
+
+@media (min-width: 576px) {
+    .text-sm-end {
+        text-align: end !important;
+    }
+}
+
+.btn:focus,
+.list-group-item:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    .bg-light {
+        background-color: rgba(255, 255, 255, 0.02) !important;
+    }
+}

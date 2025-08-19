@@ -1,0 +1,12 @@
+.alert {
+    font-size: 0.9rem;
+}
+
+.form-label {
+    font-size: 1rem;
+}
+
+.form-select,
+.form-control {
+    font-size: 0.9rem;
+}

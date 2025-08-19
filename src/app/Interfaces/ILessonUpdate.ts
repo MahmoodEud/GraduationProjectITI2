@@ -1,9 +1,9 @@
 export interface LessonUpdate {
-    Title: string,
+    title:string; 
+    videoUrl:string;
+    previewVideoUrl?:string ;
+    pdfUrl:string ;
+    courseId:number;
 
-    Video_Url: string,
 
-    AbstructVideo: string,
-
-    PDF: string
 }

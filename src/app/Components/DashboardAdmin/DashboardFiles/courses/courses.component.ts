@@ -61,14 +61,11 @@ export class CoursesComponent implements OnInit {
             course.picturalUrl = course.picturalUrl.replace('/api', '');
             if (course.picturalUrl.includes('default.jpg')) {
               course.picturalUrl = `${this.imageBaseUrl}/Files/default.png`;
-              console.log('Corrected default image URL:', course.picturalUrl);
             } else if (!course.picturalUrl.startsWith('http')) {
               course.picturalUrl = `${this.imageBaseUrl}${course.picturalUrl}`;
-              console.log('Corrected course image URL:', course.picturalUrl);
             }
           } else {
             course.picturalUrl = this.defaultImage;
-            console.log('No picturalUrl, using default:', this.defaultImage);
           }
           return course;
         });

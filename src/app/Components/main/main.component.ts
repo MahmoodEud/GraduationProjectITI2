@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { environment } from '../../Services/register/environment';
 import { AccountService } from '../../Services/account.service';
 import { PrivacyComponent } from "./Tabs/privacy/privacy.component";
@@ -14,7 +14,8 @@ import { MyCoursesComponent } from "./Tabs/my-courses/my-courses.component";
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterModule, PrivacyComponent, PDFsComponent, PersonalFileComponent, CoursesComponent, GetAllCoursesComponent, TechnecalSupportComponent, FreeCoursesComponent, MyCoursesComponent],
+  imports: [
+    RouterModule, PrivacyComponent, PDFsComponent, PersonalFileComponent, GetAllCoursesComponent, TechnecalSupportComponent, FreeCoursesComponent, MyCoursesComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })

@@ -43,26 +43,28 @@ export class GetAllCoursesComponent implements OnInit  {
       }
     });
   }
+loadCourses(): void {
+  this.isLoading = true;
+  this.courseService
+    .getCourses(this.searchTerm, undefined, undefined, undefined, this.page, this.pageSize)
+    .pipe(finalize(() => (this.isLoading = false)))
+    .subscribe({
+      next: (d: IPagedResult<Course>) => {
+        this.courses = d.items ?? [];
+        this.totalCount = d.totalCount ?? 0;
+        this.page = d.page ?? 1;
 
-  loadCourses(): void {
-    this.isLoading = true;
-    this.courseService
-      .getCourses(this.searchTerm, undefined, undefined, undefined, this.page, this.pageSize)
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: (d: IPagedResult<Course>) => {
-          this.courses = d.items ?? [];
-          this.totalCount = d.totalCount ?? 0;
-          this.page = d.page ?? 1;
-          this.pageSize = d.pageSize ?? 12;
-          this.totalPages = Math.ceil(this.totalCount / this.pageSize);
-        },
-        error: (err) => {
-          this.errorMessage = err.error || 'حدث خطأ أثناء تحميل الكورسات';
-          this.toastr.error(this.errorMessage);
-        }
-      });
-  }
+        this.pageSize = (d.pageSize && d.pageSize > 0) ? d.pageSize : 12;
+
+          this.totalPages = Math.max(1, Math.ceil(this.totalCount / this.pageSize));
+      },
+      error: (err) => {
+        this.errorMessage = err.error || 'حدث خطأ أثناء تحميل الكورسات';
+        this.toastr.error(this.errorMessage);
+      }
+    });
+}
+
 
   loadMyCourses(): void {
     this.studentCourseService.getMyCourses().subscribe({
@@ -110,13 +112,15 @@ export class GetAllCoursesComponent implements OnInit  {
     (event.target as HTMLImageElement).src = 'assets/images/default.jpg';
   }
 
-  getPageNumbers(): number[] {
-    const pages = [];
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages.push(i);
-    }
-    return pages;
+ getPageNumbers(): number[] {
+  const total = Math.max(1, Number(this.totalPages) || 1); 
+  const pages = [];
+  for (let i = 1; i <= total; i++) {
+    pages.push(i);
   }
+  return pages;
+}
+
 
   onSearchChange(term: string): void {
     this.searchTerm = term;

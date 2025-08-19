@@ -49,7 +49,8 @@ export class LoginComponent {
       // Maybe it is a server error...so we will not make any assumptions
       error: error =>{ 
         this.toastr.error('خطأ في اسم المستخدم أو كلمة المرور');
-        this.toastr.error(error.error)}
+        // this.toastr.error(error.error)
+      }
     });
   }
 }

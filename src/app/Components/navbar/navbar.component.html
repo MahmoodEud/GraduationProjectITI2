@@ -1,10 +1,11 @@
 <div class="container-fluid p-0 m-0 fixed-navbar navBarDiv">
   <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
     <a href="#" class="navbar-brand">
-      <img src="assets/Logo.png" alt="Logo Elbasit" style="height: 60px" />
+      <img src="assets/Logo.png" alt="Logo Elbasit" class="navbar-logo" />
     </a>
+
     <button
-      class="navbar-toggler m-3"
+      class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
@@ -16,123 +17,219 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      
       @if (currentRoute == '/Login') {
-        <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
-          <div class="form-check form-switch m-2">
-            <input 
+        <div class="navbar-nav ms-auto d-flex flex-lg-row flex-column align-items-lg-center align-items-start w-100 justify-content-end">
+          <div class="nav-item order-lg-1 order-1 mb-2 mb-lg-0">
+            <div class="theme-toggle-container">
+              <input 
                 type="checkbox"
-                class="form-check-input"
+                class="custom-toggle"
                 [checked]="isDarkMode"
                 (change)="toggleMode()"
-                style="transform: scale(1.6); cursor: pointer;"
+                id="themeToggle"
               />
+              <label class="toggle-label" for="themeToggle">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="d-lg-none toggle-text">الوضع المظلم</span>
+            </div>
           </div>
-
-          <a
-            routerLink="Register"
-            class="btn btn-outline-primary m-2 px-4 py-2"
-            appButtonsAnimation
-            animation="pulse"
-          >
-            إنشاء حساب <i class="fas fa-plus"></i>
-          </a>
+          <div class="nav-item order-lg-2 order-2">
+            <a
+              routerLink="Register"
+              class="btn btn-outline-primary register-btn"
+              appButtonsAnimation
+              animation="pulse"
+            >
+              إنشاء حساب <i class="fas fa-plus me-2"></i>
+            </a>
+          </div>
         </div>
-
       }@else if(currentRoute == '/Register'){
-        <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
-          <div class="form-check form-switch m-2">
-       <input 
-          type="checkbox"
-          class="form-check-input"
-          [checked]="isDarkMode"
-          (change)="toggleMode()"
-          style="transform: scale(1.6); cursor: pointer;"
-        />
-          </div>
-      <a
-            routerLink="/Login"
-            class="btn btn-outline-primary m-2 px-4 py-2"
-            appButtonsAnimation
-            animation="pulse"
-          >
-            تسحيل الدخول <i class="fas fa-plus"></i>
-          </a>
-        </div>
-      } 
-      @else if (acc.currentUser()) {
-       <div class="d-flex flex-wrap w-100 justify-content-end align-items-center gap-3">
-          <div class="form-check form-switch m-2">
-            <i class="fas fa-bell fs-3 bellll"></i>
-          </div>
-            <div class="form-check form-switch m-2">
-           <input 
+        <div class="navbar-nav ms-auto d-flex flex-lg-row flex-column align-items-lg-center align-items-start w-100 justify-content-end">
+          <div class="nav-item order-lg-1 order-1 mb-2 mb-lg-0">
+            <div class="theme-toggle-container">
+              <input 
                 type="checkbox"
-                class="form-check-input"
+                class="custom-toggle"
                 [checked]="isDarkMode"
                 (change)="toggleMode()"
-                style="transform: scale(1.6); cursor: pointer;"
+                id="themeToggleRegister"
               />
+              <label class="toggle-label" for="themeToggleRegister">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="d-lg-none toggle-text">الوضع المظلم</span>
+            </div>
           </div>
-          <img [src]="profileImageUrl"
-          (error)="profileImageUrl = 'assets/Profil4.png'"
-          alt="Profil4.png"
-            class="m-2 px-4 py-2 rounded-circle profileImage"
-            appButtonsAnimation
-            animation="pulse"
-          >          
-        </div>    
-        }
-      @else {
-        <ul class="navbar-nav mb-2 mb-lg-0 mx-2">
+          <div class="nav-item order-lg-2 order-2">
+            <a
+              routerLink="/Login"
+              class="btn btn-outline-primary login-btn"
+              appButtonsAnimation
+              animation="pulse"
+            >
+              تسجيل الدخول <i class="fas fa-sign-in-alt me-2"></i>
+            </a>
+          </div>
+        </div>
+      }@else if (acc.currentUser()?.role=="admin"||acc.currentUser()?.role=="Admin"||acc.currentUser()?.role=="ADMIN") {
+        <div class="navbar-nav ms-auto d-flex flex-lg-row flex-column align-items-lg-center align-items-start w-100 justify-content-end">
+          <div class="nav-item order-lg-1 order-1 mb-2 mb-lg-0">
+            <button type="button" class="mx-5 p-2 btn btn-warning rounded-5" [routerLink]="'/admin/users'" >Admin Pannel</button>
+          </div>
+          <div class="nav-item order-lg-1 order-1 mb-2 mb-lg-0">
+            <div class="theme-toggle-container">
+              <input 
+                type="checkbox"
+                class="custom-toggle"
+                [checked]="isDarkMode"
+                (change)="toggleMode()"
+                id="themeToggleUser"
+              />
+              <label class="toggle-label" for="themeToggleUser">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="d-lg-none toggle-text">الوضع المظلم</span>
+            </div>
+          </div>
+          <div class="nav-item order-lg-2 order-2 mb-2 mb-lg-0">
+            <i class="fas fa-bell fs-4 bell-icon" title="الإشعارات"></i>
+          </div>
+          <div class="nav-item order-lg-3 order-3">
+            <img 
+              [src]="profileImageUrl"
+              (error)="profileImageUrl = 'assets/Profil4.png'"
+              alt="صورة المستخدم"
+              class="profile-image"
+              appButtonsAnimation
+              animation="pulse"
+              title="الملف الشخصي"
+            >
+          </div>
+        </div>
+      }
+      
+      @else if (acc.currentUser()) {
+        <div class="navbar-nav ms-auto d-flex flex-lg-row flex-column align-items-lg-center align-items-start w-100 justify-content-end">
+          <div class="nav-item order-lg-1 order-1 mb-2 mb-lg-0">
+            <div class="theme-toggle-container">
+              <input 
+                type="checkbox"
+                class="custom-toggle"
+                [checked]="isDarkMode"
+                (change)="toggleMode()"
+                id="themeToggleUser"
+              />
+              <label class="toggle-label" for="themeToggleUser">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="d-lg-none toggle-text">الوضع المظلم</span>
+            </div>
+          </div>
+          <div class="nav-item order-lg-2 order-2 mb-2 mb-lg-0">
+            <i class="fas fa-bell fs-4 bell-icon" title="الإشعارات"></i>
+          </div>
+          <div class="nav-item order-lg-3 order-3">
+            <img 
+              [src]="profileImageUrl"
+              (error)="profileImageUrl = 'assets/Profil4.png'"
+              alt="صورة المستخدم"
+              class="profile-image"
+              appButtonsAnimation
+              animation="pulse"
+              title="الملف الشخصي"
+            >
+          </div>
+        </div>
+      }@else {
+        <!-- Navigation Links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="bg-primary text-white" aria-current="page" href="#">الصفحة الرئيسية</a>
+            <a class="nav-link active-link" routerLinkActive="active" href="#" aria-current="page">
+              الصفحة الرئيسية
+            </a>
           </li>
           <li class="nav-item">
-            <a href="#ElbasitDef" routerLinkActive="bg-primary text-white" class="nav-link">من نحن</a>
+            <a href="#ElbasitDef" routerLinkActive="active" class="nav-link">
+              من نحن
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="bg-primary text-white" href="#CoursesSection">الدورات التعليمية</a>
+            <a class="nav-link" routerLinkActive="active" href="#CoursesSection">
+              الدورات التعليمية
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="bg-primary text-white" href="#PrentSection">ولى الأمر</a>
+            <a class="nav-link" routerLinkActive="active" href="#PrentSection">
+              ولي الأمر
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="bg-primary text-white" href="#PopularQuestionSection">الأسئلة الشائعة</a>
+            <a class="nav-link" routerLinkActive="active" href="#PopularQuestionSection">
+              الأسئلة الشائعة
+            </a>
           </li>
         </ul>
-        <div class="d-flex flex-wrap">
-           <div class="form-check form-switch m-2">
-           <input 
+
+        <!-- Action Buttons -->
+        <div class="navbar-nav ms-auto d-flex flex-lg-row flex-column align-items-lg-center align-items-start">
+          <div class="nav-item order-lg-1 order-1 mb-2 mb-lg-0">
+            <div class="theme-toggle-container">
+              <input 
                 type="checkbox"
-                class="form-check-input"
+                class="custom-toggle"
                 [checked]="isDarkMode"
                 (change)="toggleMode()"
-                style="transform: scale(1.6); cursor: pointer;"
+                id="themeToggleGuest"
               />
+              <label class="toggle-label" for="themeToggleGuest">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="d-lg-none toggle-text">الوضع المظلم</span>
+            </div>
           </div>
-          <a
-            routerLink="Register"
-            class="btn btn-outline-primary m-2"
-            appButtonsAnimation
-            animation="pulse"
-          >
-            إنشاء حساب <i class="fas fa-plus"></i>
-          </a>
-          <a
-            routerLink="/Login"
-            class="btn btn-primary m-2"
-            appButtonsAnimation
-            animation="pulse"
-          >
-            تسجيل الدخول <i class="fas fa-right-from-bracket ms-2"></i>
-          </a>
+          <div class="nav-item order-lg-2 order-2 mb-2 mb-lg-0">
+            <a
+              routerLink="Register"
+              class="btn btn-outline-primary register-btn"
+              appButtonsAnimation
+              animation="pulse"
+            >
+              إنشاء حساب <i class="fas fa-plus me-2"></i>
+            </a>
+          </div>
+          <div class="nav-item order-lg-3 order-3">
+            <a
+              routerLink="/Login"
+              class="btn btn-primary login-btn"
+              appButtonsAnimation
+              animation="pulse"
+            >
+              تسجيل الدخول <i class="fas fa-sign-in-alt me-2"></i>
+            </a>
+          </div>
         </div>
       }
     </div>
   </nav>
 </div>
 
-<div class="scroll-progress-bar " #progressBar></div>
-<!-- <div class="mb-5 ">
-</div> -->
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress-bar" #progressBar></div>
+
+<style>
+
+</style>

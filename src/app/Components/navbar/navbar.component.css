@@ -1,14 +1,347 @@
-nav {
+.fixed-navbar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    z-index: 1000;
+    right: 0;
+    z-index: 1030;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+    height: 50px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    margin: 0 0.25rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    color: #495057 !important;
+}
+
+.nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #0056b3 !important;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background-color: #0056b3 !important;
+    color: #fff !important;
+}
+
+/* Custom Theme Toggle */
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 0.5rem;
+}
+
+.custom-toggle {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background: linear-gradient(135deg, #87CEEB 0%, #0056b3 100%);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 86, 179, 0.3);
+}
+
+.toggle-label:hover {
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.4);
+    transform: translateY(-1px);
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    background: #fff;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.custom-toggle:checked+.toggle-label .toggle-slider {
+    transform: translateX(30px);
+}
+
+.toggle-label i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.toggle-label .fa-sun {
+    left: 6px;
+    color: #FFD700;
+    opacity: 1;
+}
+
+.toggle-label .fa-moon {
+    right: 6px;
+    color: #fff;
+    opacity: 0.6;
+}
+
+.custom-toggle:checked+.toggle-label .fa-sun {
+    opacity: 0.6;
+}
+
+.custom-toggle:checked+.toggle-label .fa-moon {
+    opacity: 1;
+}
+
+.toggle-text {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #0056b3;
+    font-weight: 500;
+}
+
+.form-check-switch {
+    padding-left: 2.5rem;
+    margin: 0 1rem;
+}
+
+.theme-toggle {
+    transform: scale(1.8);
+    cursor: pointer;
+    accent-color: #0056b3;
+}
+
+.form-check {
+    min-height: auto;
+}
+
+.register-btn,
+.login-btn {
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 120px;
+    text-align: center;
+    border-color: #0056b3 !important;
+    color: #0056b3 !important;
+    margin: 0 0.5rem;
+}
+
+.login-btn {
+    background-color: #0056b3 !important;
+    color: #fff !important;
+}
+
+.register-btn:hover {
+    background-color: #0056b3 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+}
+
+.login-btn:hover {
+    background-color: #003d82 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.4);
+}
+
+/* Profile Image */
+.profile-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 3px solid #0056b3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    object-fit: cover;
+    margin: 0 0.5rem;
+}
+
+.profile-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 86, 179, 0.3);
+}
+
+/* Bell Icon */
+.bell-icon {
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 1rem;
+}
+
+.bell-icon:hover {
+    color: #0056b3;
+    transform: scale(1.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 991.98px) {
+    .navbar-logo {
+        height: 40px;
+    }
+
+    .navbar-collapse {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-link {
+        padding: 0.75rem 0 !important;
+        margin: 0.25rem 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+
+    .register-btn,
+    .login-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-check {
+        justify-content: space-between;
+        width: 100%;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .form-check-label {
+        font-weight: 500;
+        color: #0056b3;
+    }
+
+    .profile-image {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Keep light theme always */
+.navbar-light {
+    background-color: #fff !important;
+}
+
+.navbar-collapse {
+    background-color: #fff;
+}
+
+/* RTL Support */
+[dir="rtl"] .navbar-nav {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+[dir="rtl"] .me-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0 !important;
+}
+
+[dir="rtl"] .ms-auto {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
+
+/* Animation for navbar toggler */
+.navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(0, 86, 179, 0.1);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* Loading animation for profile image */
+.profile-image.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 .scroll-progress-bar {
     position: fixed;
-    top: 80px;
+    top: 70px;
+    left: 0;
+    height: 6px;
+    width: 0%;
+    background: #0056b3;
+    z-index: 1040;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: width;
+    transform: translateZ(0);
+}
+
+.scroll-progress-bar.visible {
+    opacity: 1;
+}
+
+.scroll-progress-bar.hidden {
+    opacity: 0;
+}
+
+
+@media (max-width: 768px) {
+    .scroll-progress-bar {
+        top: 60px;
+        height: 3px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-progress-bar {
+        transition: opacity 0.2s ease;
+    }
+}
+
+/* 
+.scroll-progress-bar {
+    position: fixed;
+    top: 70px;
     left: 0;
     height: 7px;
     width: 0%;
@@ -19,13 +352,4 @@ nav {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 
-}
-
-.bellll {
-    cursor: pointer;
-}
-
-.profileImage {
-    width: 95px;
-    height: 56px;
-}
+} */

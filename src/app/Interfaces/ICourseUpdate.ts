@@ -5,4 +5,5 @@ export interface CreateCourse {
   picturalUrl?: string;
   year: string;
   category?: string;
+  CourseId: number;
 }

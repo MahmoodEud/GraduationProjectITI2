@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from './register/environment';
 import { IUser } from '../Interfaces/iuser';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { IStudentChangePassword } from '../Interfaces/IStudentChangePassword';
+import { IAdminChangePassword } from '../Interfaces/iadmin-change-password';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,24 @@ export class AccountService {
       })
     );
   }
+// account.service.ts
 
+ assignRole(userName: string, role: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}Account/AssignRole`,
+      { userName, role }
+    );
+  }
   studentChangePassword(model: any) {
     return this.http.post(this.baseUrl + 'Account/student-change-password', model);
   }
+
+  adminChangePassword(userId: string, model: IAdminChangePassword) {
+      return this.http.post<{ message: string }>(
+        `${this.baseUrl}Account/admin-change-password/${userId}`,
+        model
+      );
+    }
 
   // Load Data From Local storage
   loadCurrentUser() {
