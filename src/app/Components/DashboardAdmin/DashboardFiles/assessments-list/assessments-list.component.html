@@ -1,0 +1,58 @@
+<!-- زرار إضافة تقييم -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="mb-0">Assessments</h3>
+  <a class="btn btn-primary" [routerLink]="['/admin','CreateAssessment']">
+    <i class="fa-solid fa-plus me-2"></i> Add New Assessment
+  </a>
+</div>
+
+<!-- Loading/Error -->
+<div *ngIf="loading" class="alert alert-info">
+  <i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...
+</div>
+<div *ngIf="error" class="alert alert-danger">
+  <i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}
+</div>
+
+<!-- الجدول -->
+<div class="table-responsive" *ngIf="!loading && !error">
+  <table class="table table-hover table-bordered align-middle text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Lesson</th>
+        <th>Passing Score</th>
+        <th>Max Attempts</th>
+        <th>Time Limit</th>
+        <th>Starting At</th>
+        <th>Questions</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of assessments">
+        <td>{{ a.id }}</td>
+        <td>{{ a.lessonName }}</td>
+        <td>{{ a.passingScore }}%</td>
+        <td>{{ a.maxAttempts || '∞' }}</td>
+        <td>{{ a.timeLimit || 'No Limit' }}</td>
+        <td>{{ a.startingAt | date:'short' }}</td>
+        <td>{{ a.questionCount }}</td>
+        <td>
+        <a class="btn btn-sm btn-outline-primary me-2" [routerLink]="['/admin/assessments', a.id, 'edit']">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+
+          <button class="btn btn-sm btn-outline-danger" (click)="delete(a.id)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-warning me-2"
+          (click)="deleteAttempts(a.id)">
+            <i class="fa-solid fa-broom"></i>
+          </button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

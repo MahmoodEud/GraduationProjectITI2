@@ -45,7 +45,7 @@ lesson: LessonUpdate = {
     loadCourses(): void {
         this.courseService.getCourses().subscribe({
             next: (response) => {
-                this.courses = response.items; 
+                 this.courses = response.items;
             },
             error: (err) => {
                 this.toastr.error('فشل تحميل الكورسات');

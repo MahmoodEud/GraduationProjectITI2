@@ -1,0 +1,120 @@
+<div class="container mt-4">
+  <h2 class="mb-4">
+    <i class="fa-solid fa-pen-to-square me-2"></i> تعديل التقييم #{{ id }}
+  </h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Assessment Info -->
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Max Attempts</label>
+        <input type="number" class="form-control" formControlName="maxAttempts" placeholder="∞">
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Passing Score</label>
+        <div class="input-group">
+          <input type="number" class="form-control" formControlName="passingScore" placeholder="0 - 100">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Time Limit (Minutes)</label>
+        <input type="number" class="form-control" formControlName="timeLimit" placeholder="No Limit">
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Starting At</label>
+        <input type="datetime-local" class="form-control" formControlName="startingAt">
+      </div>
+    </div>
+
+    <div class="row g-3 mt-2">
+      <div class="col-md-6">
+        <label class="form-label">Lesson ID</label>
+        <input type="number" class="form-control" formControlName="lessonId" placeholder="Lesson #">
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <!-- Questions -->
+    <div formArrayName="questions">
+      <div *ngFor="let q of questionsFA.controls; let qi = index; trackBy: trackByIndex"
+           [formGroupName]="qi" class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">
+              <i class="fa-regular fa-circle-question me-2"></i> سؤال {{ qi + 1 }}
+            </h5>
+            <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeQuestion(qi)">
+              <i class="fa-solid fa-trash"></i> حذف السؤال
+            </button>
+          </div>
+
+          <input type="hidden" formControlName="id">
+
+          <div class="mb-3">
+            <label class="form-label">Header</label>
+            <input type="text" class="form-control" formControlName="header" placeholder="عنوان السؤال">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Body</label>
+            <textarea class="form-control" formControlName="body" rows="2" placeholder="نص السؤال (اختياري)"></textarea>
+          </div>
+
+          <!-- Choices -->
+          <div formArrayName="choices" class="mt-3">
+            <div class="row fw-semibold mb-1">
+              <div class="col-md-8">الاختيار</div>
+              <div class="col-md-3">صحيح؟</div>
+              <div class="col-md-1 text-end">حذف</div>
+            </div>
+
+            <div *ngFor="let c of getChoices(qi).controls; let ci = index; trackBy: trackByIndex"
+                 [formGroupName]="ci" class="row g-2 align-items-center mb-2">
+              <input type="hidden" formControlName="id">
+              <input type="hidden" formControlName="questionId">
+
+              <div class="col-md-8">
+                <input type="text" class="form-control" formControlName="choiceText" placeholder="نص الاختيار">
+              </div>
+              <div class="col-md-3 text-center">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" formControlName="isCorrect" id="ck_{{qi}}_{{ci}}">
+                  <label class="form-check-label" for="ck_{{qi}}_{{ci}}">
+                    <i class="fa-solid fa-check text-success"></i>
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-1 text-end">
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeChoice(qi, ci)">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="addChoice(qi)">
+              <i class="fa-solid fa-plus"></i> إضافة اختيار
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-outline-success mt-2" (click)="addQuestion()">
+      <i class="fa-solid fa-plus"></i> إضافة سؤال
+    </button>
+
+    <hr class="my-4">
+    <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+      <span *ngIf="submitting()" class="spinner-border spinner-border-sm me-2"></span>
+      <i class="fa-solid fa-floppy-disk me-1"></i> حفظ التعديلات
+    </button>
+    <a class="btn btn-secondary ms-2" [routerLink]="['/admin/assessments']">
+      <i class="fa-solid fa-arrow-left"></i> رجوع
+    </a>
+  </form>
+</div>

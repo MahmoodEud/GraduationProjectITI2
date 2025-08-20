@@ -1,144 +1,247 @@
-<div class="container">
- 
-  <div class="filters">
-    <form class="filter-form" (ngSubmit)="loadCourses()">
-      <div class="filter-group">
-        <input
-          type="text"
-          placeholder="ابحث بالعنوان..."
-          [(ngModel)]="searchTerm"
-          (ngModelChange)="onSearchChange($event)"
-          name="search"
-          class="search-input"
-        />
-      </div>
-      <div class="filter-group mx-5 ">
-        <button type="button" [routerLink]="['/admin/createCourse']" class="edit-btn pt-2">أنشاء كورس جديد</button>
-      </div>
-            
-
-      <div class="filter-group">
-        <select
-          [(ngModel)]="yearFilter"
-          (ngModelChange)="applyFilter('year', $event)"
-          name="year"
-          class="filter-select"
-        >
-          <option value="">كل السنوات</option>
-          <option value="FirstYear">السنة الأولى</option>
-          <option value="SecondYear">السنة الثانية</option>
-          <option value="ThirdYear">السنة الثالثة</option>
-        </select>
-      </div>
-      <button type="button" (click)="resetFilters()" class="reset-btn">إعادة تعيين</button>
-    </form>
+<div class="container-fluid p-4">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2 class="text-center mb-4">إدارة الكورسات</h2>
+    </div>
   </div>
 
+  <!-- Filters Section -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <form class="filter-form" (ngSubmit)="loadCourses()">
+        <div class="row g-3 align-items-end">
+          <!-- Search Input -->
+          <div class="col-md-4">
+            <label class="form-label">البحث بالعنوان</label>
+            <input
+              type="text"
+              placeholder="ابحث بالعنوان..."
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchChange($event)"
+              name="search"
+              class="form-control"
+            />
+          </div>
+
+          <!-- Year Filter -->
+          <div class="col-md-3">
+            <label class="form-label">السنة الدراسية</label>
+            <select
+              [(ngModel)]="yearFilter"
+              (ngModelChange)="applyFilter('year', $event)"
+              name="year"
+              class="form-select"
+            >
+              <option value="">كل السنوات</option>
+              <option value="FirstYear">السنة الأولى</option>
+              <option value="SecondYear">السنة الثانية</option>
+              <option value="ThirdYear">السنة الثالثة</option>
+            </select>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="col-md-5">
+            <div class="d-flex gap-2">
+              <button type="button" [routerLink]="['/admin/createCourse']" class="btn btn-success">
+                <i class="fas fa-plus me-2"></i>
+                إنشاء كورس جديد
+              </button>
+              <button type="button" (click)="resetFilters()" class="btn btn-outline-secondary">
+                <i class="fas fa-redo me-2"></i>
+                إعادة تعيين
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Loading State -->
   @if (isLoading) {
-    <div class="loading-spinner">
-      <div class="spinner"></div>
-      <p>جاري تحميل الكورسات...</p>
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary mb-3" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="text-muted">جاري تحميل الكورسات...</p>
     </div>
   }
 
+  <!-- Error Message -->
   @if (errorMessage && !isLoading) {
-    <div class="error-message">
+    <div class="alert alert-danger" role="alert">
+      <i class="fas fa-exclamation-triangle me-2"></i>
       {{ errorMessage }}
     </div>
   }
 
+  <!-- Courses Table -->
   @if (!isLoading && !errorMessage && courses.length > 0) {
-    <div class="courses-table">
-      <table>
-        <thead>
-          <tr>
-            <th>العنوان</th>
-            <th>التصنيف</th>
-            <th>السنة</th>
-            <th>السعر</th>
-            <th>الإجراءات</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (course of courses; track course.id) {
-            <tr>
-              <td>{{ course.title }}</td>
-              <td>{{ course.category || 'غير محدد' }}</td>
-              <td>{{ course.year }}</td>
-              <td>{{ course.price === 0 ? 'مجاني' : course.price + ' جنيه' }}</td>
-              <td>
-                <button [routerLink]="['/admin/editCourse', course.id]" class="edit-btn">تعديل</button>
-                <button (click)="deleteCourse(course.id)" class="delete-btn" [disabled]="isDeleting">حذف</button>
-              </td>
-            </tr>
-          } @empty {
-            <tr>
-              <td colspan="5">لا توجد كورسات متاحة</td>
-            </tr>
-          }
-        </tbody>
-      </table>
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">العنوان</th>
+                <th scope="col">التصنيف</th>
+                <th scope="col">السنة</th>
+                <th scope="col">السعر</th>
+                <th scope="col">الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (course of courses; track course.id) {
+                <tr>
+                  <td>
+                    <strong>{{ course.title }}</strong>
+                  </td>
+                  <td>
+                    <span class="badge bg-info">{{ course.category || 'غير محدد' }}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-secondary">{{ course.year }}</span>
+                  </td>
+                  <td>
+                    @if (course.price === 0) {
+                      <span class="badge bg-success">مجاني</span>
+                    } @else {
+                      <span class="badge bg-warning text-dark">{{ course.price }} جنيه</span>
+                    }
+                  </td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      <button 
+                        [routerLink]="['/admin/edit-course', course.id]"
+                        class="btn btn-outline-primary btn-sm"
+                      >
+                        <i class="fas fa-edit me-1"></i>
+                        تعديل
+                      </button>
+                      <button 
+                        (click)="deleteCourse(course.id)" 
+                        class="btn btn-outline-danger btn-sm" 
+                        [disabled]="isDeleting"
+                      >
+                        <i class="fas fa-trash me-1"></i>
+                        حذف
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="text-center text-muted py-4">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <p>لا توجد كورسات متاحة</p>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
 
-      <div class="pagination">
-        <button
-          [disabled]="page === 1"
-          (click)="onPageChange(page - 1)"
-          class="page-btn"
-        >
-          السابق
-        </button>
-        @for (pageNum of getPageNumbers(); track pageNum) {
-          <button
-            [class.active]="pageNum === page"
-            (click)="onPageChange(pageNum)"
-            class="page-btn"
-          >
-            {{ pageNum }}
-          </button>
-        }
-        <button
-          [disabled]="page === totalPages"
-          (click)="onPageChange(page + 1)"
-          class="page-btn"
-        >
-          التالي
-        </button>
+        <!-- Pagination -->
+        <nav aria-label="Course pagination" class="mt-4">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="page === 1">
+              <button 
+                class="page-link"
+                [disabled]="page === 1"
+                (click)="onPageChange(page - 1)"
+              >
+                السابق
+              </button>
+            </li>
+            @for (pageNum of getPageNumbers(); track pageNum) {
+              <li class="page-item" [class.active]="pageNum === page">
+                <button
+                  class="page-link"
+                  (click)="onPageChange(pageNum)"
+                >
+                  {{ pageNum }}
+                </button>
+              </li>
+            }
+            <li class="page-item" [class.disabled]="page === totalPages">
+              <button 
+                class="page-link"
+                [disabled]="page === totalPages"
+                (click)="onPageChange(page + 1)"
+              >
+                التالي
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   } @else if (!isLoading && !errorMessage) {
-    <div class="no-courses">
-      لا توجد كورسات متاحة
-    </div>
-  }
-</div>
-<div>
-   @if (stats) {
-    <div class="stats-section">
-      <h3>إحصائيات الكورسات</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h4>إجمالي الكورسات</h4>
-          <p>{{ stats.total }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات المجانية</h4>
-          <p>{{ stats.free }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات المدفوعة</h4>
-          <p>{{ stats.paid }}</p>
-        </div>
-        <div class="stat-card">
-          <h4>الكورسات حسب السنة</h4>
-          <ul>
-            @for (year of byYearKeys; track year) {
-              <li>{{ year }}: {{ stats.byYear[year] }} كورس</li>
-              <hr/>
-            }
-          </ul>
+    <div class="text-center py-5">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-graduation-cap fa-4x text-muted mb-3"></i>
+          <h4 class="text-muted">لا توجد كورسات متاحة</h4>
+          <p class="text-muted">ابدأ بإنشاء كورس جديد</p>
+          <button type="button" [routerLink]="['/admin/createCourse']" class="btn btn-primary">
+            إنشاء كورس جديد
+          </button>
         </div>
       </div>
     </div>
   }
 
+  <!-- Statistics Section -->
+  @if (stats) {
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5 class="card-title mb-0">
+          <i class="fas fa-chart-bar me-2"></i>
+          إحصائيات الكورسات
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="stats-card text-center p-3 bg-primary text-white rounded">
+              <i class="fas fa-book fa-2x mb-2"></i>
+              <h4>{{ stats.total }}</h4>
+              <p class="mb-0">إجمالي الكورسات</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card text-center p-3 bg-success text-white rounded">
+              <i class="fas fa-gift fa-2x mb-2"></i>
+              <h4>{{ stats.free }}</h4>
+              <p class="mb-0">الكورسات المجانية</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card text-center p-3 bg-warning text-white rounded">
+              <i class="fas fa-dollar-sign fa-2x mb-2"></i>
+              <h4>{{ stats.paid }}</h4>
+              <p class="mb-0">الكورسات المدفوعة</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card p-3 bg-info text-white rounded">
+              <h6 class="mb-3">
+                <i class="fas fa-calendar-alt me-2"></i>
+                الكورسات حسب السنة
+              </h6>
+              <ul class="list-unstyled mb-0">
+                @for (year of byYearKeys; track year) {
+                  <li class="d-flex justify-content-between align-items-center mb-2">
+                    <span>{{ year }}:</span>
+                    <span class="badge bg-light text-dark">{{ stats.byYear[year] }} كورس</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
 </div>

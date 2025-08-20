@@ -29,6 +29,12 @@ export const routes: Routes = [
       { path: 'main', component: MainComponent },
       { path: 'account/:id/edit', loadComponent: () => import('./Components/main/Tabs/personal-file/edit-personal-file/edit-personal-file.component').then(m => m.EditPersonalFileComponent) },
       { path: 'account/student-change-password', component: ChangePasswordFileComponent },
+        { 
+        path: 'course-progress/:courseId',
+        loadComponent: () => import('./Components/main/Tabs/course-progress/course-progress.component')
+          .then(m => m.CourseProgressComponent) 
+      },
+
 
       { path: 'courses', loadComponent: () => import('./Components/main/Tabs/get-all-courses/get-all-courses.component').then(m => m.GetAllCoursesComponent) },
       { path: 'courses/:id', loadComponent: () => import('./Components/main/Tabs/get-all-courses/course-details/course-details.component').then(m => m.CourseDetailsComponent) },
@@ -67,8 +73,28 @@ export const routes: Routes = [
       { path: 'create-lesson', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/lessons/create-lesson/create-lesson.component').then(m => m.CreateLessonComponent) },
       { path: 'edit-lesson/:id', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/lessons/edit-lesson/edit-lesson.component').then(m => m.EditLessonComponent) },
 
-      { path: 'createCourse/:id', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/courses/edit-course/edit-course.component').then(m => m.EditCourseComponent) },
+      { 
+        path: 'edit-course/:id',
+        loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/courses/edit-course/edit-course.component')
+          .then(m => m.EditCourseComponent) 
+      },
+
       { path: 'createCourse', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/courses/create-course/create-course.component').then(m => m.CreateCourseComponent) },
+      { path: 'assessments', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/assessments-list/assessments-list.component').then(m => m.AssessmentsListComponent) },
+
+      //Create Assesment
+      { path: 'CreateAssessment', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/assessments-list/add-assessment/add-assessment.component').then(m => m.AddAssessmentComponent) },
+      {   path: 'assessments/:id/edit',
+         loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/assessments-list/edit-assessment/edit-assessment.component').then(m => m.EditAssessmentComponent) },
+
+
+        { path: 'reports', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/Reportes/reports-dashboard/reports-dashboard.component').then(m => m.ReportsDashboardComponent) },
+        { path: 'reports/assessment/:id/difficulty', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/Reportes/assessment-difficulty/assessment-difficulty.component').then(m => m.AssessmentDifficultyComponent) },
+        { path: 'reports/students', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/Reportes/students-performance/students-performance.component').then(m => m.StudentsPerformanceComponent) },
+        { path: 'reports/activity', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/Reportes/attempts-activity/attempts-activity.component').then(m => m.AttemptsActivityComponent) },
+
+
+
     ]
   },
 

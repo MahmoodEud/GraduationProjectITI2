@@ -1,0 +1,33 @@
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0"><i class="fa-solid fa-wave-square me-2"></i> Attempts Activity</h3>
+    <div class="d-flex gap-2">
+      <input type="number" class="form-control" style="max-width: 220px;" [(ngModel)]="assessmentId" placeholder="AssessmentId (اختياري)">
+      <input type="number" class="form-control" style="max-width: 120px;" [(ngModel)]="days" placeholder="Days" min="1">
+      <button class="btn btn-outline-primary" (click)="load()"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
+  <div *ngIf="error" class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!loading && !error">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Day</th>
+          <th>Attempts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of rows">
+          <td>{{ r.day | date:'yyyy-MM-dd' }}</td>
+          <td>{{ r.attempts }}</td>
+        </tr>
+        <tr *ngIf="rows.length === 0">
+          <td colspan="2" class="text-muted py-4">لا توجد بيانات بعد.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

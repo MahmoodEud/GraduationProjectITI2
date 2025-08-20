@@ -1,0 +1,38 @@
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0"><i class="fa-solid fa-users me-2"></i> Students Performance</h3>
+    <div class="input-group" style="max-width: 280px;">
+      <input type="number" class="form-control" [(ngModel)]="assessmentId" placeholder="Filter by AssessmentId">
+      <button class="btn btn-outline-primary" (click)="load()"><i class="fa-solid fa-filter"></i></button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
+  <div *ngIf="error" class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!loading && !error">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Student</th>
+          <th>Email</th>
+          <th>Attempts</th>
+          <th>Average</th>
+          <th>Pass Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of rows">
+          <td class="text-start">{{ s.studentName }}</td>
+          <td class="text-start">{{ s.email }}</td>
+          <td>{{ s.attemptsCount }}</td>
+          <td><span class="badge bg-secondary">{{ s.averageScore }}%</span></td>
+          <td><span class="badge" [ngClass]="{'bg-success': s.passRate >= 50, 'bg-danger': s.passRate < 50}">{{ s.passRate }}%</span></td>
+        </tr>
+        <tr *ngIf="rows.length === 0">
+          <td colspan="5" class="text-muted py-4">لا توجد بيانات بعد.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

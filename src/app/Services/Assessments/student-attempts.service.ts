@@ -7,7 +7,6 @@ import { AttemptDto } from '../../Interfaces/Assessment/AttemptDto';
   providedIn: 'root'
 })
 export class StudentAttemptsService {
-  // Ensure the base URL is correct
   private readonly apiUrl = 'http://localhost:5000/api/StudentAttempts';
   constructor(private http: HttpClient) {}
 
@@ -16,7 +15,6 @@ export class StudentAttemptsService {
       'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
       'Content-Type': 'application/json'
     });
-    // Send assessmentId in the body
     return this.http.post<AttemptDto>(
       `${this.apiUrl}/${assessmentId}/start`,
       { assessmentId },

@@ -1,31 +1,70 @@
-<div class="container">
-  <h2>إدارة تسجيل الطلاب في الكورسات</h2>
-
-  <!-- رسايل النجاح والخطأ -->
-  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
-  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-
-  <!-- اختيار الطالب -->
-  <div class="form-group">
-    <label for="studentSelect">اختر الطالب:</label>
-    <select id="studentSelect" [(ngModel)]="selectedStudentId" class="form-control">
-      <option [value]="null" disabled>اختر طالب</option>
-      <option *ngFor="let student of students" [value]="student.studentId">{{ student.name }} &&ID:({{student.studentId}})</option>
-    </select>
+<div class="page-header-section mb-4">
+  <div class="row g-0">
+    <div class="col-12">
+      <div class="header-card text-white p-4 rounded-3 shadow-lg">
+        <h2 class="mb-0 fw-bold">
+          <i class="fas fa-user-check me-3"></i>
+          إدارة تسجيل الطلاب في الكورسات
+        </h2>
+        <p class="mb-0 opacity-90">تسجيل وإلغاء تسجيل الطلاب في الكورسات</p>
+      </div>
+    </div>
   </div>
+</div>
 
-  <!-- اختيار الكورس -->
-  <div class="form-group">
-    <label for="courseSelect">اختر الكورس:</label>
-    <select id="courseSelect" [(ngModel)]="selectedCourseId" class="form-control">
-      <option [value]="null" disabled>اختر كورس</option>
-      <option *ngFor="let course of courses" [value]="course.id">{{ course.title }}
-        &&ID:({{course.id}})
-      </option>
-    </select>
+<div class="enroll-section">
+  <div *ngIf="successMessage" class="alert alert-success rounded-3 shadow-soft mb-3">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger rounded-3 shadow-soft mb-3">{{ errorMessage }}</div>
+
+  <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-header bg-light border-0 py-3">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-sliders-h me-2 text-primary"></i>
+        اختيار البيانات
+      </h5>
+    </div>
+
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-6">
+          <label for="studentSelect" class="form-label fw-semibold text-dark">
+            <i class="fas fa-user-graduate me-1 text-primary"></i>
+            اختر الطالب
+          </label>
+          <select id="studentSelect" [(ngModel)]="selectedStudentId" class="form-select form-select-lg border-2 rounded-pill">
+            <option [value]="null" disabled>اختر طالب</option>
+            <option *ngFor="let student of students" [value]="student.studentId">
+              {{ student.name }} &&ID:({{student.studentId}})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="courseSelect" class="form-label fw-semibold text-dark">
+            <i class="fas fa-book-open me-1 text-primary"></i>
+            اختر الكورس
+          </label>
+          <select id="courseSelect" [(ngModel)]="selectedCourseId" class="form-select form-select-lg border-2 rounded-pill">
+            <option [value]="null" disabled>اختر كورس</option>
+            <option *ngFor="let course of courses" [value]="course.id">
+              {{ course.title }} &&ID:({{course.id}})
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer bg-light border-0 py-3">
+      <div class="d-flex flex-column flex-md-row justify-content-end gap-2">
+        <button class="btn btn-primary btn-lg rounded-pill px-4" (click)="enrollStudent()">
+          <i class="fas fa-plus me-2"></i>
+          تسجيل الطالب
+        </button>
+        <button class="btn btn-danger btn-lg rounded-pill px-4" (click)="unenrollStudent()">
+          <i class="fas fa-user-times me-2"></i>
+          إلغاء تسجيل الطالب
+        </button>
+      </div>
+    </div>
   </div>
-
-  <!-- أزرار الإجراءات -->
-  <button class="btn btn-primary" (click)="enrollStudent()">تسجيل الطالب</button>
-  <button class="btn btn-danger" (click)="unenrollStudent()">إلغاء تسجيل الطالب</button>
 </div>

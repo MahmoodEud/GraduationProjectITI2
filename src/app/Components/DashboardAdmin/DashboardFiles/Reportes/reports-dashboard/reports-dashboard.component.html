@@ -1,0 +1,55 @@
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0"><i class="fa-solid fa-chart-pie me-2"></i> Assessment Reports</h3>
+    <div class="btn-group">
+      <a class="btn btn-outline-secondary" routerLink="/admin/reports/students"><i class="fa-solid fa-users me-1"></i> Students</a>
+      <a class="btn btn-outline-secondary" routerLink="/admin/reports/activity"><i class="fa-solid fa-wave-square me-1"></i> Activity</a>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
+  <div *ngIf="error" class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!loading && !error">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Assessment</th>
+          <th>Attempts</th>
+          <th>Students</th>
+          <th>Avg</th>
+          <th>Median</th>
+          <th>Pass Rate</th>
+          <th>Last Attempt</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of summary">
+          <td>{{ r.assessmentId }}</td>
+          <td class="text-start">{{ r.assessmentName }}</td>
+          <td>{{ r.attemptsCount }}</td>
+          <td>{{ r.uniqueStudents }}</td>
+          <td><span class="badge bg-secondary">{{ r.averageScore }}%</span></td>
+          <td><span class="badge bg-info">{{ r.medianScore }}%</span></td>
+          <td>
+            <span class="badge" [ngClass]="{'bg-success': r.passRate >= 50, 'bg-danger': r.passRate < 50}">
+              {{ r.passRate }}%
+            </span>
+          </td>
+          <td>{{ r.lastAttemptAt | date: 'short' }}</td>
+          <td>
+            <a class="btn btn-sm btn-outline-primary"
+               [routerLink]="['/admin/reports/assessment', r.assessmentId, 'difficulty']">
+              <i class="fa-solid fa-chart-line"></i>
+            </a>
+          </td>
+        </tr>
+        <tr *ngIf="summary.length === 0">
+          <td colspan="9" class="text-muted py-4">لا توجد بيانات بعد.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

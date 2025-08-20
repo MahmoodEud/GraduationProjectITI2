@@ -1,12 +1,355 @@
-.alert {
-    font-size: 0.9rem;
+.container-fluid {
+    direction: rtl;
+    text-align: right;
+}
+
+.display-6 {
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.form-control,
+.form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.15);
+    transform: translateY(-1px);
+}
+
+.form-control-lg,
+.form-select-lg {
+    padding: 1rem 1.25rem;
+    font-size: 1.1rem;
+    border-radius: 12px;
+}
+
+.input-group-text {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control,
+.input-group .form-select {
+    border-left: none;
+    border-radius: 0;
+}
+
+.input-group .btn {
+    border: 2px solid #e9ecef;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.input-group:focus-within .btn {
+    border-color: #667eea;
 }
 
 .form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
     font-size: 1rem;
 }
 
-.form-select,
-.form-control {
-    font-size: 0.9rem;
+.form-label i {
+    margin-left: 0.5rem;
+}
+
+.text-danger {
+    font-weight: bold;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.form-text i {
+    color: #17a2b8;
+}
+
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6b4190 100%);
+}
+
+.btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    background: transparent;
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 12px;
+}
+
+/* Alert Styling */
+.alert {
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    color: #c53030;
+    border-left: 4px solid #e53e3e;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+    color: #2f855a;
+    border-left: 4px solid #38a169;
+}
+
+/* Loading Spinner */
+.spinner-border {
+    border-width: 3px;
+}
+
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 2px;
+}
+
+/* Invalid Feedback */
+.invalid-feedback {
+    display: block !important;
+    font-size: 0.875rem;
+    color: #dc3545;
+    margin-top: 0.5rem;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+/* Select Options Styling */
+select option {
+    padding: 0.75rem;
+    font-size: 1rem;
+}
+
+/* Info Card */
+.card .bg-light {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border-radius: 0 0 15px 15px;
+}
+
+/* Icons */
+.fa-2x {
+    font-size: 2rem;
+}
+
+.text-primary {
+    color: #667eea !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+/* Hover Effects for Info Cards */
+.col-md-4 {
+    transition: transform 0.3s ease;
+    cursor: default;
+}
+
+.col-md-4:hover {
+    transform: translateY(-3px);
+}
+
+.col-md-4:hover i {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* Form Section Spacing */
+.mb-4 {
+    margin-bottom: 2rem !important;
+}
+
+/* Border Top for Actions */
+.border-top {
+    border-top: 2px solid #e9ecef !important;
+    margin-top: 1rem;
+    padding-top: 1.5rem !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .d-flex.gap-3 {
+        flex-direction: column;
+    }
+
+    .form-control-lg,
+    .form-select-lg {
+        font-size: 1rem;
+        padding: 0.875rem 1rem;
+    }
+
+    .btn-lg {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .display-6 {
+        font-size: 1.75rem;
+    }
+
+    .card-header h5 {
+        font-size: 1.1rem;
+    }
+
+    .input-group {
+        flex-wrap: wrap;
+    }
+
+    .input-group .btn {
+        flex: 1;
+        border-radius: 0 0 10px 10px;
+        border-top: none;
+    }
+
+    .input-group .form-control,
+    .input-group .form-select {
+        border-radius: 10px 10px 0 0;
+        border-bottom: none;
+    }
+
+    .input-group-text {
+        border-radius: 10px 10px 0 0;
+        border-bottom: none;
+    }
+}
+
+/* Animation for form validation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.is-invalid {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6b4190 100%);
 }

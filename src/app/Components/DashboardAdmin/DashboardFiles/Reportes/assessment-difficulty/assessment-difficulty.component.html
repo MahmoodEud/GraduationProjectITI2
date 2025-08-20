@@ -1,0 +1,36 @@
+<div class="container mt-3">
+  <h3 class="mb-3"><i class="fa-solid fa-chart-line me-2"></i> Question Difficulty (Assessment #{{ id }})</h3>
+
+  <div *ngIf="loading" class="alert alert-info"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
+  <div *ngIf="error" class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!loading && !error">
+    <table class="table table-hover table-bordered align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Header</th>
+          <th>Total Answers</th>
+          <th>Wrong</th>
+          <th>Wrong Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let q of rows; let i = index">
+          <td>{{ i+1 }}</td>
+          <td class="text-start">{{ q.header }}</td>
+          <td>{{ q.totalAnswers }}</td>
+          <td>{{ q.wrongCount }}</td>
+          <td>
+            <span class="badge" [ngClass]="{'bg-danger': q.wrongRate >= 50, 'bg-warning': q.wrongRate < 50}">
+              {{ q.wrongRate }}%
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="rows.length === 0">
+          <td colspan="5" class="text-muted py-4">لا توجد بيانات بعد.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

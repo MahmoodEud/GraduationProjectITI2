@@ -1,100 +1,297 @@
-<div class="container mt-4">
-  <h2 class="mb-4">قائمة الدروس</h2>
-
-  <div class="mb-3">
-    <button class="btn btn-success" (click)="createLesson()">إنشاء درس جديد</button>
-  </div>
-
-  @if (isLoading) {
-    <div class="text-center">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">جاري التحميل...</span>
+<div class="page-header-section mb-4 bg-primary">
+  <div class="row g-0">
+    <div class="col-12">
+      <div class="header-card text-white p-4 rounded-3 shadow-lg">
+        <h2 class="mb-0 fw-bold">
+          <i class="fas fa-graduation-cap me-3"></i>
+          إدارة الدروس
+        </h2>
+        <p class="mb-0 opacity-90">إدارة وعرض جميع الدروس في النظام</p>
       </div>
     </div>
-  }
-
-  @if (errorMessage && !isLoading) {
-    <div class="alert alert-danger" role="alert">
-      {{ errorMessage }}
-    </div>
-  }
-
-  @if (!isLoading && lessons.length > 0) {
-    <div class="table-responsive">
-      <table class="table table-striped table-hover">
-        <thead class="table-dark">
-          <tr>
-            <th scope="col">الرقم</th>
-            <th scope="col">العنوان</th>
-            <th scope="col">رقم الكورس</th>
-            <th scope="col">رابط الفيديو</th>
-            <th scope="col">رابط فيديو المعاينة</th>
-            <th scope="col">رابط PDF</th>
-            <th scope="col">إجراءات</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (lesson of lessons; track lesson.id) {
-            <tr>
-              <td>{{ lesson.id }}</td>
-              <td>{{ lesson.title }}</td>
-              <td>{{ lesson.courseId }}</td>
-              <td>
-                @if (lesson.videoUrl) {
-                  <a [href]="lesson.videoUrl" target="_blank" class="text-primary">عرض الفيديو</a>
-                } @else {
-                  <span>غير متوفر</span>
-                }
-              </td>
-              <td>
-                @if (lesson.previewVideoUrl) {
-                  <a [href]="lesson.previewVideoUrl" target="_blank" class="text-primary">عرض المعاينة</a>
-                } @else {
-                  <span>غير متوفر</span>
-                }
-              </td>
-              <td>
-                @if (lesson.pdfUrl) {
-                  <a [href]="lesson.pdfUrl" target="_blank" class="text-primary">تحميل PDF</a>
-                } @else {
-                  <span>غير متوفر</span>
-                }
-              </td>
-              <td>
-                <button class="btn btn-primary btn-sm me-2" (click)="updateLesson(lesson.id)">تعديل</button>
-                <button class="btn btn-danger btn-sm" (click)="deleteLesson(lesson.id)">حذف</button>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  } @else if (!isLoading) {
-    <div class="alert alert-info" role="alert">
-      لا توجد دروس متاحة.
-    </div>
-  }
-
-  <!-- Pagination -->
-  @if (totalPages > 1) {
-    <nav aria-label="Page navigation" class="mt-4">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" [class.disabled]="pageNumber === 1">
-          <a class="page-link" (click)="changePage(pageNumber - 1)" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        @for (page of [].constructor(totalPages); track $index) {
-          <li class="page-item" [class.active]="pageNumber === $index + 1">
-            <a class="page-link" (click)="changePage($index + 1)">{{ $index + 1 }}</a>
-          </li>
-        }
-        <li class="page-item" [class.disabled]="pageNumber === totalPages">
-          <a class="page-link" (click)="changePage(pageNumber + 1)" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  }
+  </div>
 </div>
+
+<div class="filters-section mb-4">
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-light border-0 py-3">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-filter me-2 text-primary"></i>
+        فلترة البيانات
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-6 col-lg-4">
+          <label for="title" class="form-label fw-semibold text-dark">
+            <i class="fas fa-search me-1 text-primary"></i>
+            عنوان الدرس
+          </label>
+          <input id="title" type="text" [(ngModel)]="filter.Title" class="form-control form-control-lg border-2 rounded-pill" placeholder="ابحث بالعنوان..." />
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <label for="course" class="form-label fw-semibold text-dark">
+            <i class="fas fa-book me-1 text-primary"></i>
+            الكورس
+          </label>
+          <select id="course" [(ngModel)]="filter.CourseId" class="form-select form-select-lg border-2 rounded-pill">
+            <option [ngValue]="null" class="text-muted">📚 الكل</option>
+            @for (course of courses; track course.id) {
+              <option [value]="course.id">{{ course.title }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-lg-4 d-flex gap-2">
+          <button class="btn btn-primary btn-lg rounded-pill flex-fill" (click)="applyFilter()">
+            <i class="fas fa-search me-2"></i>
+            بحث
+          </button>
+          <button class="btn btn-outline-secondary btn-lg rounded-pill" (click)="clearFilter()">
+            <i class="fas fa-redo me-2"></i>
+            إعادة تعيين
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (isLoading) {
+  <div class="loading-state text-center my-5">
+    <div class="spinner-border text-primary spinner-lg" role="status">
+      <span class="visually-hidden">جاري التحميل...</span>
+    </div>
+    <p class="mt-3 text-muted">جاري تحميل الدروس...</p>
+  </div>
+}
+
+@if (errorMessage && !isLoading) {
+  <div class="alert alert-danger alert-modern" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {{ errorMessage }}
+  </div>
+}
+
+@if (!isLoading && lessons.length > 0) {
+  <div class="table-section">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-light border-0 d-flex justify-content-between align-items-center py-3">
+        <h5 class="card-title mb-0">
+          <i class="fas fa-table me-2 text-primary"></i>
+          قائمة الدروس
+        </h5>
+        <div class="d-flex gap-2">
+          <button class="btn btn-success btn-sm rounded-pill" (click)="createLesson()">
+            <i class="fas fa-plus me-1"></i>
+            إضافة درس
+          </button>
+          <button class="btn btn-outline-primary btn-sm rounded-pill">
+            <i class="fas fa-download me-1"></i>
+            تصدير
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body p-0 d-none d-lg-block">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-head-dark text-white">
+              <tr>
+                <th class="border-0 py-3 text-center">#</th>
+                <th class="border-0 py-3 text-end">
+                  <i class="fas fa-heading me-1"></i>
+                  العنوان
+                </th>
+                <th class="border-0 py-3 text-end">
+                  <i class="fas fa-book me-1"></i>
+                  الكورس
+                </th>
+                <th class="border-0 py-3 text-center">
+                  <i class="fas fa-video me-1"></i>
+                  الفيديو
+                </th>
+                <th class="border-0 py-3 text-center">
+                  <i class="fas fa-eye me-1"></i>
+                  المعاينة
+                </th>
+                <th class="border-0 py-3 text-center">
+                  <i class="fas fa-file-pdf me-1"></i>
+                  PDF
+                </th>
+                <th class="border-0 py-3 text-center">
+                  <i class="fas fa-cogs me-1"></i>
+                  الإجراءات
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (lesson of lessons; track lesson.id; let i = $index) {
+                <tr class="border-bottom table-row">
+                  <td class="text-center py-3 fw-bold">{{ lesson.id }}</td>
+                  <td class="text-end py-3 fw-semibold">{{ lesson.title }}</td>
+                  <td class="text-end py-3">
+                    <span class="year-badge">{{ lesson.courseId }}</span>
+                  </td>
+                  <td class="text-center py-3">
+                    @if (lesson.videoUrl) {
+                      <a [href]="lesson.videoUrl" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
+                        <i class="fas fa-play me-1"></i>
+                        عرض
+                      </a>
+                    } @else {
+                      <span class="text-muted">غير متوفر</span>
+                    }
+                  </td>
+                  <td class="text-center py-3">
+                    @if (lesson.previewVideoUrl) {
+                      <a [href]="lesson.previewVideoUrl" target="_blank" class="btn btn-outline-info btn-sm rounded-pill">
+                        <i class="fas fa-eye me-1"></i>
+                        معاينة
+                      </a>
+                    } @else {
+                      <span class="text-muted">غير متوفر</span>
+                    }
+                  </td>
+                  <td class="text-center py-3">
+                    @if (lesson.pdfUrl) {
+                      <a [href]="lesson.pdfUrl" target="_blank" class="btn btn-outline-danger btn-sm rounded-pill">
+                        <i class="fas fa-file-pdf me-1"></i>
+                        PDF
+                      </a>
+                    } @else {
+                      <span class="text-muted">غير متوفر</span>
+                    }
+                  </td>
+                  <td class="text-center py-3">
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button class="btn btn-outline-primary rounded-pill me-1" (click)="updateLesson(lesson.id)">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-outline-danger rounded-pill" (click)="deleteLesson(lesson.id)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card-body d-lg-none">
+        @for (lesson of lessons; track lesson.id) {
+          <div class="mobile-card mb-3">
+            <div class="mobile-card-header">
+              <div class="d-flex align-items-center">
+                <div class="user-avatar-mobile me-3">{{ lesson.title.charAt(0) }}</div>
+                <div class="flex-grow-1">
+                  <h6 class="mb-1 fw-bold text-white">{{ lesson.title }}</h6>
+                  <small class="text-muted">ID: {{ lesson.id }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="mobile-card-body">
+              <div class="row g-2 mb-3">
+                <div class="col-12">
+                  <small class="text-muted d-block">الكورس</small>
+                  <span class="year-badge">{{ lesson.courseId }}</span>
+                </div>
+              </div>
+              <div class="row g-2 mb-3">
+                <div class="col-4">
+                  <small class="text-muted d-block mb-1">الفيديو</small>
+                  @if (lesson.videoUrl) {
+                    <a [href]="lesson.videoUrl" target="_blank" class="btn btn-outline-primary btn-sm w-100 rounded-pill">
+                      <i class="fas fa-play"></i>
+                    </a>
+                  } @else {
+                    <span class="text-muted small">غير متوفر</span>
+                  }
+                </div>
+                <div class="col-4">
+                  <small class="text-muted d-block mb-1">المعاينة</small>
+                  @if (lesson.previewVideoUrl) {
+                    <a [href]="lesson.previewVideoUrl" target="_blank" class="btn btn-outline-info btn-sm w-100 rounded-pill">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                  } @else {
+                    <span class="text-muted small">غير متوفر</span>
+                  }
+                </div>
+                <div class="col-4">
+                  <small class="text-muted d-block mb-1">PDF</small>
+                  @if (lesson.pdfUrl) {
+                    <a [href]="lesson.pdfUrl" target="_blank" class="btn btn-outline-danger btn-sm w-100 rounded-pill">
+                      <i class="fas fa-file-pdf"></i>
+                    </a>
+                  } @else {
+                    <span class="text-muted small">غير متوفر</span>
+                  }
+                </div>
+              </div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary btn-sm flex-fill rounded-pill" (click)="updateLesson(lesson.id)">
+                  <i class="fas fa-edit me-1"></i>
+                  تعديل
+                </button>
+                <button class="btn btn-danger btn-sm flex-fill rounded-pill" (click)="deleteLesson(lesson.id)">
+                  <i class="fas fa-trash me-1"></i>
+                  حذف
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="card-footer bg-light border-0 py-3">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+          <div class="text-muted">
+            إجمالي عدد الدروس المعروضة:
+            <strong class="text-primary">{{ lessons.length || 0 }}</strong>
+          </div>
+          @if (totalPages > 1) {
+            <nav aria-label="جدول الصفحات">
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item" [class.disabled]="pageNumber === 1">
+                  <button class="page-link rounded-pill me-1" (click)="changePage(pageNumber - 1)">
+                    <i class="fas fa-chevron-right me-1"></i>
+                    السابق
+                  </button>
+                </li>
+                @for (page of [].constructor(totalPages); track $index) {
+                  <li class="page-item" [class.active]="pageNumber === $index + 1">
+                    <button class="page-link rounded-circle mx-1" (click)="changePage($index + 1)">
+                      {{ $index + 1 }}
+                    </button>
+                  </li>
+                }
+                <li class="page-item" [class.disabled]="pageNumber === totalPages">
+                  <button class="page-link rounded-pill ms-1" (click)="changePage(pageNumber + 1)">
+                    التالي
+                    <i class="fas fa-chevron-left ms-1"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+} @else if (!isLoading) {
+  <div class="empty-state card shadow-sm">
+    <div class="card-body text-center py-5">
+      <i class="fas fa-graduation-cap empty-icon mb-3"></i>
+      <h5 class="text-muted mb-2">لا توجد دروس متاحة</h5>
+      <p class="text-muted mb-4">قم بإنشاء درس جديد للبدء</p>
+      <button class="btn btn-primary rounded-pill" (click)="createLesson()">
+        <i class="fas fa-plus me-2"></i>
+        إنشاء درس جديد
+      </button>
+    </div>
+  </div>
+}

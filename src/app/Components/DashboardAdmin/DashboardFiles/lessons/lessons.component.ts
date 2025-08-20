@@ -4,17 +4,25 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ILesson } from '../../../../Interfaces/ILesson';
 import { IPagedResult } from '../../../../Interfaces/ipaged-result';
+import { LessonFilter } from '../../../../Interfaces/ILessonFilter';
+import { Course } from '../../../../Interfaces/ICourse';
+import { CourseService } from '../../../../Services/course.service';
+import { ICourseFilter } from '../../../../Interfaces/icourse-filter';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lessons',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,CommonModule],
   templateUrl: './lessons.component.html',
   styleUrl: './lessons.component.css'
 })
 export class LessonsComponent implements OnInit{
 
-lessons: ILesson[] = []; 
+  lessons: ILesson[] = []; 
+  courses: ICourseFilter[] = [];   
+  filter: LessonFilter = {};
   isLoading: boolean = false;
   errorMessage: string | null = null;
   pageNumber: number = 1;
@@ -24,12 +32,42 @@ lessons: ILesson[] = [];
   lessonService=inject(LessonService);
   router=inject(Router);
   toastr=inject(ToastrService);
+  courseService = inject(CourseService);
 
 
 ngOnInit(): void {
     this.loadLessons();
+    this.loadCourses();
   }
-
+ loadCourses(): void {
+    this.courseService.getCourses().subscribe({
+      next: (res: any) => {
+        this.courses = res.data || res.items || [];
+      },
+      error: () => this.toastr.error('فشل تحميل الكورسات')
+    });
+  }
+  applyFilter(): void {
+    this.isLoading = true;
+    this.lessonService.filterLessons(this.filter).subscribe({
+      next: (res: any) => {
+        this.lessons = res || [];
+        this.isLoading = false;
+        if (!this.lessons.length) {
+          this.toastr.info('لا توجد نتائج للبحث');
+        }
+      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = 'فشل البحث';
+      }
+    });
+  }
+  
+  clearFilter(): void {
+    this.filter = {};
+    this.loadLessons();
+  }
 loadLessons(): void {
     this.isLoading = true;
     this.errorMessage = null;
@@ -62,9 +100,14 @@ loadLessons(): void {
   createLesson(): void {
     this.router.navigate(['/admin/create-lesson']);
   }
-  updateLesson(id: number): void {
-    this.router.navigate([`/admin/edit-lesson/${id}`]);
+updateLesson(id: number): void {
+  if (!id) {
+    this.toastr.error('رقم الدرس غير صالح');
+    return;
   }
+  this.router.navigate([`/admin/edit-lesson/${id}`]);
+}
+
 
   deleteLesson(id: number): void {
     if (confirm('هل أنت متأكد من حذف هذا الدرس؟')) {

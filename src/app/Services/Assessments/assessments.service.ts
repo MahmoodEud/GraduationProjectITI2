@@ -17,7 +17,7 @@ export class AssessmentsService {
   private http = inject(HttpClient);
 
   private base = joinUrl(environment.apiUrl, 'Assessment');
-
+  //  Student Pannel
   private mapAssessment(api: any): AssessmentDto {
     return {
       id: api.id,
@@ -61,4 +61,26 @@ export class AssessmentsService {
       map((assessment: AssessmentDto) => assessment.questions || [] as QuestionDto[])
     );
   }
+  //  Admin Pannel
+getAll() {
+    const url = `${this.base}`;
+    return this.http.get<any[]>(url).pipe(map(arr => arr.map(a => this.mapAssessment(a))));
+  }
+  create(dto: any) {
+    return this.http.post(this.base, dto);
+  }
+
+  update(id: number, dto: any) {
+    const url = `${this.base}/${id}`;
+    return this.http.put(url, dto);
+  }
+
+  delete(id: number) {
+    const url = `${this.base}/${id}`;
+    return this.http.delete(url);
+  }
+  deleteAttempts(id: number) {
+  return this.http.delete(`${this.base}/${id}/attempts`);
+}
+
 }

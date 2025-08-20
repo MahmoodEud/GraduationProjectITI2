@@ -1,0 +1,43 @@
+<div class="container my-4">
+  <h3 class="mb-3">تقدم الكورس</h3>
+
+  @if (isLoading) {
+    <div class="text-center">
+      <div class="spinner-border text-primary"></div>
+      <p>جاري التحميل...</p>
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  @if (courseProgress) {
+    <div class="card p-3 shadow-sm">
+      <h5>الكورس رقم: {{ courseProgress.courseId }}</h5>
+      <p>إجمالي الدروس: {{ courseProgress.totalLessons }}</p>
+      <p>المكتملة: {{ courseProgress.completedLessons }}</p>
+      <p>النسبة: {{ courseProgress.percent }}%</p>
+
+      <div class="progress mb-3">
+        <div class="progress-bar bg-success"
+             role="progressbar"
+             [style.width.%]="courseProgress.percent">
+        </div>
+      </div>
+
+      <h6>تفاصيل الدروس:</h6>
+      <ul class="list-group">
+        @for (lesson of courseProgress.lessons; track lesson.lessonId) {
+          <li class="list-group-item d-flex justify-content-between">
+            <span>درس رقم {{ lesson.lessonId }}</span>
+            <span [class.text-success]="lesson.isCompleted"
+                  [class.text-danger]="!lesson.isCompleted">
+              {{ lesson.isCompleted ? 'مكتمل ✅' : 'غير مكتمل ❌' }}
+            </span>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>

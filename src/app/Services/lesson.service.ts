@@ -26,7 +26,9 @@ getAllLessons(pageNumber: number, pageSize: number): Observable<IPagedResult<ILe
     getLessonById(id: number): Observable<LessonUpdate> {
         return this.http.get<LessonUpdate>(`${this.controllerUrl}${id}`);
     }
-
+    getByCourse(courseId: number) {
+      return this.http.get<ILesson[]>(`${this.controllerUrl}by-course/${courseId}`);
+    }
   createLesson(lesson: LessonUpdate): Observable<any> {
     return this.http.post(`${this.controllerUrl}`, lesson).pipe(
       catchError(err => throwError(() => new Error(err.error?.message || 'Failed to create lesson')))
@@ -34,7 +36,7 @@ getAllLessons(pageNumber: number, pageSize: number): Observable<IPagedResult<ILe
   }
 
    getCourses(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.baseUrl}/courses`);
+      return this.http.get<any[]>(`${this.baseUrl}Course`);
     }
 
   updateLesson(id: number, lesson: LessonUpdate): Observable<any> {
@@ -48,6 +50,17 @@ getAllLessons(pageNumber: number, pageSize: number): Observable<IPagedResult<ILe
       catchError(err => throwError(() => new Error(err.error?.message || 'Failed to delete lesson')))
     );
   }
+  filterLessons(filter: LessonFilter): Observable<ILesson[]> {
+  return this.http.post<ILesson[]>(`${this.controllerUrl}filter`, filter).pipe(
+    catchError(err => throwError(() => new Error(err.error?.message || 'Failed to filter lessons')))
+  );
+}
+updateLessonByTitle(title: string, lesson: LessonUpdate): Observable<any> {
+  return this.http.put(`${this.controllerUrl}by-title/${title}`, lesson).pipe(
+    catchError(err => throwError(() => new Error(err.error?.message || 'Failed to update lesson by title')))
+  );
+}
+
   // getLessonById(id: number) {
   //   return this.http.get(this.controllerUrl + id)
   // }
