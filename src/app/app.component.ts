@@ -7,11 +7,12 @@ import { LottieComponent } from 'ngx-lottie';
 import { NavbarComponent } from "./Components/navbar/navbar.component";
 import { MainComponent } from "./Components/main/main.component";
 import { AccountService } from './Services/account.service';
+import { AiChatbotComponent } from "./Components/ai-chat/ai-chat.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent,],
+  imports: [RouterOutlet, NavbarComponent, AiChatbotComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -25,7 +26,7 @@ export class AppComponent {
       this.enableDarkMode();
       this.isDarkMode = true;
     }
-    this.accountService.loadCurrentUser(); 
+    this.accountService.loadCurrentUser();
   }
    toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
