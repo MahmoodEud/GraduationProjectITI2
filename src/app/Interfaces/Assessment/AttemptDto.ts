@@ -7,5 +7,7 @@ export interface AttemptDto {
   submittedAt?: string | null;
   timeLimitMinutes?: number | null;
   score?: number;
+  lessonId?: number;
   isGraded: boolean;
+  remainingAttempts?: number | null;
 }

@@ -7,18 +7,20 @@ import { IStudent } from '../../../../Interfaces/istudent';
 import { IPagedResult } from '../../../../Interfaces/ipaged-result';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AdminEnrollInvoiceComponent } from "./admin-enroll-invoice/admin-enroll-invoice.component";
+import { AdminInvoicesListComponent } from "./admin-invoices-list/admin-invoices-list.component";
 
 @Component({
   selector: 'app-admin-course-management',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AdminEnrollInvoiceComponent, AdminInvoicesListComponent],
   templateUrl: './admin-course-management.component.html',
   styleUrls: ['./admin-course-management.component.css']
 })
 export class AdminCourseManagementComponent implements OnInit {
   students: IStudent[] = [];
   courses: Course[] = [];
-  selectedStudentId: number | null = null; // هنا بنخزن studentId (number)
+  selectedStudentId: number | null = null; 
   selectedCourseId: number | null = null;
   errorMessage: string | null = null;
   successMessage: string | null = null;
@@ -30,13 +32,11 @@ export class AdminCourseManagementComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // جلب الطلاب
     this.studentService.getAllStudents().subscribe({
       next: (response: IPagedResult<IStudent>) => this.students = response.items,
       error: () => this.errorMessage = 'فشل تحميل الطلاب'
     });
 
-    // جلب الكورسات
     this.courseService.getCourses().subscribe({
       next: (response: IPagedResult<Course>) => this.courses = response.items,
       error: () => this.errorMessage = 'فشل تحميل الكورسات'

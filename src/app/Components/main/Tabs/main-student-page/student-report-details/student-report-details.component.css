@@ -1,0 +1,231 @@
+  .bg-gradient-primary {
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  }
+
+  .stat-item {
+      padding: 1rem;
+      height: 100%;
+  }
+
+  .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+  }
+
+  .answer-stat {
+      padding: 1rem;
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+      height: 100%;
+  }
+
+  .answer-stat:hover {
+      transform: translateY(-2px);
+  }
+
+  .answer-stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      font-size: 1rem;
+  }
+
+  .answer-stat-label {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+  }
+
+  .answer-stat-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+  }
+
+  .answer-stat.correct {
+      background: rgba(25, 135, 84, 0.1);
+      border: 1px solid rgba(25, 135, 84, 0.2);
+  }
+
+  .answer-stat.correct .answer-stat-icon {
+      background: rgba(25, 135, 84, 0.1);
+      color: #198754;
+  }
+
+  .answer-stat.correct .answer-stat-value {
+      color: #198754;
+  }
+
+  .answer-stat.wrong {
+      background: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.2);
+  }
+
+  .answer-stat.wrong .answer-stat-icon {
+      background: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+  }
+
+  .answer-stat.wrong .answer-stat-value {
+      color: #dc3545;
+  }
+
+  .answer-stat.answered {
+      background: rgba(13, 110, 253, 0.1);
+      border: 1px solid rgba(13, 110, 253, 0.2);
+  }
+
+  .answer-stat.answered .answer-stat-icon {
+      background: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+  }
+
+  .answer-stat.answered .answer-stat-value {
+      color: #0d6efd;
+  }
+
+  .answer-stat.unanswered {
+      background: rgba(108, 117, 125, 0.1);
+      border: 1px solid rgba(108, 117, 125, 0.2);
+  }
+
+  .answer-stat.unanswered .answer-stat-icon {
+      background: rgba(108, 117, 125, 0.1);
+      color: #6c757d;
+  }
+
+  .answer-stat.unanswered .answer-stat-value {
+      color: #6c757d;
+  }
+
+  .time-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .question-item {
+      transition: background-color 0.2s ease;
+  }
+
+  .question-item:last-child {
+      border-bottom: none !important;
+  }
+
+  .question-number {
+      flex-shrink: 0;
+  }
+
+  .question-number .badge {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+  }
+
+  .answer-box {
+      transition: all 0.2s ease;
+  }
+
+  .status-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      flex-shrink: 0;
+  }
+
+  .status-badge.correct {
+      background: rgba(25, 135, 84, 0.1);
+      color: #198754;
+      border: 2px solid #198754;
+  }
+
+  .status-badge.wrong {
+      background: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      border: 2px solid #dc3545;
+  }
+
+  .form-check-input:checked {
+      background-color: #dc3545;
+      border-color: #dc3545;
+  }
+
+  @media (max-width: 576px) {
+      .container-fluid {
+          padding-left: 1rem;
+          padding-right: 1rem;
+      }
+
+      .card-body {
+          padding: 1rem !important;
+      }
+
+      .card-header {
+          padding: 1rem !important;
+      }
+
+      .display-6 {
+          font-size: 2rem;
+      }
+
+      .stat-item {
+          padding: 0.5rem;
+      }
+
+      .answer-stat {
+          padding: 0.75rem;
+      }
+
+      .question-item {
+          padding: 1rem !important;
+      }
+
+      .status-badge {
+          width: 50px;
+          height: 50px;
+          font-size: 1rem;
+      }
+
+      .question-number .badge {
+          width: 30px;
+          height: 30px;
+          font-size: 0.8rem;
+      }
+  }
+
+  @media (max-width: 768px) {
+      .answer-details .row {
+          gap: 0.5rem;
+      }
+
+      .time-info-card {
+          padding: 0.75rem !important;
+      }
+
+      .btn-lg {
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+      }
+  }

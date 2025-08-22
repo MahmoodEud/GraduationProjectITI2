@@ -267,13 +267,13 @@
     }
 
     .hero-svg {
-        width: 250px;
-        height: 250px;
+        width: 260px;
+        height: 260px;
     }
 
     .hero-profile-img {
-        width: 220px;
-        height: 220px;
+        width: 280px;
+        height: 300px;
     }
 }
 
@@ -305,18 +305,18 @@
 
     .hero-image-container {
         height: 250px;
-        max-width: 300px;
+        max-width: 400px;
         margin-bottom: 2rem;
     }
 
     .hero-svg {
-        width: 200px;
-        height: 200px;
+        width: 260px;
+        height: 260px;
     }
 
     .hero-profile-img {
-        width: 180px;
-        height: 180px;
+        width: 280px;
+        height: 280px;
     }
 }
 
@@ -388,8 +388,14 @@
         transform: none;
     }
 
+    .hero-svg {
+        width: 170px;
+        height: 180px;
+    }
+
     .hero-profile-img {
-        transform: translate(-50%, -50%) !important;
+        width: 230px;
+        height: 230px;
     }
 }
 
@@ -553,18 +559,23 @@ body {
     transform: scale(1.05);
 }
 
-/* Success Stories Slider Styles */
 .success-stories-slider {
-    width: 100%;
+    --card: 300px;
+    --gap: 20px;
+    --count: 8;
+    --duration: 30s width: 100%;
     margin: 0 auto;
     background: linear-gradient(135deg, #0077B6 0%, #48CAE4 100%);
 }
 
 .slider-track {
     display: flex;
-    width: calc(320px * 12);
-    animation: scroll 30s linear infinite;
-    gap: 20px;
+    width: calc((var(--card) + var(--gap)) * var(--count) - var(--gap));
+    animation: scroll 10s linear infinite;
+    gap: var(--gap);
+
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .story-card {
@@ -575,7 +586,6 @@ body {
 
 .story-card .card {
     background: linear-gradient(135deg, #0077B6 0%, #48CAE4 100%);
-    /* Dark cyan gradient for all cards */
     border: none;
 }
 
@@ -604,13 +614,14 @@ body {
 
 @keyframes scroll {
     0% {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
     }
 
     100% {
-        transform: translateX(calc(-320px * 6));
+        transform: translate3d(calc(-320px * 4), 0, 0);
     }
 }
+
 
 .slider-track:hover {
     animation-play-state: paused;
@@ -656,13 +667,14 @@ body {
 
     @keyframes scroll {
         0% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
         }
 
         100% {
-            transform: translateX(calc(-300px * 6));
+            transform: translate3d(calc(-300px * 4), 0, 0);
         }
     }
+
 }
 
 @media (max-width: 992px) {
@@ -676,15 +688,21 @@ body {
         width: calc(280px * 12);
     }
 
+    .slider-track {
+        width: calc(280px * 8);
+    }
+
     @keyframes scroll {
         0% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
         }
 
         100% {
-            transform: translateX(calc(-280px * 6));
+            transform: translate3d(calc(-280px * 4), 0, 0);
         }
     }
+
+
 }
 
 @media (max-width: 768px) {
@@ -698,15 +716,21 @@ body {
         width: calc(260px * 12);
     }
 
+    .slider-track {
+        width: calc(260px * 8);
+    }
+
     @keyframes scroll {
         0% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
         }
 
         100% {
-            transform: translateX(calc(-260px * 6));
+            transform: translate3d(calc(-260px * 4), 0, 0);
         }
     }
+
+
 
     .student-avatar {
         width: 60px;
@@ -723,6 +747,10 @@ body {
 }
 
 @media (max-width: 576px) {
+    .hero-content {
+        padding: 0 15px;
+    }
+
     .display-4 {
         font-size: 2rem !important;
     }
@@ -754,15 +782,21 @@ body {
         width: calc(220px * 12);
     }
 
+    .slider-track {
+        width: calc(220px * 8);
+    }
+
     @keyframes scroll {
         0% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
         }
 
         100% {
-            transform: translateX(calc(-220px * 6));
+            transform: translate3d(calc(-220px * 4), 0, 0);
         }
     }
+
+
 }
 
 /* Extra Small Screens */
@@ -796,6 +830,16 @@ body {
     .accordion-body {
         font-size: 0.9rem !important;
         padding: 20px !important;
+    }
+
+    .hero-svg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .hero-profile-img {
+        width: 230px;
+        height: 230px;
     }
 }
 

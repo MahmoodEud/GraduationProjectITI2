@@ -1,0 +1,324 @@
+<div class="container-fluid px-2 px-md-4 py-3 py-md-4 mt-3">
+  @if (loading()) {
+    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+      <i class="fa-solid fa-spinner fa-spin me-2 fs-5"></i> 
+      <span>جارٍ التحميل...</span>
+    </div>
+  } @else if (error()) {
+    <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+      <i class="fa-solid fa-triangle-exclamation me-2 fs-5"></i> 
+      <span>{{ error() }}</span>
+    </div>
+  } @else if (report()) {
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+          <div class="d-flex align-items-center">
+            <div class="icon-wrapper bg-primary bg-opacity-10 p-3 rounded-circle me-3">
+              <i class="fa-solid fa-file-lines text-primary fs-3"></i>
+            </div>
+            <div>
+              <h3 class="mb-1 text-dark fw-bold">{{ report()!.assessmentName }}</h3>
+              <p class="text-muted mb-0 small">تقرير مفصل للمحاولة</p>
+            </div>
+          </div>
+          <!-- Status Badge -->
+          <div class="text-center text-lg-end">
+            @if (report()!.isPassed) {
+              <div class="badge bg-success bg-gradient px-4 py-3 fs-6 rounded-pill">
+                <i class="fa-solid fa-trophy me-2"></i>نجح بامتياز
+              </div>
+            } @else {
+              <div class="badge bg-danger bg-gradient px-4 py-3 fs-6 rounded-pill">
+                <i class="fa-solid fa-times-circle me-2"></i>لم ينجح
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm overflow-hidden">
+          <div class="card-header bg-gradient-primary text-white p-3 p-md-4">
+            <h5 class="mb-0 fw-semibold">
+              <i class="fa-solid fa-chart-pie me-2"></i>
+              نتائج الاختبار
+            </h5>
+          </div>
+          <div class="card-body p-3 p-md-4">
+            <!-- Primary Stats -->
+            <div class="row g-3 g-md-4 text-center mb-4">
+              <div class="col-6 col-lg-3">
+                <div class="stat-item">
+                  <div class="stat-icon bg-warning bg-opacity-10 mx-auto mb-2">
+                    <i class="fa-solid fa-percentage text-warning"></i>
+                  </div>
+                  <div class="text-muted small mb-1">الدرجة النهائية</div>
+                  <div class="display-6 fw-bold text-warning">{{ report()!.score }}%</div>
+                </div>
+              </div>
+              
+              <div class="col-6 col-lg-3">
+                <div class="stat-item">
+                  <div class="stat-icon bg-info bg-opacity-10 mx-auto mb-2">
+                    <i class="fa-solid fa-list-ol text-info"></i>
+                  </div>
+                  <div class="text-muted small mb-1">إجمالي الأسئلة</div>
+                  <div class="h3 fw-bold text-info mb-0">{{ report()!.totalQuestions }}</div>
+                </div>
+              </div>
+              
+              <div class="col-6 col-lg-3">
+                <div class="stat-item">
+                  <div class="stat-icon bg-secondary bg-opacity-10 mx-auto mb-2">
+                    <i class="fa-solid fa-clock text-secondary"></i>
+                  </div>
+                  <div class="text-muted small mb-1">مدة الاختبار</div>
+                  <div class="h5 fw-bold text-secondary mb-0">{{ durationLabel() }}</div>
+                </div>
+              </div>
+              
+              <div class="col-6 col-lg-3">
+                <div class="stat-item">
+                  <div class="stat-icon bg-primary bg-opacity-10 mx-auto mb-2">
+                    <i class="fa-solid fa-flag-checkered text-primary"></i>
+                  </div>
+                  <div class="text-muted small mb-1">الحالة</div>
+                  @if (report()!.isPassed) {
+                    <span class="badge bg-success px-3 py-2 fs-6">
+                      <i class="fa-solid fa-check me-1"></i>ناجح
+                    </span>
+                  } @else {
+                    <span class="badge bg-danger px-3 py-2 fs-6">
+                      <i class="fa-solid fa-times me-1"></i>راسب
+                    </span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- Answer Statistics -->
+            <div class="border-top pt-4">
+              <h6 class="text-muted mb-3 fw-semibold">
+                <i class="fa-solid fa-chart-bar me-2"></i>
+                إحصائيات الإجابات
+              </h6>
+              <div class="row g-3 text-center">
+                <div class="col-6 col-md-3">
+                  <div class="answer-stat correct">
+                    <div class="answer-stat-icon">
+                      <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div class="answer-stat-label">إجابات صحيحة</div>
+                    <div class="answer-stat-value">{{ correctCount() }}</div>
+                  </div>
+                </div>
+                
+                <div class="col-6 col-md-3">
+                  <div class="answer-stat wrong">
+                    <div class="answer-stat-icon">
+                      <i class="fa-solid fa-times"></i>
+                    </div>
+                    <div class="answer-stat-label">إجابات خاطئة</div>
+                    <div class="answer-stat-value">{{ wrongCount() }}</div>
+                  </div>
+                </div>
+                
+                <div class="col-6 col-md-3">
+                  <div class="answer-stat answered">
+                    <div class="answer-stat-icon">
+                      <i class="fa-solid fa-pen"></i>
+                    </div>
+                    <div class="answer-stat-label">أسئلة مجابة</div>
+                    <div class="answer-stat-value">{{ answeredCount() }}</div>
+                  </div>
+                </div>
+                
+                <div class="col-6 col-md-3">
+                  <div class="answer-stat unanswered">
+                    <div class="answer-stat-icon">
+                      <i class="fa-solid fa-question"></i>
+                    </div>
+                    <div class="answer-stat-label">أسئلة غير مجابة</div>
+                    <div class="answer-stat-value">{{ unansweredCount() }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Time Information -->
+            <div class="border-top pt-4 mt-4">
+              <h6 class="text-muted mb-3 fw-semibold">
+                <i class="fa-solid fa-calendar-clock me-2"></i>
+                التوقيتات
+              </h6>
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <div class="time-info-card p-3 rounded bg-light border">
+                    <div class="d-flex align-items-center">
+                      <div class="time-icon bg-success bg-opacity-10 me-3">
+                        <i class="fa-solid fa-play text-success"></i>
+                      </div>
+                      <div>
+                        <div class="text-muted small">وقت البدء</div>
+                        <div class="fw-bold">
+                          {{ attempt()?.startedAt ? (attempt()?.startedAt | date:'short':'Africa/Cairo') : '—' }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="time-info-card p-3 rounded bg-light border">
+                    <div class="d-flex align-items-center">
+                      <div class="time-icon bg-danger bg-opacity-10 me-3">
+                        <i class="fa-solid fa-stop text-danger"></i>
+                      </div>
+                      <div>
+                        <div class="text-muted small">وقت التسليم</div>
+                        <div class="fw-bold">
+                          {{ attempt()?.submittedAt ? (attempt()?.submittedAt | date:'short':'Africa/Cairo') : '—' }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white p-3 p-md-4 border-bottom">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+              <h5 class="mb-0 fw-semibold text-dark">
+                <i class="fa-solid fa-list-check me-2 text-primary"></i>
+                تفاصيل الأسئلة
+              </h5>
+              
+              <!-- Filter Toggle -->
+              <div class="form-check form-switch">
+                <input #onlyWrongEl 
+                       class="form-check-input" 
+                       type="checkbox"
+                       role="switch"
+                       id="onlyWrong"
+                       [checked]="showOnlyWrong()"
+                       (change)="showOnlyWrong.set(onlyWrongEl.checked)">
+                <label class="form-check-label fw-medium" for="onlyWrong">
+                  <i class="fa-solid fa-filter me-1 text-danger"></i>
+                  الخاطئة فقط
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body p-0">
+            @for (q of report()!.questions; track q.questionId; let i = $index) {
+              @if (!showOnlyWrong() || !q.isCorrect) {
+                <div class="question-item border-bottom p-3 p-md-4" [class.bg-danger-subtle]="!q.isCorrect">
+                  <div class="d-flex align-items-start gap-3">
+                    
+                    <!-- Question Number -->
+                    <div class="question-number">
+                      <span class="badge rounded-circle" 
+                            [class.bg-success]="q.isCorrect" 
+                            [class.bg-danger]="!q.isCorrect"
+                            [class.text-white]="true">
+                        {{ i + 1 }}
+                      </span>
+                    </div>
+
+                    <!-- Question Content -->
+                    <div class="flex-grow-1">
+                      <div class="question-text fw-bold mb-3 text-dark">
+                        {{ q.questionText }}
+                      </div>
+                      
+                      <!-- Answer Details -->
+                      <div class="answer-details">
+                        <div class="row g-2 g-md-3">
+                          
+                          <!-- Student Answer -->
+                          <div class="col-12 col-lg-6">
+                            <div class="answer-box p-3 rounded border" 
+                                 [class.border-success]="q.isCorrect"
+                                 [class.bg-success-subtle]="q.isCorrect"
+                                 [class.border-danger]="!q.isCorrect"
+                                 [class.bg-danger-subtle]="!q.isCorrect">
+                              <div class="answer-label small text-muted mb-1 fw-medium">
+                                <i class="fa-solid fa-user me-1"></i>إجابتك:
+                              </div>
+                              <div class="answer-value fw-bold" 
+                                   [class.text-success]="q.isCorrect" 
+                                   [class.text-danger]="!q.isCorrect">
+                                {{ q.studentAnswer || 'لم تجب' }}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <!-- Correct Answer -->
+                          <div class="col-12 col-lg-6">
+                            <div class="answer-box p-3 rounded border border-success bg-success-subtle">
+                              <div class="answer-label small text-muted mb-1 fw-medium">
+                                <i class="fa-solid fa-check-circle me-1 text-success"></i>الإجابة الصحيحة:
+                              </div>
+                              <div class="answer-value fw-bold text-success">
+                                {{ q.correctAnswer }}
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Status Badge -->
+                    <div class="question-status text-center">
+                      @if (q.isCorrect) {
+                        <div class="status-badge correct">
+                          <i class="fa-solid fa-check"></i>
+                          <div class="small mt-1">صحيح</div>
+                        </div>
+                      } @else {
+                        <div class="status-badge wrong">
+                          <i class="fa-solid fa-times"></i>
+                          <div class="small mt-1">خطأ</div>
+                        </div>
+                      }
+                    </div>
+
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-5 py-5">
+      <div class="col-12">
+        <div class="d-flex justify-content-center flex-wrap gap-2 gap-md-3">
+          <button class="btn btn-outline-secondary btn-lg px-4" (click)="back()" type="button">
+            <i class="fa-solid fa-arrow-right me-2"></i>
+            رجوع للقائمة
+          </button>
+          <button class="btn btn-primary btn-lg px-4" (click)="backToQuiz()" type="button">
+            <i class="fa-solid fa-redo me-2"></i>
+            إعادة الاختبار
+          </button>
+        </div>
+      </div>
+    </div>
+
+  }
+</div>

@@ -1,4 +1,4 @@
-<div class="quiz-container">
+<div class="quiz-container mb-sm-0 mb-5 py-sm-0 py-5">
   @if (!loaded()) {
     <div class="loading-container text-center">
       <div class="spinner-border" role="status">
@@ -96,7 +96,7 @@
         </div>
       </div>
 
-      <div class="question-navigator mt-4">
+      <div class="question-navigator mt-0 mb-sm-0 mb-5 py-sm-0 py-5">
         <h6>الانتقال إلى سؤال:</h6>
         <div class="question-buttons">
           @for (question of questions(); track question.id; let i = $index) {

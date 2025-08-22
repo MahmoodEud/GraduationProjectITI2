@@ -1,5 +1,4 @@
-<div class="container py-5">
-  <!-- Loading Spinner -->
+<div class="container mb-sm-0 mb-5 py-sm-0 py-5">
   @if (isLoading) {
     <div class="loading-spinner text-center my-5">
       <div class="loading-content">
@@ -8,8 +7,6 @@
       </div>
     </div>
   }
-
-  <!-- Error Message -->
   @if (errorMessage && !isLoading) {
     <div class="alert alert-danger error-alert text-center my-4" role="alert">
       <i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -17,9 +14,8 @@
     </div>
   }
 
-  <!-- Course Details -->
   @if (!isLoading && !errorMessage && course) {
-    <div class="course-details card shadow-lg">
+    <div class="course-details card shadow-lg mb-sm-0 mb-5 py-sm-0 py-5">
       <div class="row g-0">
         <div class="col-lg-5 col-md-6">
           <div class="image-container position-relative">

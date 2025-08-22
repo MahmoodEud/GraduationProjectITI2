@@ -13,7 +13,7 @@
       <button type="button" class="btn btn-outline-danger" (click)="retry()">إعادة المحاولة</button>
     </div>
   } @else if (assessment()) {
-    <div class="quiz-info-card mt-5">
+    <div class="quiz-info-card mt-5 mb-sm-0 mb-5">
       <div class="card">
         <div class="card-header d-flex align-items-center gap-2">
           <h4 class="card-title mb-0">كويز الدرس</h4>
@@ -61,7 +61,7 @@
             </ul>
           </div>
 
-          <div class="text-center mt-4">
+          <div class="text-center mb-sm-0 py-sm-0 mb-5 py-5">
             <button type="button"
                     class="btn btn-primary btn-lg"
                     [disabled]="!canStart()"

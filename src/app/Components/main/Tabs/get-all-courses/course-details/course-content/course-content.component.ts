@@ -78,7 +78,6 @@ export class CourseContentComponent implements OnInit, AfterViewInit, OnDestroy 
 
   private async loadPlyrAssets(): Promise<void> {
     return new Promise((resolve) => {
-      // تحقق إذا كان Plyr محمل بالفعل
       if (typeof Plyr !== 'undefined') {
         resolve();
         return;
@@ -123,27 +122,22 @@ export class CourseContentComponent implements OnInit, AfterViewInit, OnDestroy 
 
     this.isPlayerInitializing = true;
 
-    // تدمير المشغل السابق
     this.destroyPlayer();
 
-    // التأكد من وجود عنصر الفيديو
     if (!this.videoPlayer?.nativeElement) {
       this.isPlayerInitializing = false;
       return;
     }
 
-    // التأكد من وجود محتوى فيديو
     if (!this.selectedLesson || !this.hasVideoContent()) {
       this.isPlayerInitializing = false;
       return;
     }
 
     try {
-      // تعيين مصدر الفيديو
       const videoSource = this.getCurrentVideoUrl();
       this.videoPlayer.nativeElement.src = videoSource;
 
-      // إنشاء مشغل Plyr جديد
       this.player = new Plyr(this.videoPlayer.nativeElement, {
         controls: [
           'play-large',
@@ -254,12 +248,38 @@ export class CourseContentComponent implements OnInit, AfterViewInit, OnDestroy 
       // تحديث مصدر الفيديو بطريقة آمنة
       this.player.source = {
         type: 'video',
-        sources: [
-          {
-            src: videoSource,
-            type: 'video/mp4'
-          }
-        ]
+sources: [
+    {
+      src: videoSource,
+      type: 'video/mp4',
+      size: 360
+    },
+    {
+      src: videoSource,
+      type: 'video/mp4',
+      size: 480
+    },
+    {
+      src: videoSource,
+      type: 'video/mp4',
+      size: 720
+    },
+    {
+      src: videoSource,
+      type: 'video/mp4',
+      size: 1080
+    },
+    {
+      src: videoSource,
+      type: 'video/mp4',
+      size: 1440
+    },
+    {
+      src: videoSource,
+      type: 'video/mp4',
+      size: 2160
+    }
+  ]
       };
 
       console.log('Video source updated:', videoSource);

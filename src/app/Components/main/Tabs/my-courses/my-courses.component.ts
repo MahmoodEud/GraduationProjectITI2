@@ -102,4 +102,21 @@ export class MyCoursesComponent {
   handleImageError(event: Event): void {
     (event.target as HTMLImageElement).src = 'assets/images/default.jpg';
   }
+   getAverageProgress(): number {
+    const vals = Object.values(this.progressByCourseId);
+    if (!vals.length) return 0;
+    const sum = vals.reduce((a, b) => a + (Number(b) || 0), 0);
+    return sum / vals.length;
+  }
+
+  getCompletedCourses(): number {
+    return this.courses.filter(c => (this.progressByCourseId[c.id] ?? 0) >= 100).length;
+  }
+
+  getInProgressCourses(): number {
+    return this.courses.filter(c => {
+      const p = this.progressByCourseId[c.id] ?? 0;
+      return p > 0 && p < 100;
+    }).length;
+  }
 }

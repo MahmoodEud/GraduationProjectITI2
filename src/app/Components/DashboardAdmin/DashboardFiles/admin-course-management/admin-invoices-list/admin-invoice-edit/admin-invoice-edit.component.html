@@ -1,0 +1,215 @@
+<div class="container-fluid px-2 px-md-4 py-3 py-md-4">
+  <!-- العنوان -->
+  <div class="d-flex align-items-center mb-4">
+    <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-3" 
+         style="width: 48px; height: 48px;">
+      <i class="fa-solid fa-pen-to-square text-white fs-5"></i>
+    </div>
+    <div>
+      <h4 class="mb-1 fw-bold text-dark">تعديل فاتورة</h4>
+      <p class="text-muted mb-0 small">
+        رقم: {{ invoice()?.invoiceNo || invoice()?.id }} —
+        الحالة:
+        <span [class]="statusBadge(invoice()?.status)" class="badge px-2 py-1">
+          {{ statusNameAr(invoice()?.status) }}
+        </span>
+      </p>
+    </div>
+    <div class="ms-auto d-none d-md-block">
+      <button class="btn btn-sm btn-outline-secondary" (click)="backToList()">
+        <i class="fa-solid fa-arrow-right me-1"></i> رجوع
+      </button>
+    </div>
+  </div>
+
+  <!-- رسائل الحالة -->
+  @if (error()) {
+    <div class="alert alert-danger border-0 shadow-sm mb-3" role="alert">
+      <i class="fa-solid fa-exclamation-triangle me-2"></i>
+      {{ error() }}
+    </div>
+  }
+  @if (loading()) {
+    <div class="alert alert-info border-0 shadow-sm mb-3" role="alert">
+      <i class="fa-solid fa-spinner fa-spin me-2"></i>
+      جاري التحميل...
+    </div>
+  }
+
+  @if (invoice()) {
+    <div class="row g-3 g-lg-4">
+      <!-- عام -->
+      <div class="col-12 col-xl-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-gradient" 
+               style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-user-graduate text-primary me-2"></i>
+              <h6 class="mb-0 fw-bold">بيانات الاشتراك</h6>
+            </div>
+          </div>
+          <div class="card-body p-3 p-md-4">
+
+            <!-- طالب -->
+            <div class="mb-3 mb-md-4">
+              <label class="form-label fw-semibold mb-2">
+                <i class="fa-solid fa-user text-primary me-1"></i>
+                الطالب
+              </label>
+              <select class="form-select form-select-lg shadow-sm border-0" 
+                      style="background-color: #f8f9fa;"
+                      [disabled]="!isDraft()"
+                      [ngModel]="studentId()"
+                      (ngModelChange)="studentId.set($event)">
+                <option *ngFor="let s of students" [ngValue]="s.studentId">
+                  {{ s.name }} (ID: {{ s.studentId }})
+                </option>
+              </select>
+            </div>
+
+            <!-- كورس -->
+            <div class="mb-3 mb-md-4">
+              <label class="form-label fw-semibold mb-2">
+                <i class="fa-solid fa-book text-success me-1"></i>
+                الكورس
+                <small class="text-muted">(اختياري)</small>
+              </label>
+              <select class="form-select form-select-lg shadow-sm border-0" 
+                      style="background-color: #f8f9fa;"
+                      [disabled]="!isDraft()"
+                      [ngModel]="courseId()"
+                      (ngModelChange)="courseId.set($event)">
+                <option [ngValue]="null">— بدون كورس —</option>
+                <option *ngFor="let c of courses" [ngValue]="c.id">
+                  {{ c.title }}
+                </option>
+              </select>
+            </div>
+
+            <!-- فترة الوصول -->
+            <div class="mb-3 mb-md-4">
+              <label class="form-label fw-semibold mb-2">
+                <i class="fa-solid fa-clock text-warning me-1"></i>
+                فترة الوصول
+                <small class="text-muted">(اختياري)</small>
+              </label>
+              <div class="row g-2">
+                <div class="col-12 col-sm-6">
+                  <label class="form-label small text-muted">من تاريخ</label>
+                  <input type="datetime-local" 
+                         class="form-control shadow-sm border-0" 
+                         style="background-color: #f8f9fa;"
+                         [disabled]="!isDraft()"
+                         [ngModel]="accessStart()"
+                         (ngModelChange)="accessStart.set($event)">
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label class="form-label small text-muted">إلى تاريخ</label>
+                  <input type="datetime-local" 
+                         class="form-control shadow-sm border-0" 
+                         style="background-color: #f8f9fa;"
+                         [disabled]="!isDraft()"
+                         [ngModel]="accessEnd()"
+                         (ngModelChange)="accessEnd.set($event)">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- تفاصيل الفاتورة -->
+      <div class="col-12 col-xl-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-gradient" 
+               style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-file-invoice-dollar text-success me-2"></i>
+              <h6 class="mb-0 fw-bold">تفاصيل الفاتورة</h6>
+            </div>
+          </div>
+          <div class="card-body p-3 p-md-4">
+
+            <!-- المبلغ -->
+            <div class="mb-3 mb-md-4">
+              <label class="form-label fw-semibold mb-2">
+                <i class="fa-solid fa-dollar-sign text-success me-1"></i>
+                المبلغ
+              </label>
+              <div class="input-group shadow-sm">
+                <input type="number" 
+                       class="form-control form-control-lg border-0" 
+                       style="background-color: #f8f9fa;"
+                       [disabled]="!isDraft()"
+                       [ngModel]="amount()"
+                       (ngModelChange)="amount.set($event)"
+                       placeholder="0.00">
+                <span class="input-group-text bg-light border-0">
+                  <i class="fa-solid fa-coins text-warning"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- العملة (قراءة فقط) -->
+            <div class="mb-3 mb-md-4">
+              <label class="form-label fw-semibold mb-2">
+                <i class="fa-solid fa-money-bill text-info me-1"></i>
+                العملة
+              </label>
+              <input type="text" class="form-control form-control-lg shadow-sm border-0" 
+                     style="background-color: #e9ecef;"
+                     [ngModel]="currency()" readonly disabled>
+            </div>
+
+            <!-- الملاحظات -->
+            <div class="mb-3 mb-md-4">
+              <label class="form-label fw-semibold mb-2">
+                <i class="fa-solid fa-sticky-note text-secondary me-1"></i>
+                ملاحظات
+              </label>
+              <textarea class="form-control shadow-sm border-0" 
+                        style="background-color: #f8f9fa;" 
+                        rows="3"
+                        [disabled]="!isDraft()"
+                        [ngModel]="notes()"
+                        (ngModelChange)="notes.set($event)"
+                        placeholder="اكتب ملاحظاتك هنا..."></textarea>
+            </div>
+
+            <!-- أزرار -->
+            <div class="d-flex flex-column flex-sm-row flex-wrap gap-2 gap-sm-3">
+              <button class="btn btn-outline-primary btn-lg shadow-sm flex-fill"
+                      [disabled]="!isDraft()"
+                      (click)="save()">
+                <i class="fa-solid fa-floppy-disk me-2"></i>
+                حفظ التعديلات
+              </button>
+
+              <button class="btn btn-outline-secondary btn-lg shadow-sm flex-fill"
+                      [disabled]="!isDraft()"
+                      (click)="send()">
+                <i class="fa-solid fa-paper-plane me-2"></i>
+                إرسال
+              </button>
+
+              <button class="btn btn-outline-danger btn-lg shadow-sm flex-fill"
+                      [disabled]="!isDraft()"
+                      (click)="deleteDraft()">
+                <i class="fa-solid fa-trash me-2"></i>
+                حذف المسودة
+              </button>
+
+              <button class="btn btn-light btn-lg shadow-sm flex-fill" (click)="backToList()">
+                <i class="fa-solid fa-arrow-right me-2"></i>
+                رجوع
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+</div>

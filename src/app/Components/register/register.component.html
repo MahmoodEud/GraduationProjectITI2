@@ -1,10 +1,8 @@
 <section class="full-screen-section d-flex justify-content-center align-items-center text-white min-vh-100">
   <div class="container-fluid">
     <div class="row g-0 min-vh-100">
-      <!-- Registration Form Section -->
       <div class="col-12 col-lg-6 order-2 order-lg-1">
         <div class="h-100 w-100 white-half d-flex flex-column justify-content-center p-4 p-md-5">
-          <!-- Logo/Brand Area -->
           <div class="text-center mb-md-5">
             <div class="brand-logo bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center " 
                  style="width: 80px; height: 80px; font-size: 2rem;">
@@ -21,9 +19,7 @@
               </div>
             </div>
           </div>
-
-          <!-- Registration Form -->
-          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="login-form">
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="login-form mb-5 py-5 pt-3">
             <div class="container-fluid">
               <div class="row mb-0">
                 <div class="col-12">
@@ -41,9 +37,9 @@
                       />
                     </div>
                     @if (registrationForm.get("name")?.invalid && registrationForm.get("name")?.touched) {
-                      <small class="text-danger ms-5">الأسم لازم يبقا رباعي</small>
+                      <small class="text-danger ms-5">من فضلك اكتب الاسم رباعي.</small>
                     } @else if (registrationForm.get('name')?.valid && registrationForm.get('name')?.touched) {
-                      <small class="text-success ms-5">الأسم تمام التمام</small>
+                      <small class="text-success ms-5">الاسم مُطابق بشكل كامل</small>
                     }
                   </div>
                 </div>
@@ -63,7 +59,7 @@
                         class="form-control border-start-0 ps-0"
                       />
                     </div>
-                    <small class="text-muted ms-5">ارفع صورة شخصية (jpg / png)</small>
+                    <small class="text-muted ms-5">من فضلك ارفع صورة شخصية (JPG / PNG)</small>
                   </div>
                 </div>
 
@@ -84,7 +80,7 @@
                     @if (registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched) {
                       <small class="text-danger ms-5"> اسم المستخدم مطلوب</small>
                     } @else if (registrationForm.get('username')?.valid && registrationForm.get('username')?.touched) {
-                      <small class="text-success ms-5">اسم المستخدم سليم</small>
+                      <small class="text-success ms-5">تم التحقق من اسم المستخدم بنجاح</small>
                     }
                   </div>
                 </div>
@@ -108,7 +104,7 @@
                     @if (registrationForm.get('PhoneNumber')?.invalid && registrationForm.get('PhoneNumber')?.touched) {
                       <small class="text-danger ms-5">رقم تليفون الطالب مطلوب</small>
                     } @else if (registrationForm.get('PhoneNumber')?.valid && registrationForm.get('PhoneNumber')?.touched) {
-                      <small class="text-success ms-5">رقم التليفون صحيح</small>
+                      <small class="text-success ms-5">تم التحقق من رقم التليفون</small>
                     }
                   </div>
                 </div>
@@ -127,9 +123,9 @@
                       />
                     </div>
                     @if (registrationForm.get('parentphonenumber')?.invalid && registrationForm.get('parentphonenumber')?.touched) {
-                      <small class="text-danger ms-5">رقم الأب مطلوب</small>
+                      <small class="text-danger ms-5">رقم والي الأمر مطلوب</small>
                     } @else if (registrationForm.get('parentphonenumber')?.valid && registrationForm.get('parentphonenumber')?.touched) {
-                      <small class="text-success ms-5">رقم الأب سليم</small>
+                      <small class="text-success ms-5">تم التحقق من رقم ولي الأمر</small>
                     }
                   </div>
                 </div>
@@ -243,12 +239,10 @@
             </div>
           </form>
 
-          <!-- Footer Links -->
-          <div class="mt-auto pt-4">
+          <div class="mt-auto pt-4 mb-5">
             <p class="text-muted text-center mb-2">
               باستخدامك للمنصة فأنت توافق على 
-              <a href="#" class="text-primary text-decoration-none">سياسة الخصوصية</a>
-              و
+              <a  class="text-primary text-decoration-none loginBtn" (click)="alert()">سياسة الخصوصية</a>              و
               <a href="#" class="text-primary text-decoration-none">الشروط والأحكام</a>
             </p>
             <p class="text-center mb-0">
@@ -261,14 +255,11 @@
         </div>
       </div>
 
-      <!-- Image Section -->
       <div class="col-12 col-lg-6 order-1 order-lg-2 d-none d-lg-flex align-items-center justify-content-center position-relative">
-        <!-- Image Container -->
         <div class="image-container position-relative z-index-2 p-4 p-md-5 text-center">
           <img src="assets/Login.png" class="img-fluid rounded-4 shadow-lg" alt="إنشاء حساب" style="max-height: 80vh; object-fit: contain;" />
         </div>
 
-        <!-- Decorative Elements -->
         <div class="position-absolute top-0 start-0 w-100 h-100">
           <div class="decoration-circle position-absolute" style="top: 10%; right: 10%; width: 100px; height: 100px; background: linear-gradient(45deg, #e3f2fd, #bbdefb); border-radius: 50%; opacity: 0.7;"></div>
           <div class="decoration-circle position-absolute" style="bottom: 20%; left: 15%; width: 60px; height: 60px; background: linear-gradient(45deg, #c8e6c9, #a5d6a7); border-radius: 50%; opacity: 0.5;"></div>

@@ -1,79 +1,9 @@
-<!-- #region -->
-<!-- <section
-  class="full-screen-section d-flex justify-content-center align-items-center text-white"
->
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 col-md-6">
-        <div class="h-100 w-100 white-half">
-          <div class="title">
-            <div class="row mb-4">
-            <div class="col-12 text-center">
-              <h1 class=" LogingHeader">تسجيل الدخول</h1>
-            </div>
-          </div>
 
-          </div>
-          <form (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                name="username"
-                aria-describedby="UserName"
-                [(ngModel)]="model.username"
-                placeholder="أسم المستخدم"
-              />
-              >
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-control"
-                name="password"
-                [(ngModel)]="model.password"
-                placeholder="كلمة المرور"
-              />
-            </div>
-            <button type="submit" class="btn btn-primary w-75 mx-3 mt-3 p-2">
-              تسجيل
-            </button>
-          </form>
-          <div class="py-5 mx-5">
-            <p class="text-black text-center">
-              باستخدامك للمنصة فأنت توافق على <a
-                href="#"
-                class="text-decoration-none"
-                >سياسة الخصوصية</a
-              >
-            </p>
-            <p class="text-black text-center">
-              ليس لديك حساب؟
-              <a routerLink="/Register" class="text-decoration-none"
-                >سجل الأن</a
-              >
-            </p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="col-12 col-md-6 d-flex align-items-center justify-content-center d-none d-md-flex"
-      >
-        <img src="assets/Login.png" class="img-fluid" />
-      </div>
-    </div>
-  </div>
-</section>
-<button class="btn btn-success hover:ch-grow">زر يهتز</button> -->
-<!-- #endregion -->
-<!-- #region -->
 <section class="full-screen-section d-flex justify-content-left align-items-center text-white min-vh-100">
   <div class="container-fluid">
     <div class="row g-0 min-vh-100">
-      <!-- Login Form Section -->
       <div class="col-12 col-lg-6 order-2 order-lg-1">
         <div class="h-100 w-100 white-half d-flex flex-column justify-content-center p-4 p-md-5">
-          <!-- Logo/Brand Area -->
           <div class="text-center mb-4 mb-md-5">
             <div class="brand-logo bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
                  style="width: 80px; height: 80px; font-size: 2rem;">
@@ -81,8 +11,6 @@
             </div>
             <h6 class="text-muted mb-0">منصة البسيط  </h6>
           </div>
-
-          <!-- Title Section -->
           <div class="title mb-4 mb-md-5">
             <div class="row">
               <div class="col-12 text-center">
@@ -165,7 +93,7 @@
           <div class="mt-auto pt-4">
             <p class="text-muted text-center mb-2">
               باستخدامك للمنصة فأنت توافق على 
-              <a href="#" class="text-primary text-decoration-none">سياسة الخصوصية</a>
+              <a  class="text-primary text-decoration-none loginBtn" (click)="alert()">سياسة الخصوصية</a>
               و
               <a href="#" class="text-primary text-decoration-none">الشروط والأحكام</a>
             </p>

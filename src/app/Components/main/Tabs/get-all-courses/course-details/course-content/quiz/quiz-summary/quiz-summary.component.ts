@@ -52,6 +52,9 @@ export class QuizSummaryComponent implements OnInit {
   }
 
   back() {
-    history.length > 1 ? history.back() : this.router.navigateByUrl('/');
+    // history.length > 1 ? history.back() : this.router.navigateByUrl('/');
+    const attempt = this.attempt();
+    this.router.navigate(['/quiz', attempt?.lessonId]);
+    
   }
 }

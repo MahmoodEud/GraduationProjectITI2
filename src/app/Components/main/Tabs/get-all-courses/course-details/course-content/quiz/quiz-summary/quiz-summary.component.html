@@ -1,4 +1,4 @@
-<div class="container-fluid px-2 px-md-4 mt-4 mt-md-5">
+<div class="container-fluid px-2 px-md-4 mt-4 mt-md-5 mb-sm-0 mb-5 py-sm-0 py-5">
   <!-- Loading State -->
   @if (isLoading()) {
     <div class="row justify-content-center">
@@ -35,9 +35,8 @@
     </div>
   } 
     @else if (attempt()) {
-    <div class="row justify-content-center">
+    <div class="row justify-content-center ">
       <div class="col-12 col-lg-8 col-xl-6">
-        <!-- Header Card -->
         <div class="card border-0 shadow-sm mb-4">
           <div class="card-header bg-primary text-white border-0 py-3">
             <div class="d-flex align-items-center">
@@ -46,11 +45,9 @@
             </div>
           </div>
           
-          <!-- Attempt Details -->
           <div class="card-body p-0">
             <div class="list-group list-group-flush">
-              
-              <!-- Attempt Number -->
+
               <div class="list-group-item border-0 py-3 px-4">
                 <div class="row align-items-center">
                   <div class="col-12 col-sm-6 mb-2 mb-sm-0">
@@ -66,7 +63,32 @@
                   </div>
                 </div>
               </div>
-              
+                <div class="list-group-item border-0 py-3 px-4">
+                <div class="row align-items-center">
+                  <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-history text-warning me-2 "></i>
+                      <span class="fw-medium ">المحاولات المتبقية!!! </span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="text-sm-end">
+                      <!-- <span class="badge bg-primary fs-6 px-3 py-2">{{ attempt()!.attemptNumber }}</span> -->
+                      <div *ngIf="attempt() as att">
+                          <ng-container *ngIf="att.remainingAttempts !== null; else unlimited">
+                            <p class="badge bg-danger fs-6 px-3 py-2"> {{ att.remainingAttempts }}</p>
+                          </ng-container>
+                          <ng-template #unlimited>
+                            <p>عدد المحاولات غير محدود</p>
+                          </ng-template>
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!-- Start Time -->
               <div class="list-group-item border-0 py-3 px-4 bg-light bg-opacity-50">
                 <div class="row align-items-center">
@@ -74,38 +96,37 @@
                     <div class="d-flex align-items-center">
                       <i class="fas fa-clock text-info me-2"></i>
                       <span class="fw-medium">وقت البدء</span>
-                      <small class="text-muted ms-1">(UTC)</small>
+                      <small class="text-muted ms-1">(توقيت القاهرة)</small>
                     </div>
                   </div>
                   <div class="col-12 col-sm-6">
                     <div class="text-sm-end">
-                      <strong class="text-dark">{{ attempt()!.startedAt | date:'short' }}</strong>
+                      <strong class="text-dark">{{ attempt()!.startedAt | date:'dd/MM/yyyy, h:mm a':'Africa/Cairo' }}</strong>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <!-- Submit Time -->
               <div class="list-group-item border-0 py-3 px-4">
                 <div class="row align-items-center">
                   <div class="col-12 col-sm-6 mb-2 mb-sm-0">
                     <div class="d-flex align-items-center">
                       <i class="fas fa-paper-plane text-success me-2"></i>
                       <span class="fw-medium">وقت التسليم</span>
-                      <small class="text-muted ms-1">(UTC)</small>
+                      <small class="text-muted ms-1">(توقيت القاهرة)</small>
                     </div>
                   </div>
                   <div class="col-12 col-sm-6">
                     <div class="text-sm-end">
                       <strong class="text-dark">
-                        {{ attempt()!.submittedAt ? (attempt()!.submittedAt | date:'short') : '—' }}
+                    {{ attempt()!.submittedAt ? (attempt()!.submittedAt | date:'short':'Africa/Cairo') : '—' }}
                       </strong>
+
                     </div>
                   </div>
                 </div>
               </div>
               
-              <!-- Score -->
               <div class="list-group-item border-0 py-3 px-4 bg-light bg-opacity-50">
                 <div class="row align-items-center">
                   <div class="col-12 col-sm-6 mb-2 mb-sm-0">
@@ -126,8 +147,7 @@
                 </div>
               </div>
               
-              <!-- Grading Status -->
-              <div class="list-group-item border-0 py-3 px-4">
+              <div class="list-group-item border-0 py-sm-0 py-3 px-4">
                 <div class="row align-items-center">
                   <div class="col-12 col-sm-6 mb-2 mb-sm-0">
                     <div class="d-flex align-items-center">
@@ -155,9 +175,17 @@
               
             </div>
           </div>
-          
-          <!-- Footer with Back Button -->
-          <div class="card-footer bg-white border-0 py-4">
+
+            <div class="list-group-item border-0 py-3 px-4 bg-warning bg-opacity-25 mt-2 rounded-3">
+              <div class="d-flex align-items-center ">
+                <i class="fas fa-exclamation-circle text-danger me-2 fs-5"></i>
+                <span class="fw-medium text-dark">
+                  تنبيه: عند استنفاد جميع المحاولات المتاحة في الكويز أو الامتحان، لن تتمكن من الدخول مرة أخرى.
+                </span>
+              </div>
+            </div>
+
+          <div class="card-footer bg-white border-0 mb-sm-0 mb-5 py-sm-0 py-3">
             <div class="d-grid d-sm-flex justify-content-sm-center">
               <button class="btn btn-primary btn-lg px-4 px-sm-5" (click)="back()">
                 <i class="fas fa-arrow-right me-2"></i>

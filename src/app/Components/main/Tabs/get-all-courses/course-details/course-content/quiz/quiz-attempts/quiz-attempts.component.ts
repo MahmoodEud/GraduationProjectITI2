@@ -9,6 +9,7 @@ import { StudentResponseCreateDto } from '../../../../../../../../Interfaces/Ass
 import { CommonModule } from '@angular/common';
 import { AttemptDto } from '../../../../../../../../Interfaces/Assessment/AttemptDto';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 type AnswersMap = Record<number, number>;
 
@@ -20,7 +21,7 @@ type AnswersMap = Record<number, number>;
   styleUrls: ['./quiz-attempts.component.css']
 })
 export class QuizAttemptsComponent implements OnInit, OnDestroy {
-  private route = inject(ActivatedRoute);
+   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private toastr = inject(ToastrService);
   private assessApi = inject(AssessmentsService);
@@ -211,6 +212,21 @@ export class QuizAttemptsComponent implements OnInit, OnDestroy {
     if (index >= 0 && index < this.total()) this.idx.set(index);
   }
 
+  private async confirmUnanswered(remaining: number): Promise<boolean> {
+    const { isConfirmed } = await Swal.fire({
+      title: 'تأكيد التسليم',
+      html: `<div dir="rtl">لديك <b>${remaining}</b> سؤال غير مُجاب.<br/>هل تريد المتابعة والتسليم؟</div>`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'تسليم الآن',
+      cancelButtonText: 'إلغاء',
+      reverseButtons: true,
+      focusCancel: true,
+      allowOutsideClick: false
+    });
+    return isConfirmed;
+  }
+
   async submit() {
     if (this.submitting() || this.submittedOnce) return;
     this.submitting.set(true);
@@ -238,7 +254,7 @@ export class QuizAttemptsComponent implements OnInit, OnDestroy {
       const remaining = total - answered;
 
       if (remaining > 0 && !this.autoSubmitted) {
-        const go = confirm(`لديك ${remaining} سؤال غير مُجاب. هل تريد المتابعة والتسليم؟`);
+        const go = await this.confirmUnanswered(remaining);
         if (!go) {
           this.submitting.set(false);
           this.submittedOnce = false;

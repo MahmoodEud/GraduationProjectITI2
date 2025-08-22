@@ -1,14 +1,14 @@
 @if (!isLoading && student) {
-  <div class="card shadow-sm" >
+  <div class="card shadow-sm mt-5" >
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="m-0">تفاصيل الطالب</h5>
     <button class="btn btn-outline-secondary btn-sm" (click)="back()">رجوع</button>
   </div>
 
-  <div class="card-body">
+  <div class="card-body mt-5">
     <div class="row g-3">
       <div class="col-md-3 text-center">
-        <img [src]="student.profilePictureUrl || '/assets/placeholder.png'"
+        <img [src]="student.profilePictureUrl || 'assets/images/default.jpg'"
              class="img-thumbnail mb-2" alt="Profile" />
         <span class="badge bg-info">{{ student.role }}</span>
       </div> 

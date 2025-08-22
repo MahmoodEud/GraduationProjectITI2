@@ -1,0 +1,55 @@
+<div class="container py-4">
+  <h4 class="mb-3 d-flex align-items-center gap-2">
+    <i class="fa-solid fa-bell"></i>
+    <span>الإشعارات</span>
+    <span class="badge bg-danger" *ngIf="unreadCount()">{{ unreadCount() }}</span>
+  </h4>
+
+  <div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
+  <div *ngIf="loading()" class="alert alert-info">
+    <i class="fa-solid fa-spinner fa-spin me-2"></i> جارٍ التحميل...
+  </div>
+
+  <div class="card border-0 shadow-sm mb-3">
+    <div class="card-body">
+      <div class="row g-2 align-items-center">
+        <div class="col-12 col-md-6">
+          <input class="form-control" type="search" placeholder="بحث في العنوان/المحتوى"
+                 [ngModel]="search()" (ngModelChange)="search.set($event)">
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-check">
+            <input id="onlyUnread" class="form-check-input" type="checkbox"
+                   [ngModel]="onlyUnread()" (ngModelChange)="onlyUnread.set($event)">
+            <label for="onlyUnread" class="form-check-label">عرض غير المقروء فقط</label>
+          </div>
+        </div>
+        <div class="col-12 col-md-3 text-md-end">
+          <button class="btn btn-outline-secondary" (click)="markAllRead()">
+            تعليم الكل كمقروء
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <a class="list-group-item list-group-item-action" *ngFor="let n of rows()">
+      <div class="d-flex w-100 justify-content-between">
+        <h6 class="mb-1">
+          {{ n.title }}
+          <span [class]="badgeClass(n)">{{ n.isRead ? 'مقروء' : 'جديد' }}</span>
+        </h6>
+        <small class="text-muted">{{ n.createdAt | date:'short':'Africa/Cairo' }}</small>
+      </div>
+      <p class="mb-1">{{ n.body }}</p>
+      <button class="btn btn-sm btn-outline-primary" *ngIf="!n.isRead" (click)="markRead(n)">
+        تعليم كمقروء
+      </button>
+    </a>
+
+    <div *ngIf="rows().length === 0" class="text-center text-muted py-4">
+      لا توجد إشعارات مطابقة.
+    </div>
+  </div>
+</div>

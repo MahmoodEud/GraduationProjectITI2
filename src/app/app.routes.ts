@@ -34,7 +34,16 @@ export const routes: Routes = [
         loadComponent: () => import('./Components/main/Tabs/course-progress/course-progress.component')
           .then(m => m.CourseProgressComponent) 
       },
+// routes.ts
+      // { path: 'student-report/:attemptId', loadComponent: () => import('./Components/main/Tabs/main-student-page/main-student-page.component').then(m => m.MainStudentPageComponent) },
+    { path: 'student-report/:attemptId', loadComponent: () =>
+        import('./Components/main/Tabs/main-student-page/student-report-details/student-report-details.component')
+          .then(m => m.StudentReportDetailsComponent)
+    },
 
+{ path: 'student/reports', loadComponent: () =>
+    import('./Components/main/Tabs/main-student-page/main-student-page.component')
+    .then(m => m.MainStudentPageComponent) },
 
       { path: 'courses', loadComponent: () => import('./Components/main/Tabs/get-all-courses/get-all-courses.component').then(m => m.GetAllCoursesComponent) },
       { path: 'courses/:id', loadComponent: () => import('./Components/main/Tabs/get-all-courses/course-details/course-details.component').then(m => m.CourseDetailsComponent) },
@@ -46,6 +55,8 @@ export const routes: Routes = [
 
 
       { path: 'quiz/summary/:attemptId', loadComponent: () => import('./Components/main/Tabs/get-all-courses/course-details/course-content/quiz/quiz-summary/quiz-summary.component').then(m => m.QuizSummaryComponent) },
+      { path: 'billing/my-invoices', loadComponent: () => import('./Components/main/Tabs/my-invoices/my-invoices.component').then(m => m.MyInvoicesComponent) },
+{ path: 'me/notifications', loadComponent: () => import('./Components/main/Tabs/my-notifications/my-notifications.component').then(m => m.MyNotificationsComponent) },
 
     ]
       },
@@ -67,6 +78,8 @@ export const routes: Routes = [
         loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/students/edit/edit.component')
           .then(m => m.EditComponent) 
       },
+    { path: 'admin/billing/enroll-invoice', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/admin-course-management/admin-enroll-invoice/admin-enroll-invoice.component').then(m => m.AdminEnrollInvoiceComponent) },
+    { path: 'admin/billing/invoices', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/admin-course-management/admin-invoices-list/admin-invoices-list.component').then(m => m.AdminInvoicesListComponent) },
 
 
       { path: 'lessons', component: LessonsComponent },
@@ -93,12 +106,13 @@ export const routes: Routes = [
         { path: 'reports/students', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/Reportes/students-performance/students-performance.component').then(m => m.StudentsPerformanceComponent) },
         { path: 'reports/activity', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/Reportes/attempts-activity/attempts-activity.component').then(m => m.AttemptsActivityComponent) },
 
-
+  
+      { path: 'invoices/:id/edit', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/admin-course-management/admin-invoices-list/admin-invoice-edit/admin-invoice-edit.component').then(m => m.AdminInvoiceEditComponent) },
 
     ]
   },
 
-  // صفحة غير موجودة
+  // ! صفحة غير موجودة
   { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];
 

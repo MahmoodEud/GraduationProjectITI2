@@ -56,18 +56,19 @@
             <i class="fas fa-file-alt me-2"></i> 
             <span class="nav-text">الامتحانات</span>
           </a>
-
-          <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
-             data-bs-toggle="list" href="#list-pdf" role="tab">
-            <i class="fas fa-file-pdf me-2"></i> 
-            <span class="nav-text">ملفات PDF</span>
-          </a> -->
-
+        -->
+    
           <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
              data-bs-toggle="list" href="#list-live" role="tab">
             <i class="fas fa-video me-2"></i> 
             <span class="nav-text">بث مباشر</span>
           </a>
+
+            <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
+             data-bs-toggle="list" href="#list-pdf" role="tab">
+            <i class="fas fa-dollar-sign me-2"></i>
+            <span class="nav-text">مدفوعاتى</span>
+          </a> 
 
           <a class="list-group-item list-group-item-action custom-tab mb-2 rounded-3 border-0" 
              data-bs-toggle="list" href="#list-privacy" role="tab">
@@ -189,17 +190,15 @@
 
       <div class="tab-content px-3 px-lg-4 py-3" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-home" role="tabpanel">
-          <div class="d-flex align-items-center justify-content-between mb-4">
-            <h4 class="mb-0">
-              <i class="fas fa-home me-2 text-primary"></i>محتوى الصفحة الرئيسية
-            </h4>
-            <nav class="d-none d-md-block">
+          <!-- <div class="d-flex align-items-center justify-content-between mb-4"> -->
+            <app-main-student-page></app-main-student-page>
+            <!-- <nav class="d-none d-md-block">
               <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
                 <li class="breadcrumb-item active">الصفحة الرئيسية</li>
               </ol>
-            </nav>
-          </div>
+            </nav> -->
+          <!-- </div> -->
         </div>
 
         <div class="tab-pane fade" id="list-profile" role="tabpanel">
@@ -234,7 +233,7 @@
           <app-get-all-courses></app-get-all-courses>
         </div>
 
-        <div class="tab-pane fade" id="list-assignments" role="tabpanel">
+        <!-- <div class="tab-pane fade" id="list-assignments" role="tabpanel">
           <div class="d-flex align-items-center justify-content-between mb-4">
             <h4 class="mb-0">
               <i class="fas fa-tasks me-2 text-primary"></i>الواجبات
@@ -268,27 +267,8 @@
             <i class="fas fa-check-circle me-2"></i>
             جميع الامتحانات الشهرية والاختبارات .
           </div>
-        </div>
+        </div> -->
 
-        <div class="tab-pane fade" id="list-pdf" role="tabpanel">
-          <div class="d-flex align-items-center justify-content-between mb-4">
-            <h4 class="mb-0">
-              <i class="fas fa-file-pdf me-2 text-danger"></i>ملفات PDF
-            </h4>
-            <nav class="d-none d-md-block">
-              <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">الرئيسية</a></li>
-                <li class="breadcrumb-item active">ملفات PDF</li>
-              </ol>
-            </nav>
-          </div>
-          <div class="alert alert-secondary rounded-4" role="alert">
-            <i class="fas fa-download me-2"></i>
-            جميع ملفات PDF التعليمية والمراجع.
-          </div>
-          <hr class="my-4"/>
-          <app-pdfs></app-pdfs>
-        </div>
 
         <div class="tab-pane fade" id="list-live" role="tabpanel">
           <div class="d-flex align-items-center justify-content-between mb-4">
@@ -306,6 +286,12 @@
             <i class="fas fa-broadcast-tower me-2"></i>
             البث المباشر للمحاضرات والدروس.
           </div>
+        </div>
+        <div class="tab-pane fade" id="list-pdf" role="tabpanel">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+          </div>
+          <hr class="my-4"/>
+          <app-my-invoices></app-my-invoices>
         </div>
 
         <div class="tab-pane fade" id="list-privacy" role="tabpanel">
