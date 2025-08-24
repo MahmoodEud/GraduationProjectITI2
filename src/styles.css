@@ -43,6 +43,11 @@ html {
     font-family: 'cairo', sans-serif;
 }
 
+body {
+    min-height: 100vh;
+    /* vh = viewport height */
+}
+
 body.dark-mode {
     background-color: #181818;
     color: #e0e0e0;
@@ -93,11 +98,277 @@ body.dark-mode textarea::placeholder {
 }
 
 body.dark-mode .navbar {
-    background-color: #202020 !important;
+    background-color: #181818 !important;
     border-bottom: 1px solid #3c3c3c;
 }
 
 body.dark-mode .form-check-input:checked {
     background-color: #f4b400;
     border-color: #f4b400;
+}
+
+body.dark-mode #ElbasitDef {
+    background-color: #181818 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode p {
+    color: #ffffff !important;
+}
+
+body.dark-mode .feature-item {
+    background-color: #252525 !important;
+    color: #e0e0e0 !important;
+
+}
+
+body.dark-mode #navbarNav {
+    background-color: #181818 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode #CoursesSection {
+    background-color: #181818 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .card-title {
+    background-color: #252525 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode span {
+    color: #ffffff !important;
+}
+
+body.dark-mode .btn {
+    color: #ffffff !important;
+}
+
+body.dark-mode #PopularQuestionSection {
+    background-color: #181818 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .accordion-item {
+    background-color: #252525 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .accordion-button {
+    background-color: #252525 !important;
+    color: #e0e0e0 !important;
+
+}
+
+body.dark-mode #SuccessStoriesSlider {
+    background: #181818 !important;
+}
+
+
+body.dark-mode type[text="button"] {
+    color: #ffffff !important;
+}
+
+body.dark-mode #SuccessStoriesSlider .card {
+    background: #252525 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode div#SuccessStoriesSlider.success-stories-slider {
+    background-color: #ffffff !important;
+}
+
+body.dark-mode div.Login {
+    background: #252525 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode div.h-100 {
+    background: #181818 !important;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+
+}
+
+body.dark-mode input::placeholder {
+    color: #aaa !important;
+}
+
+body.dark-mode label {
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div#mainContent,
+body.dark-mode div#sidebar {
+    background: #181818 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode div a.list-group-item {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div a#list-home-list {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode * {
+    color: #f1f1f1 !important;
+}
+
+/* body.dark-mode div#list-tab a#list-home-list span{
+
+  color: #2b2b2b !important;
+
+} */
+body.dark-mode li.breadcrumb-item a,
+body.dark-mode li.breadcrumb-item {
+    color: #2b2b2b !important;
+}
+
+body.dark-mode div.alert,
+body.dark-mode div.personalFile,
+body.dark-mode header.page-header {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div.courses-section,
+body.dark-mode div.course-card {
+    background-color: #252525 !important;
+}
+
+body.dark-mode div.course-card .btn-details span {
+    color: #181818 !important;
+}
+
+body.dark-mode div.support-card {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div.card-header {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+    padding: 10px;
+}
+
+body.dark-mode div.filters-card {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div.courses-container {
+    background-color: #2b2b2b !important;
+}
+
+body.dark-mode div.course-content {
+
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div.course-actions .btn-details span {
+    color: #2b2b2b !important;
+}
+
+body.dark-mode div.pagination-container button span {
+    color: #2b2b2b !important;
+}
+
+body.dark-mode .unauthorized-container {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .not-found-container {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div.content-wrapper {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+    margin: 0 !important;
+}
+
+body.dark-mode div.mainContainer {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.dark-mode div#sidebar div.sidebar-header {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode tr td {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div.card div.card-body.bg-light {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode div.sidebar-header {
+    color: #181818 !important;
+}
+
+body.dark-mode .card-footer.bg-light {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .card-footer.bg-light button {
+    color: #181818 !important;
+}
+
+body.dark-mode .card-footer.bg-light li button i {
+    color: #181818 !important;
+}
+
+body.dark-mode div#sidebar .sidebar-header.p-4.text-center.bg-light {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+
+}
+
+body.dark-mode .card.border-0.shadow-sm.mt-4 div.card-body.bg-light {
+    background-color: #2b2b2b !important;
+    color: #f1f1f1 !important;
+
+}
+
+body.dark-mode ul.pagination li button {
+    color: #181818 !important;
+}
+
+body.dark-mode ul li span.badge {
+    color: #181818 !important;
+}
+
+body.dark-mode .input-group span i {
+    color: #181818 !important;
+}
+
+body.dark-mode .form-check input:checked {
+    background-color: #f4b400 !important;
+
+}
+
+body.dark-mode button i {
+    color: #ffffff !important;
+}
+
+body.dark-mode .accordion-button::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
 }

@@ -101,6 +101,27 @@
                 <i class="fas fa-chevron-left ms-auto tab-arrow"></i>
               </div>
             </a>
+
+              <a class="list-group-item list-group-item-action custom-tab border-0 rounded mb-2" 
+               data-bs-toggle="list" 
+               href="#notification" 
+               role="tab">
+              <div class="d-flex align-items-center">
+                  <i class="fas fa-bell me-3 text-dark fs-5"></i>
+                <span class="tab-text"> إدارة الأشعارات</span>
+                <i class="fas fa-chevron-left ms-auto tab-arrow"></i>
+              </div>
+            </a>
+            <a class="list-group-item list-group-item-action custom-tab border-0 rounded mb-2" 
+               data-bs-toggle="list" 
+               href="#stdcrs" 
+               role="tab">
+              <div class="d-flex align-items-center">
+              <i class="fas fa-chart-line me-3 text-dark text-muted fs-5" aria-label="احصائيات الكورسات والطلاب"></i>
+              <span class="fw-medium "> احصائيات الكورسات والطلاب</span>
+                <i class="fas fa-chevron-left ms-auto tab-arrow"></i>
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -192,6 +213,29 @@
               <span class="fw-medium">تقارير</span>
             </div>
           </a>
+
+          <a class="list-group-item list-group-item-action custom-tab-mobile border-0 py-3" 
+             data-bs-toggle="list" 
+             href="#notification" 
+             role="tab"
+             data-bs-dismiss="offcanvas">
+            <div class="d-flex align-items-center">
+            <i class="fas fa-bell me-3 text-warning fs-5"></i>
+              <span class="fw-medium">إدارة الأشعارات</span>
+            </div>
+          </a>
+
+
+          <a class="list-group-item list-group-item-action custom-tab-mobile border-0 py-3" 
+             data-bs-toggle="list" 
+             href="#stdcrs" 
+             role="tab"
+             data-bs-dismiss="offcanvas">
+            <div class="d-flex align-items-center">
+            <i class="fas fa-chart-line me-3 text-dark fs-5" aria-label="احصائيات الكورسات والطلاب"></i>
+              <span class="fw-medium"> احصائيات الكورسات والطلاب</span>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -238,8 +282,21 @@
             </div> -->
             <app-reports-dashboard></app-reports-dashboard>
           </div>
+            <div class="tab-pane fade content-section" id="notification" role="tabpanel">
+            <!-- <div class="page-header mb-4">
+              <h2 class="page-title">
+                <i class="fas fa-file-pdf text-primary me-2"></i>
+               تقارير
+              </h2>
+              <p class="text-muted">تقارير عن الأمتحنات والطلاب</p>
+            </div> -->
+            <app-notification-management></app-notification-management>
+          </div>
+            </div>
+            <div class="tab-pane fade content-section" id="stdcrs" role="tabpanel">
+              <app-stdcrs></app-stdcrs>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>

@@ -25,8 +25,27 @@ private api = inject(ReportsService);
   load() {
     this.loading = true;
     this.api.getStudentsPerformance(this.assessmentId).subscribe({
-      next: d => { this.rows = d; this.loading = false; },
+      next: d => { this.rows = d ?? []; this.loading = false; },
       error: _ => { this.error = 'فشل تحميل أداء الطلاب'; this.loading = false; }
     });
+  }
+
+  // ← بدائل للفلترة داخل القالب
+  get excellentCount(): number {
+    const list = this.rows ?? [];
+    return list.filter(s => (s.passRate ?? 0) >= 70).length;
+  }
+
+  get goodCount(): number {
+    const list = this.rows ?? [];
+    return list.filter(s => {
+      const r = s.passRate ?? 0;
+      return r >= 50 && r < 70;
+    }).length;
+  }
+
+  get weakCount(): number {
+    const list = this.rows ?? [];
+    return list.filter(s => (s.passRate ?? 0) < 50).length;
   }
 }

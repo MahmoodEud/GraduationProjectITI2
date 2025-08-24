@@ -2,12 +2,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AttemptDto } from '../../Interfaces/Assessment/AttemptDto';
+import { environment } from '../register/environment';
+function joinUrl(...parts: (string | number)[]) {
+  return parts
+    .map(p => String(p).replace(/^\/+|\/+$/g, ''))
+    .filter(Boolean)
+    .join('/');
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentAttemptsService {
-  private readonly apiUrl = 'http://localhost:5000/api/StudentAttempts';
+    private apiUrl = joinUrl(environment.apiUrl, 'StudentAttempts');
+  
+  // private readonly apiUrl = 'http://localhost:5000/api/StudentAttempts';
   constructor(private http: HttpClient) {}
 
   startAttempt(assessmentId: number): Observable<AttemptDto> {

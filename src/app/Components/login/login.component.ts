@@ -92,6 +92,24 @@ Swal.fire({
  
 });
 }
+sweat(){
+  Swal.fire({
+  title: "<strong> هل نسيت كلمة المرور ؟</strong>",
+  icon: "info",
+  html: `
+  <p>يتم تعديل كلمة المرور عن طريق الأدمن أو عن طريق الطالب داخل المنصة
+  `,
+  width:900,
+  showCloseButton: true,
+  showCancelButton: true,
+  focusConfirm: false,
+  confirmButtonText: `
+    <i class="fa fa-thumbs-up"></i>موافق
+  `,
+  confirmButtonAriaLabel: "Thumbs up, great!",
+ 
+});
+}
   onSubmit() {
     this.accoutnService.login(this.model).subscribe({
       next: (res) => {

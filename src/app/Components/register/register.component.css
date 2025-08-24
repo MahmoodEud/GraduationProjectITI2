@@ -1,6 +1,6 @@
 /* Register Section */
 .full-screen-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3776c8 0%, #2b91cc 100%) !important;
     position: relative;
     overflow: hidden;
     min-height: 100vh;
@@ -177,7 +177,7 @@
 /* Responsive Adjustments */
 @media (max-width: 991.98px) {
     .full-screen-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #3776c8 0%, #2b91cc 100%) !important;
     }
 
     .white-half {

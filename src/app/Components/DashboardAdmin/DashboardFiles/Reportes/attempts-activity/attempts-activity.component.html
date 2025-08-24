@@ -1,33 +1,197 @@
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0"><i class="fa-solid fa-wave-square me-2"></i> Attempts Activity</h3>
-    <div class="d-flex gap-2">
-      <input type="number" class="form-control" style="max-width: 220px;" [(ngModel)]="assessmentId" placeholder="AssessmentId (اختياري)">
-      <input type="number" class="form-control" style="max-width: 120px;" [(ngModel)]="days" placeholder="Days" min="1">
-      <button class="btn btn-outline-primary" (click)="load()"><i class="fa-solid fa-rotate"></i></button>
+<div class="activity-container">
+  <div class="activity-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <i class="fa-solid fa-wave-square"></i>
+      </div>
+      <h3 class="header-title">نشاط المحاولات</h3>
+    </div>
+    
+    <div class="filters-section">
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fa-solid fa-clipboard-question me-1"></i>
+          معرف التقييم
+        </label>
+        <div class="input-wrapper">
+          <input type="number" 
+                 class="form-control custom-input" 
+                 [(ngModel)]="assessmentId" 
+                 placeholder="اختياري">
+          <i class="fa-solid fa-hashtag input-icon"></i>
+        </div>
+      </div>
+      
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="fa-solid fa-calendar-days me-1"></i>
+          عدد الأيام
+        </label>
+        <div class="input-wrapper">
+          <input type="number" 
+                 class="form-control custom-input days-input" 
+                 [(ngModel)]="days" 
+                 placeholder="الأيام" 
+                 min="1">
+          <i class="fa-solid fa-clock input-icon"></i>
+        </div>
+      </div>
+      
+      <div class="filter-group">
+        <button class="btn refresh-btn" (click)="load()" [disabled]="loading">
+          <i class="fa-solid fa-rotate" [class.fa-spin]="loading"></i>
+          <span class="btn-text">تحديث</span>
+        </button>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="loading" class="alert alert-info"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
-  <div *ngIf="error" class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}</div>
+  <div *ngIf="loading" class="alert alert-modern loading-alert">
+    <div class="loading-content">
+      <div class="spinner-wrapper">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+      <span>جاري تحميل بيانات النشاط...</span>
+    </div>
+  </div>
 
-  <div class="table-responsive" *ngIf="!loading && !error">
-    <table class="table table-hover table-bordered align-middle text-center">
-      <thead class="table-dark">
-        <tr>
-          <th>Day</th>
-          <th>Attempts</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let r of rows">
-          <td>{{ r.day | date:'yyyy-MM-dd' }}</td>
-          <td>{{ r.attempts }}</td>
-        </tr>
-        <tr *ngIf="rows.length === 0">
-          <td colspan="2" class="text-muted py-4">لا توجد بيانات بعد.</td>
-        </tr>
-      </tbody>
-    </table>
+  <div *ngIf="error" class="alert alert-modern error-alert">
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+    {{ error }}
+  </div>
+
+  <div class="activity-table-container" *ngIf="!loading && !error">
+    <div class="table-wrapper">
+      <div class="table-header">
+        <div class="header-left">
+          <h5 class="table-title">
+            <i class="fa-solid fa-chart-line me-2"></i>
+            تقرير النشاط اليومي
+          </h5>
+          <div class="table-description">
+            <span>عرض المحاولات حسب اليوم</span>
+          </div>
+        </div>
+        
+        <div class="table-stats" *ngIf="rows.length > 0">
+          <div class="stat-item">
+            <i class="fa-solid fa-calendar-day me-1"></i>
+            <span class="stat-value">{{ rows.length }}</span>
+            <span class="stat-label">يوم</span>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-chart-bar me-1"></i>
+            <span class="stat-value">{{ getTotalAttempts() }}</span>
+            <span class="stat-label">إجمالي المحاولات</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th class="day-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-calendar me-1"></i>
+                  التاريخ
+                </div>
+              </th>
+              <th class="attempts-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-chart-bar me-1"></i>
+                  عدد المحاولات
+                </div>
+              </th>
+              <th class="percentage-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-percentage me-1"></i>
+                  النسبة
+                </div>
+              </th>
+              <th class="visual-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-chart-column me-1"></i>
+                  المخطط
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of rows; trackBy: trackByDay" class="table-row">
+              <td class="day-cell">
+                <div class="date-info">
+                  <div class="date-main">
+                    <i class="fa-solid fa-calendar-day me-2"></i>
+                    {{ r.day | date:'yyyy-MM-dd' }}
+                  </div>
+                  <div class="date-sub">
+                    {{ r.day | date:'EEEE':'ar' }}
+                  </div>
+                </div>
+              </td>
+              
+              <td class="attempts-cell">
+                <div class="attempts-info">
+                  <div class="attempts-badge" [ngClass]="getAttemptsClass(r.attempts)">
+                    <i class="fa-solid fa-chart-bar me-1"></i>
+                    {{ r.attempts }}
+                  </div>
+                </div>
+              </td>
+              
+              <td class="percentage-cell">
+                <div class="percentage-info">
+                  <div class="percentage-badge">
+                    {{ getPercentage(r.attempts) }}%
+                  </div>
+                </div>
+              </td>
+              
+              <td class="visual-cell">
+                <div class="progress-wrapper">
+                  <div class="progress-bar">
+                    <div class="progress-fill" 
+                         [style.width.%]="getPercentage(r.attempts)"
+                         [ngClass]="getAttemptsClass(r.attempts)">
+                    </div>
+                  </div>
+                  <span class="progress-label">{{ r.attempts }}</span>
+                </div>
+              </td>
+            </tr>
+            
+            <tr *ngIf="rows.length === 0" class="empty-row">
+              <td colspan="4" class="empty-cell">
+                <div class="empty-state">
+                  <div class="empty-icon">
+                    <i class="fa-solid fa-chart-line-up"></i>
+                  </div>
+                  <h5 class="empty-title">لا توجد بيانات نشاط</h5>
+                  <p class="empty-text">لم يتم العثور على أي محاولات في الفترة المحددة</p>
+                  <button class="btn empty-action-btn" (click)="load()">
+                    <i class="fa-solid fa-refresh me-2"></i>
+                    إعادة التحميل
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="table-footer" *ngIf="rows.length > 0">
+        <div class="summary-stats">
+          <div class="summary-item">
+            <span class="summary-label">المتوسط اليومي:</span>
+            <span class="summary-value">{{ getAverageAttempts() }} محاولة</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">أعلى نشاط:</span>
+            <span class="summary-value">{{ getMaxAttempts() }} محاولة</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

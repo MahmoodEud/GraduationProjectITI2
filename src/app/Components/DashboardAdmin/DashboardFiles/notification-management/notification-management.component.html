@@ -1,0 +1,317 @@
+<div class="send-notifications-container">
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <i class="fa-solid fa-paper-plane"></i>
+      </div>
+      <h4 class="header-title">لوحة إرسال الإشعارات</h4>
+    </div>
+  </div>
+
+  <!-- Status Messages -->
+  @if (msg()) {
+    <div class="alert alert-success alert-modern success-alert">
+      <i class="fa-solid fa-circle-check me-2"></i>
+      {{ msg() }}
+    </div>
+  }
+  @if (err()) {
+    <div class="alert alert-danger alert-modern error-alert">
+      <i class="fa-solid fa-triangle-exclamation me-2"></i>
+      {{ err() }}
+    </div>
+  }
+  @if (loading()) {
+    <div class="alert alert-info alert-modern loading-alert">
+      <div class="loading-content">
+        <div class="spinner-wrapper">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+        </div>
+        <span>جارٍ التنفيذ...</span>
+      </div>
+    </div>
+  }
+
+  <!-- Broadcast Card -->
+  <div class="notification-card broadcast-card">
+    <div class="card-header">
+      <div class="header-icon-wrapper broadcast-icon">
+        <i class="fa-solid fa-bullhorn"></i>
+      </div>
+      <div class="header-content">
+        <h5 class="card-title">إشعار عام</h5>
+        <p class="card-subtitle">فلترة بالسنة والكورس اختياري</p>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="form-grid">
+        <!-- Year and Course Filters -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-calendar-days me-2"></i>السنة
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="bYear">
+                <option [ngValue]="null">بدون فلترة سنة</option>
+                @for (y of years; track y.value) {
+                  <option [ngValue]="y.value">{{ y.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-book me-2"></i>الكورس
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="bCourseId">
+                <option [ngValue]="null">بدون فلترة كورس</option>
+                @for (c of courses(); track c.id) {
+                  <option [ngValue]="c.id">{{ c.title || c.category }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-tag me-2"></i>النوع
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="bType">
+                <option value="General">عام</option>
+                <option value="Exam">امتحان</option>
+                <option value="Meeting">اجتماع</option>
+                <option value="Invoice">فاتورة</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title and Body -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-heading me-2"></i>العنوان
+            </label>
+            <input type="text" class="form-control custom-input" [(ngModel)]="bTitle" 
+                   placeholder="اكتب عنوان الإشعار...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-align-left me-2"></i>النص <span class="optional">(اختياري)</span>
+            </label>
+            <input type="text" class="form-control custom-input" [(ngModel)]="bBody"
+                   placeholder="اكتب محتوى الإشعار...">
+          </div>
+        </div>
+
+        <!-- Action URL -->
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label class="form-label">
+              <i class="fa-solid fa-link me-2"></i>رابط الإجراء <span class="optional">(اختياري)</span>
+            </label>
+            <input type="text" class="form-control custom-input" [(ngModel)]="bActionUrl" 
+                   placeholder="/quiz/55 أو https://...">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-send broadcast-btn" (click)="sendBroadcast()">
+          <i class="fa-solid fa-bullhorn me-2"></i>
+          إرسال الإشعار
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exam Now Card -->
+  <div class="notification-card exam-card">
+    <div class="card-header">
+      <div class="header-icon-wrapper exam-icon">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <div class="header-content">
+        <h5 class="card-title">إشعار امتحان</h5>
+        <p class="card-subtitle">إشعار ببدء امتحان فوري</p>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="form-grid">
+        <!-- Year, Course, Lesson -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-calendar-days me-2"></i>السنة
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="eYear">
+                <option [ngValue]="null">اختر السنة</option>
+                @for (y of years; track y.value) {
+                  <option [ngValue]="y.value">{{ y.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-book me-2"></i>الكورس
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="eCourseId" 
+                      (ngModelChange)="onExamCourseChange($event)">
+                <option [ngValue]="null">اختر الكورس</option>
+                @for (c of courses(); track c.id) {
+                  <option [ngValue]="c.id">{{ c.title || c.category }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-bookmark me-2"></i>الدرس
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="eLessonId" 
+                      [disabled]="!eCourseId || examLessons().length===0">
+                <option [ngValue]="null">اختر الدرس</option>
+                @for (l of examLessons(); track l.id) {
+                  <option [ngValue]="l.id">{{ l.title || l.title }}</option>
+                }
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title and Body -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-heading me-2"></i>العنوان <span class="optional">(اختياري)</span>
+            </label>
+            <input type="text" class="form-control custom-input" [(ngModel)]="eTitle" 
+                   placeholder="امتحان بدأ الآن - ...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-align-left me-2"></i>النص <span class="optional">(اختياري)</span>
+            </label>
+            <input type="text" class="form-control custom-input" [(ngModel)]="eBody"
+                   placeholder="اضغط للدخول على الامتحان.">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-send exam-btn" (click)="sendExamNow()">
+          <i class="fa-solid fa-graduation-cap me-2"></i>
+          إرسال إشعار الامتحان
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meeting Card -->
+  <div class="notification-card meeting-card">
+    <div class="card-header">
+      <div class="header-icon-wrapper meeting-icon">
+        <i class="fa-solid fa-users"></i>
+      </div>
+      <div class="header-content">
+        <h5 class="card-title">إشعار اجتماع</h5>
+        <p class="card-subtitle">دعوة لحضور اجتماع أو محاضرة</p>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="form-grid">
+        <!-- Course, Year, Title -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-book me-2"></i>الكورس
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="mCourseId">
+                <option [ngValue]="null">اختر الكورس</option>
+                @for (c of courses(); track c.id) {
+                  <option [ngValue]="c.id">{{ c.title || c.category }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-calendar-days me-2"></i>السنة <span class="optional">(اختياري)</span>
+            </label>
+            <div class="select-wrapper">
+              <select class="form-select custom-select" [(ngModel)]="mYear">
+                <option [ngValue]="null">بدون فلترة سنة</option>
+                @for (y of years; track y.value) {
+                  <option [ngValue]="y.value">{{ y.label }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-heading me-2"></i>العنوان
+            </label>
+            <input type="text" class="form-control custom-input" [(ngModel)]="mTitle"
+                   placeholder="عنوان الاجتماع أو المحاضرة">
+          </div>
+        </div>
+
+        <!-- Join URL -->
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label class="form-label">
+              <i class="fa-solid fa-video me-2"></i>رابط الانضمام
+            </label>
+            <input type="text" class="form-control custom-input" [(ngModel)]="mJoinUrl"
+                   placeholder="https://zoom.us/j/...">
+          </div>
+        </div>
+
+        <!-- Date and Time -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-play me-2"></i>وقت البداية <span class="optional">(اختياري)</span>
+            </label>
+            <input type="datetime-local" class="form-control custom-input datetime-input" 
+                   [(ngModel)]="mStartAt">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-stop me-2"></i>وقت النهاية <span class="optional">(اختياري)</span>
+            </label>
+            <input type="datetime-local" class="form-control custom-input datetime-input" 
+                   [(ngModel)]="mEndAt">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-send meeting-btn" (click)="sendMeeting()">
+          <i class="fa-solid fa-users me-2"></i>
+          إرسال دعوة الاجتماع
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,24 +1,27 @@
 import { Component, inject } from '@angular/core';
-import { StudentCourseService } from '../../../../Services/student-course.service';
-import { ToastrService } from 'ngx-toastr';
-import { Course } from '../../../../Interfaces/ICourse';
-import { environment } from '../../../../Services/register/environment';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { NgIf, NgFor, NgClass, CommonModule } from '@angular/common';
+
+import { StudentCourseService } from '../../../../Services/student-course.service';
 import { CourseEnrollmentService } from '../../../../Services/course-enrollment.service';
 import { ProgressService } from '../../../../Services/progress.service';
+import { ToastrService } from 'ngx-toastr';
+
+import { Course } from '../../../../Interfaces/ICourse';
 import { ICourseProgress } from '../../../../Interfaces/progress/icourse-progress';
+import { environment } from '../../../../Services/register/environment';
 
 @Component({
   selector: 'app-my-courses',
   standalone: true,
-  imports: [RouterLink,FormsModule,CommonModule],
+  // الأهم هنا: NgIf, NgFor, NgClass
+  imports: [RouterLink, FormsModule,CommonModule],
   templateUrl: './my-courses.component.html',
-  styleUrl: './my-courses.component.css'
+  styleUrls: ['./my-courses.component.css'] // خليه plural
 })
 export class MyCoursesComponent {
-   private studentCourseService = inject(StudentCourseService);
+  private studentCourseService = inject(StudentCourseService);
   private toastr = inject(ToastrService);
   private enrollmentService = inject(CourseEnrollmentService);
   private progressService = inject(ProgressService);
@@ -28,8 +31,8 @@ export class MyCoursesComponent {
   progressErr: Record<number, string> = {};
 
   courses: Course[] = [];
-  isLoading: boolean = false;
-  errorMessage: string = '';
+  isLoading = false;
+  errorMessage = '';
 
   ngOnInit(): void {
     this.loadMyCourses();
@@ -83,26 +86,21 @@ export class MyCoursesComponent {
 
   unenroll(courseId: number): void {
     this.studentCourseService.unenrollFromCourse(courseId).subscribe({
-      next: (message: string) => {
-        this.toastr.success(message);
-      },
-      error: (err) => {
-        this.toastr.error(err.error || 'حدث خطأ أثناء إلغاء التسجيل');
-      }
+      next: (message: string) => this.toastr.success(message),
+      error: (err) => this.toastr.error(err.error || 'حدث خطأ أثناء إلغاء التسجيل')
     });
   }
 
   getImageUrl(picturalUrl: string): string {
-    if (!picturalUrl || picturalUrl === 'default.jpg') {
-      return 'assets/images/default.jpg';
-    }
+    if (!picturalUrl || picturalUrl === 'default.jpg') return 'assets/images/default.jpg';
     return picturalUrl.startsWith('http') ? picturalUrl : `${environment.imageBaseUrl}/${picturalUrl}`;
   }
 
   handleImageError(event: Event): void {
     (event.target as HTMLImageElement).src = 'assets/images/default.jpg';
   }
-   getAverageProgress(): number {
+
+  getAverageProgress(): number {
     const vals = Object.values(this.progressByCourseId);
     if (!vals.length) return 0;
     const sum = vals.reduce((a, b) => a + (Number(b) || 0), 0);

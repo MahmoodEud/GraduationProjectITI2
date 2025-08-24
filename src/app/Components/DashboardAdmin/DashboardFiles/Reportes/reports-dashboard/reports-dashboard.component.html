@@ -1,55 +1,209 @@
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0"><i class="fa-solid fa-chart-pie me-2"></i> Assessment Reports</h3>
-    <div class="btn-group">
-      <a class="btn btn-outline-secondary" routerLink="/admin/reports/students"><i class="fa-solid fa-users me-1"></i> Students</a>
-      <a class="btn btn-outline-secondary" routerLink="/admin/reports/activity"><i class="fa-solid fa-wave-square me-1"></i> Activity</a>
+<div class="reports-container">
+  <div class="reports-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <i class="fa-solid fa-chart-pie"></i>
+      </div>
+      <h3 class="header-title">تقارير التقييمات</h3>
+    </div>
+    
+    <div class="navigation-buttons">
+      <a class="nav-btn students-btn" routerLink="/admin/reports/students">
+        <i class="fa-solid fa-users"></i>
+        <span>تقارير الطلاب</span>
+      </a>
+      <a class="nav-btn activity-btn" routerLink="/admin/reports/activity">
+        <i class="fa-solid fa-wave-square"></i>
+        <span>تقارير النشاط</span>
+      </a>
     </div>
   </div>
 
-  <div *ngIf="loading" class="alert alert-info"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
-  <div *ngIf="error" class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}</div>
+  <div *ngIf="loading" class="alert alert-modern loading-alert">
+    <div class="loading-content">
+      <div class="spinner-wrapper">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+      <span>جاري تحميل التقارير...</span>
+    </div>
+  </div>
 
-  <div class="table-responsive" *ngIf="!loading && !error">
-    <table class="table table-hover table-bordered align-middle text-center">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Assessment</th>
-          <th>Attempts</th>
-          <th>Students</th>
-          <th>Avg</th>
-          <th>Median</th>
-          <th>Pass Rate</th>
-          <th>Last Attempt</th>
-          <th>Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let r of summary">
-          <td>{{ r.assessmentId }}</td>
-          <td class="text-start">{{ r.assessmentName }}</td>
-          <td>{{ r.attemptsCount }}</td>
-          <td>{{ r.uniqueStudents }}</td>
-          <td><span class="badge bg-secondary">{{ r.averageScore }}%</span></td>
-          <td><span class="badge bg-info">{{ r.medianScore }}%</span></td>
-          <td>
-            <span class="badge" [ngClass]="{'bg-success': r.passRate >= 50, 'bg-danger': r.passRate < 50}">
-              {{ r.passRate }}%
-            </span>
-          </td>
-          <td>{{ r.lastAttemptAt | date: 'short' }}</td>
-          <td>
-            <a class="btn btn-sm btn-outline-primary"
-               [routerLink]="['/admin/reports/assessment', r.assessmentId, 'difficulty']">
-              <i class="fa-solid fa-chart-line"></i>
-            </a>
-          </td>
-        </tr>
-        <tr *ngIf="summary.length === 0">
-          <td colspan="9" class="text-muted py-4">لا توجد بيانات بعد.</td>
-        </tr>
-      </tbody>
-    </table>
+  <div *ngIf="error" class="alert alert-modern error-alert">
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+    {{ error }}
+  </div>
+
+  <div class="reports-table-container" *ngIf="!loading && !error">
+    <div class="table-wrapper">
+      <div class="table-header">
+        <h5 class="table-title">
+          <i class="fa-solid fa-table me-2"></i>
+          ملخص نتائج التقييمات
+        </h5>
+        <div class="table-stats" *ngIf="summary.length > 0">
+          <span class="stat-item">
+            <i class="fa-solid fa-file-alt me-1"></i>
+            {{ summary.length }} تقييم
+          </span>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th class="id-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-hashtag me-1"></i>
+                  المعرف
+                </div>
+              </th>
+              <th class="name-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-clipboard-question me-1"></i>
+                  اسم التقييم
+                </div>
+              </th>
+              <th class="attempts-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-repeat me-1"></i>
+                  المحاولات
+                </div>
+              </th>
+              <th class="students-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-user-graduate me-1"></i>
+                  الطلاب
+                </div>
+              </th>
+              <th class="average-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-calculator me-1"></i>
+                  المتوسط
+                </div>
+              </th>
+              <th class="median-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-chart-bar me-1"></i>
+                  الوسيط
+                </div>
+              </th>
+              <th class="pass-rate-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-percentage me-1"></i>
+                  معدل النجاح
+                </div>
+              </th>
+              <th class="last-attempt-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-clock me-1"></i>
+                  آخر محاولة
+                </div>
+              </th>
+              <th class="actions-column">
+                <div class="th-content">
+                  <i class="fa-solid fa-cog me-1"></i>
+                  التفاصيل
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of summary; trackBy: trackByAssessmentId" class="table-row">
+              <td class="id-cell">
+                <div class="cell-content">
+                  <span class="id-badge">{{ r.assessmentId }}</span>
+                </div>
+              </td>
+              
+              <td class="name-cell">
+                <div class="assessment-info">
+                  <h6 class="assessment-name">{{ r.assessmentName }}</h6>
+                </div>
+              </td>
+              
+              <td class="attempts-cell">
+                <div class="cell-content">
+                  <div class="metric-badge attempts-badge">
+                    <i class="fa-solid fa-repeat me-1"></i>
+                    {{ r.attemptsCount }}
+                  </div>
+                </div>
+              </td>
+              
+              <td class="students-cell">
+                <div class="cell-content">
+                  <div class="metric-badge students-badge">
+                    <i class="fa-solid fa-user-graduate me-1"></i>
+                    {{ r.uniqueStudents }}
+                  </div>
+                </div>
+              </td>
+              
+              <td class="average-cell">
+                <div class="cell-content">
+                  <div class="score-badge average-score" 
+                       [ngClass]="getScoreClass(r.averageScore)">
+                    {{ r.averageScore }}%
+                  </div>
+                </div>
+              </td>
+              
+              <td class="median-cell">
+                <div class="cell-content">
+                  <div class="score-badge median-score"
+                       [ngClass]="getScoreClass(r.medianScore)">
+                    {{ r.medianScore }}%
+                  </div>
+                </div>
+              </td>
+              
+              <td class="pass-rate-cell">
+                <div class="cell-content">
+                  <div class="pass-rate-badge"
+                       [ngClass]="getPassRateClass(r.passRate)">
+                    <i class="fa-solid" 
+                       [ngClass]="r.passRate >= 50 ? 'fa-check' : 'fa-times'"></i>
+                    {{ r.passRate }}%
+                  </div>
+                </div>
+              </td>
+              
+              <td class="last-attempt-cell">
+                <div class="cell-content">
+                  <div class="date-info">
+                    <i class="fa-solid fa-calendar me-1"></i>
+                    <span class="date-text">{{ r.lastAttemptAt | date: 'short' }}</span>
+                  </div>
+                </div>
+              </td>
+              
+              <td class="actions-cell">
+                <div class="cell-content">
+                  <a class="action-btn details-btn"
+                     [routerLink]="['/admin/reports/assessment', r.assessmentId, 'difficulty']"
+                     [attr.aria-label]="'عرض تفاصيل التقييم ' + r.assessmentName">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="btn-text">التفاصيل</span>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            
+            <tr *ngIf="summary.length === 0" class="empty-row">
+              <td colspan="9" class="empty-cell">
+                <div class="empty-state">
+                  <div class="empty-icon">
+                    <i class="fa-solid fa-inbox"></i>
+                  </div>
+                  <h5 class="empty-title">لا توجد تقييمات</h5>
+                  <p class="empty-text">لم يتم العثور على أي تقييمات لعرض تقاريرها</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

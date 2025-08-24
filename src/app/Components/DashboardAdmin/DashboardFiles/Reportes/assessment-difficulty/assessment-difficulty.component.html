@@ -1,36 +1,144 @@
 <div class="container mt-5">
-  <h3 class="mb-3"><i class="fa-solid fa-chart-line me-2"></i> Question Difficulty (Assessment #{{ id }})</h3>
-
-  <div *ngIf="loading" class="alert alert-info"><i class="fa-solid fa-spinner fa-spin me-2"></i> جاري التحميل...</div>
-  <div *ngIf="error" class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> {{ error }}</div>
-
-  <div class="table-responsive" *ngIf="!loading && !error">
-    <table class="table table-hover table-bordered align-middle text-center">
-      <thead class="table-dark">
-        <tr>
-          <th>#</th>
-          <th>Header</th>
-          <th>Total Answers</th>
-          <th>Wrong</th>
-          <th>Wrong Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let q of rows; let i = index">
-          <td>{{ i+1 }}</td>
-          <td class="text-start">{{ q.header }}</td>
-          <td>{{ q.totalAnswers }}</td>
-          <td>{{ q.wrongCount }}</td>
-          <td>
-            <span class="badge" [ngClass]="{'bg-danger': q.wrongRate >= 50, 'bg-warning': q.wrongRate < 50}">
-              {{ q.wrongRate }}%
-            </span>
-          </td>
-        </tr>
-        <tr *ngIf="rows.length === 0">
-          <td colspan="5" class="text-muted py-4">لا توجد بيانات بعد.</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- قسم العنوان -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="page-header d-flex align-items-center">
+        <div class="header-icon me-3">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div>
+          <h3 class="mb-1 fw-bold text-dark">
+            <i class="fa-solid fa-chart-line me-2"></i>
+            صعوبة الأسئلة (التقييم رقم {{ id }})
+          </h3>
+          <p class="text-muted mb-0 small">تحليل صعوبة الأسئلة ومعدل الإجابات الخاطئة</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- حالة التحميل -->
+  @if (loading) {
+    <div class="alert alert-info alert-modern d-flex align-items-center mb-4" role="alert">
+      <div class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></div>
+      <span>جاري التحميل...</span>
+    </div>
+  }
+
+  <!-- حالة الخطأ -->
+  @if (error) {
+    <div class="alert alert-danger alert-modern d-flex align-items-center mb-4" role="alert">
+      <i class="fa-solid fa-triangle-exclamation me-2"></i>
+      {{ error }}
+    </div>
+  }
+
+  <!-- الجدول -->
+  @if (!loading && !error) {
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-transparent border-bottom py-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <div class="table-icon me-3">
+              <i class="fa-solid fa-table"></i>
+            </div>
+            <div>
+              <h5 class="mb-0 fw-bold">تقرير صعوبة الأسئلة</h5>
+              <small class="text-muted">عدد الأسئلة: {{ totalCount }}</small>
+            </div>
+          </div>
+          <div class="badge bg-primary">{{ totalCount }} سؤال</div>
+        </div>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th class="text-center fw-semibold">م</th>
+                <th class="fw-semibold">عنوان السؤال</th>
+                <th class="text-center fw-semibold">إجمالي الإجابات</th>
+                <th class="text-center fw-semibold">عدد الخاطئة</th>
+                <th class="text-center fw-semibold">نسبة الخطأ</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (q of rows; track q; let i = $index) {
+                <tr class="border-bottom border-light">
+                  <td class="text-center text-muted fw-medium">{{ i + 1 }}</td>
+                  <td class="text-start">
+                    <div class="question-header">
+                      <span class="fw-medium text-dark">{{ q.header }}</span>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-light text-dark border fw-medium">{{ q.totalAnswers }}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-secondary fw-medium">{{ q.wrongCount }}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge difficulty-badge fw-medium"
+                          [ngClass]="{
+                            'bg-danger': q.wrongRate >= 70,
+                            'bg-warning text-dark': q.wrongRate >= 50 && q.wrongRate < 70,
+                            'bg-info text-dark': q.wrongRate >= 30 && q.wrongRate < 50,
+                            'bg-success': q.wrongRate < 30
+                          }">
+                      {{ q.wrongRate }}%
+                    </span>
+                  </td>
+                </tr>
+              }
+
+              @if (rows.length === 0) {
+                <tr>
+                  <td colspan="5" class="text-center py-5">
+                    <div class="empty-state">
+                      <i class="fa-solid fa-inbox text-muted mb-3" style="font-size: 3rem;"></i>
+                      <h5 class="text-muted mb-2">لا توجد بيانات بعد</h5>
+                      <p class="text-muted small mb-0">لم يتم العثور على أي أسئلة في هذا التقييم</p>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ملخص إحصائي -->
+      @if (rows.length > 0) {
+        <div class="card-footer bg-light border-top py-3">
+          <div class="row text-center">
+            <div class="col-md-3">
+              <div class="stat-item">
+                <div class="stat-value text-primary fw-bold">{{ totalCount }}</div>
+                <div class="stat-label text-muted small">إجمالي الأسئلة</div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-item">
+                <div class="stat-value text-success fw-bold">{{ easyCount }}</div>
+                <div class="stat-label text-muted small">أسئلة سهلة</div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-item">
+                <div class="stat-value text-warning fw-bold">{{ mediumCount }}</div>
+                <div class="stat-label text-muted small">أسئلة متوسطة</div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-item">
+                <div class="stat-value text-danger fw-bold">{{ hardCount }}</div>
+                <div class="stat-label text-muted small">أسئلة صعبة</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
 </div>

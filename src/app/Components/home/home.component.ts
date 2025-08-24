@@ -9,13 +9,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollRevealDirective } from '../../directives/onScrollAnimation/scroll-reveal.directive';
 import { ButtonsAnimationDirective } from '../../directives/ButtonsAnimation/buttons-animation.directive';
 import { AccountService } from '../../Services/account.service';
+import { AiChatbotComponent } from "../ai-chat/ai-chat.component";
 
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, ScrollRevealDirective, ButtonsAnimationDirective],
+  imports: [RouterModule, ScrollRevealDirective, ButtonsAnimationDirective, AiChatbotComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

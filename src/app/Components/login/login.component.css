@@ -42,7 +42,7 @@ form {
 }
 
 .full-screen-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3776c8 0%, #2b91cc 100%) !important;
     position: relative;
     overflow: hidden;
 }
@@ -298,5 +298,9 @@ a:focus {
 }
 
 .loginBtn {
+    cursor: pointer;
+}
+
+.curserPassword {
     cursor: pointer;
 }

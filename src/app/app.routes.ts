@@ -109,6 +109,10 @@ export const routes: Routes = [
   
       { path: 'invoices/:id/edit', loadComponent: () => import('./Components/DashboardAdmin/DashboardFiles/admin-course-management/admin-invoices-list/admin-invoice-edit/admin-invoice-edit.component').then(m => m.AdminInvoiceEditComponent) },
 
+    { path: 'admin/notifications', loadComponent: () =>
+    import('./Components/DashboardAdmin/DashboardFiles/notification-management/notification-management.component')
+      .then(m => m.NotificationManagementComponent) }
+
     ]
   },
 

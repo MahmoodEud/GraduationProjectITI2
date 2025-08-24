@@ -7,12 +7,14 @@ import { AccountService } from '../../Services/account.service';
 import { environment } from '../../Services/register/environment';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { MyNotificationsComponent } from '../main/Tabs/my-notifications/my-notifications.component';
+import { NotificationBellIComponent } from '../notification-bell-i/notification-bell-i.component';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule, RouterLinkActive,ButtonsAnimationDirective,RouterLink],
+  imports: [RouterModule, RouterLinkActive,ButtonsAnimationDirective,RouterLink,NotificationBellIComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })

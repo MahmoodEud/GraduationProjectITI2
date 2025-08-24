@@ -113,12 +113,12 @@
                       </span>
                     </div>
                     
-                    @if (!loadingProgress[course.id] && (progressByCourseId[course.id] ?? 0) > 0) {
+                    @if (!loadingProgress[course.id] && (progressByCourseId[course.id]) > 0) {
                       <div class="position-absolute bottom-0 start-0 end-0">
                         <div class="progress" style="height: 4px; border-radius: 0;">
                           <div class="progress-bar bg-primary"
                                role="progressbar"
-                               [style.width.%]="progressByCourseId[course.id] ?? 0"
+                               [style.width.%]="progressByCourseId[course.id] "
                                aria-valuemin="0"
                                aria-valuemax="100">
                           </div>
@@ -159,7 +159,7 @@
                               <i class="fas fa-chart-line me-1"></i>التقدم
                             </span>
                             <span class="fw-bold text-primary">
-                              {{ (progressByCourseId[course.id] ?? 0) | number:'1.0-0' }}%
+                              {{ (progressByCourseId[course.id] ) | number:'1.0-0' }}%
                             </span>
                           </div>
                         </div>
@@ -167,8 +167,8 @@
                         <div class="progress progress-custom" style="height: 8px;">
                           <div class="progress-bar bg-primary"
                                role="progressbar"
-                               [style.width.%]="progressByCourseId[course.id] ?? 0"
-                               [attr.aria-valuenow]="progressByCourseId[course.id] ?? 0"
+                               [style.width.%]="progressByCourseId[course.id] "
+                               [attr.aria-valuenow]="progressByCourseId[course.id]"
                                aria-valuemin="0"
                                aria-valuemax="100">
                           </div>

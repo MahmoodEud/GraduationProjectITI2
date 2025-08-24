@@ -1,0 +1,316 @@
+<div class="page-header-section mb-4 bg-primary">
+  <div class="row g-0">
+    <div class="col-12">
+      <div class="header-card text-white p-4 rounded-3 shadow-lg d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+      
+          <div>
+            <h2 class="mb-1 fw-bold">
+              <i class="fa-solid fa-users-rectangle me-2"></i>
+              اشتراكات الطلاب في الكورسات
+            </h2>
+            <p class="mb-0 opacity-90">عرض وفلترة اشتراكات الطلاب (مجاني / مدفوع / مَمنوح)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="filters-section mb-4">
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-light border-0 py-3">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-filter me-2 text-primary"></i>
+        فلترة البيانات
+      </h5>
+    </div>
+
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fas fa-search me-1 text-primary"></i>
+            بحث بالاسم أو البريد أو عنوان الكورس
+          </label>
+          <input type="text" class="form-control form-control-lg border-2 rounded-pill"
+                 [(ngModel)]="filter.search" placeholder="ابحث هنا...">
+        </div>
+
+        <div class="col-md-2">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fa-solid fa-layer-group me-1 text-primary"></i>
+            السنة
+          </label>
+          <select class="form-select form-select-lg border-2 rounded-pill" [(ngModel)]="filter.studentYear">
+            @for (y of years; track y.value) {
+              <option [value]="y.value">{{ y.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fa-solid fa-book me-1 text-primary"></i>
+            الكورس
+          </label>
+          <select class="form-select form-select-lg border-2 rounded-pill" [(ngModel)]="filter.courseId">
+            <option [ngValue]="undefined">الكل</option>
+            @for (c of courses; track c.id) {
+              <option [value]="c.id">{{ c.title }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fa-solid fa-tags me-1 text-primary"></i>
+            التصنيف
+          </label>
+          <input type="text" class="form-control form-control-lg border-2 rounded-pill"
+                 [(ngModel)]="filter.category" placeholder="مثال: Science">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fa-solid fa-toggle-on me-1 text-primary"></i>
+            نوع الوصول
+          </label>
+          <select class="form-select form-select-lg border-2 rounded-pill" [(ngModel)]="filter.accessType">
+            @for (t of accessTypes; track t.value) {
+              <option [value]="t.value">{{ t.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fa-solid fa-calendar-day me-1 text-primary"></i>
+            من
+          </label>
+          <input type="date" class="form-control form-control-lg border-2 rounded-pill"
+                 [(ngModel)]="filter.dateFrom">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fa-solid fa-calendar-day me-1 text-primary"></i>
+            إلى
+          </label>
+          <input type="date" class="form-control form-control-lg border-2 rounded-pill"
+                 [(ngModel)]="filter.dateTo">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold text-dark">
+            <i class="fa-solid fa-arrow-down-short-wide me-1 text-primary"></i>
+            الترتيب
+          </label>
+          <div class="d-flex gap-2">
+            <select class="form-select border-2 rounded-pill" [(ngModel)]="filter.sortBy">
+              @for (s of sortOptions; track s.value) {
+                <option [value]="s.value">{{ s.label }}</option>
+              }
+            </select>
+            <select class="form-select border-2 rounded-pill" [(ngModel)]="filter.sortDir" style="max-width:120px">
+              @for (d of sortDirs; track d.value) {
+                <option [value]="d.value">{{ d.label }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-3 d-flex gap-2">
+          <button class="btn btn-primary btn-lg rounded-pill flex-fill" (click)="applyFilter()">
+            <i class="fas fa-search me-2"></i>
+            بحث
+          </button>
+          <button class="btn btn-outline-secondary btn-lg rounded-pill" (click)="clearFilter()">
+            <i class="fas fa-redo me-2"></i>
+            إعادة تعيين
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (loading) {
+  <div class="alert alert-info alert-modern d-flex align-items-center mb-4" role="alert">
+    <div class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></div>
+    <span>جاري التحميل...</span>
+  </div>
+}
+
+@if (error) {
+  <div class="alert alert-danger alert-modern d-flex align-items-center mb-4" role="alert">
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+    {{ error }}
+  </div>
+}
+
+@if (!loading && !error) {
+  <div class="table-section">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-light border-0 d-flex justify-content-between align-items-center py-3">
+        <h5 class="card-title mb-0">
+          <i class="fas fa-table me-2 text-primary"></i>
+          قائمة الاشتراكات
+        </h5>
+        <div class="badge bg-primary">{{ totalCount }} سجل</div>
+      </div>
+
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-head-dark text-white">
+              <tr>
+                <th class="border-0 py-3 text-end">الطالب</th>
+                <th class="border-0 py-3 text-end">البريد</th>
+                <th class="border-0 py-3 text-center">السنة</th>
+                <th class="border-0 py-3 text-end">الكورس</th>
+                <th class="border-0 py-3 text-center">التصنيف</th>
+                <th class="border-0 py-3 text-center">السعر</th>
+                <th class="border-0 py-3 text-center">النوع</th>
+                <th class="border-0 py-3 text-center">تاريخ الاشتراك</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (r of rows; track r) {
+                <tr class="border-bottom table-row">
+                  <td class="text-end">
+                    <div class="d-flex align-items-center justify-content-end gap-2">
+                      <div class="avatar-circle">
+                        <i class="fa-solid fa-user text-black"></i>
+                      </div>
+                      <div>
+                        <div class="fw-semibold text-dark">{{ r.studentName }}</div>
+                        <small class="text-muted">#{{ r.studentId }}</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-end">
+                    <span class="text-muted small">{{ r.email || '-' }}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-light text-dark border fw-medium">{{ r.studentYear }}</span>
+                  </td>
+                  <td class="text-end">
+                    <div class="d-flex align-items-center justify-content-end gap-2">
+                      <!-- <div class="lesson-icon me-0">
+                        <i class="fa-solid fa-book-open"></i>
+                      </div> -->
+                      <span class="fw-medium text-dark">{{ r.courseTitle }}</span>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-secondary fw-medium">{{ r.category || '-' }}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-light text-dark border fw-medium">{{ r.price | number:'1.0-2' }}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge access-badge fw-medium"
+                          [ngClass]="{
+                            'bg-success': r.accessType === 'Free',
+                            'bg-info text-dark': r.accessType === 'Paid',
+                            'bg-warning text-dark': r.accessType === 'Granted'
+                          }">
+                      @if (r.accessType === 'Free') { مجاني }
+                      @else if (r.accessType === 'Paid') { مدفوع }
+                      @else { مَمنوح }
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span class="text-muted small">{{ r.enrolledAt | date:'dd/MM/yyyy HH:mm' }}</span>
+                  </td>
+                </tr>
+              }
+
+              @if (rows.length === 0) {
+                <tr>
+                  <td colspan="8" class="text-center py-5">
+                    <div class="empty-state">
+                      <i class="fa-solid fa-inbox text-muted mb-3" style="font-size: 3rem;"></i>
+                      <h5 class="text-muted mb-2">لا توجد بيانات بعد</h5>
+                      <p class="text-muted small mb-0">جرّب تغيير فلاتر البحث</p>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      @if (rows.length > 0) {
+        <div class="card-footer bg-light border-0 py-3">
+          <div class="row text-center">
+            <div class="col-md-2">
+              <div class="stat-item">
+                <div class="stat-value text-primary fw-bold">{{ stats?.totalEnrollments || 0 }}</div>
+                <div class="stat-label text-muted small">إجمالي الاشتراكات</div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="stat-item">
+                <div class="stat-value text-success fw-bold">{{ stats?.freeCount || 0 }}</div>
+                <div class="stat-label text-muted small">مجاني</div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="stat-item">
+                <div class="stat-value text-info fw-bold">{{ stats?.paidCount || 0 }}</div>
+                <div class="stat-label text-muted small">مدفوع</div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="stat-item">
+                <div class="stat-value text-warning fw-bold">{{ stats?.grantedCount || 0 }}</div>
+                <div class="stat-label text-muted small">مَمنوح</div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="stat-item">
+                <div class="stat-value text-dark fw-bold">{{ stats?.totalStudents || 0 }}</div>
+                <div class="stat-label text-muted small">عدد الطلاب</div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="stat-item">
+                <div class="stat-value text-primary fw-bold">{{ stats?.totalAmountPaid | number:'1.0-2' }}</div>
+                <div class="stat-label text-muted small">إجمالي المدفوع (EGP)</div>
+              </div>
+            </div>
+          </div>
+
+          @if (totalPages > 1) {
+            <div class="d-flex justify-content-center mt-3">
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item" [class.disabled]="(filter.page ?? 1) === 1">
+                  <button class="page-link rounded-pill me-1" (click)="changePage((filter.page ?? 1) - 1)">
+                    <i class="fas fa-chevron-right me-1"></i>
+                    السابق
+                  </button>
+                </li>
+                @for (page of [].constructor(totalPages); track $index) {
+                  <li class="page-item" [class.active]="(filter.page ?? 1) === ($index + 1)">
+                    <button class="page-link rounded-circle mx-1" (click)="changePage($index + 1)">
+                      {{ $index + 1 }}
+                    </button>
+                  </li>
+                }
+                <li class="page-item" [class.disabled]="(filter.page ?? 1) === totalPages">
+                  <button class="page-link rounded-pill ms-1" (click)="changePage((filter.page ?? 1) + 1)">
+                    التالي
+                    <i class="fas fa-chevron-left ms-1"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

@@ -6,12 +6,14 @@ import { LessonsComponent } from "../DashboardFiles/lessons/lessons.component";
 import { UserSettingComponent } from "../DashboardFiles/user-setting/user-setting.component";
 import { AssessmentsListComponent } from "../DashboardFiles/assessments-list/assessments-list.component";
 import { ReportsDashboardComponent } from "../DashboardFiles/Reportes/reports-dashboard/reports-dashboard.component";
+import { NotificationManagementComponent } from "../DashboardFiles/notification-management/notification-management.component";
+import { StdCrsComponent } from '../DashboardFiles/stdcrs/stdcrs.component'; 
 
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [StudentsComponent, CoursesComponent, AdminCourseManagementComponent, LessonsComponent, UserSettingComponent, AssessmentsListComponent, ReportsDashboardComponent],
+  imports: [StudentsComponent, CoursesComponent, AdminCourseManagementComponent, LessonsComponent, UserSettingComponent, AssessmentsListComponent, ReportsDashboardComponent, NotificationManagementComponent, StdCrsComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })

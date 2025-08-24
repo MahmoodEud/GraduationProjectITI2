@@ -1,0 +1,26 @@
+.bell-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+    padding: .5rem .6rem;
+    border-radius: .5rem;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+}
+
+.badge-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    font-size: 12px;
+    background: #dc2626;
+    color: #fff;
+    border-radius: 9999px;
+    padding: 0 .35rem;
+    line-height: 18px;
+    min-width: 18px;
+    text-align: center;
+}

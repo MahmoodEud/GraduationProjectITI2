@@ -1,0 +1,14 @@
+<button class="btn btn-link nav-link p-0 position-relative"
+        (click)="goToNotifications()"
+        title="الإشعارات"
+        aria-label="Notifications">
+  <i class="fas fa-bell fs-4"></i>
+
+  @if (count() > 0) {
+    <span class="position-absolute top-0 start-100 translate-middle
+                 badge rounded-pill bg-danger">
+      {{ count() }}
+      <span class="visually-hidden">unread notifications</span>
+    </span>
+  }
+</button>

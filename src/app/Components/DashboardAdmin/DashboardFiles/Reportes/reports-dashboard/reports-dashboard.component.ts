@@ -24,4 +24,18 @@ export class ReportsDashboardComponent {
       error: _ => { this.error = 'فشل تحميل ملخص الامتحانات'; this.loading = false; }
     });
   }
+  // في الكمبوننت
+trackByAssessmentId(index: number, item: any): any {
+  return item.assessmentId;
+}
+
+getScoreClass(score: number): string {
+  if (score >= 85) return 'score-excellent';
+  if (score >= 65) return 'score-good';
+  return 'score-poor';
+}
+
+getPassRateClass(passRate: number): string {
+  return passRate >= 50 ? 'pass-rate-high' : 'pass-rate-low';
+}
 }

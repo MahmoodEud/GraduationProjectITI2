@@ -1,31 +1,93 @@
-<div class="container py-4">
-  <h4 class="mb-3 d-flex align-items-center gap-2">
-    <i class="fa-solid fa-bell"></i>
-    <span>الإشعارات</span>
-    <span class="badge bg-danger" *ngIf="unreadCount()">{{ unreadCount() }}</span>
-  </h4>
-
-  <div *ngIf="error()" class="alert alert-danger">{{ error() }}</div>
-  <div *ngIf="loading()" class="alert alert-info">
-    <i class="fa-solid fa-spinner fa-spin me-2"></i> جارٍ التحميل...
+<div class="notifications-container mt-5 mb-sm-0 mb-5 py-sm-0 py-5">
+  <!-- Header Section with Animation -->
+  <div class="notifications-header">
+    <h4 class="header-title">
+      <div class="icon-wrapper">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+      <span class="title-text">الإشعارات</span>
+      @if (unreadCount()) {
+        <span class="unread-badge animate__animated animate__pulse animate__infinite">
+          {{ unreadCount() }}
+        </span>
+      }
+    </h4>
   </div>
 
-  <div class="card border-0 shadow-sm mb-3">
-    <div class="card-body">
-      <div class="row g-2 align-items-center">
-        <div class="col-12 col-md-6">
-          <input class="form-control" type="search" placeholder="بحث في العنوان/المحتوى"
-                 [ngModel]="search()" (ngModelChange)="search.set($event)">
+  <!-- Error Alert -->
+  @if (error()) {
+    <div class="alert alert-danger alert-modern">
+      <i class="fa-solid fa-triangle-exclamation me-2"></i>
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Loading Alert -->
+  @if (loading()) {
+    <div class="alert alert-info alert-modern loading-alert">
+      <div class="loading-content">
+        <div class="spinner-modern">
+          <i class="fa-solid fa-spinner fa-spin"></i>
         </div>
-        <div class="col-12 col-md-3">
-          <div class="form-check">
-            <input id="onlyUnread" class="form-check-input" type="checkbox"
-                   [ngModel]="onlyUnread()" (ngModelChange)="onlyUnread.set($event)">
-            <label for="onlyUnread" class="form-check-label">عرض غير المقروء فقط</label>
+        <span>جارٍ التحميل...</span>
+      </div>
+    </div>
+  }
+
+  <!-- Filters Card with Glass Effect -->
+  <div class="filters-card">
+    <div class="filters-content">
+      <div class="row g-3 align-items-center">
+        <!-- Search Input -->
+        <div class="col-12 col-lg-4 col-md-6">
+          <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input 
+              class="form-control search-input" 
+              type="search" 
+              placeholder="بحث في العنوان أو المحتوى..."
+              [ngModel]="search()" 
+              (ngModelChange)="search.set($event)">
           </div>
         </div>
-        <div class="col-12 col-md-3 text-md-end">
-          <button class="btn btn-outline-secondary" (click)="markAllRead()">
+
+        <!-- Type Filter -->
+        <div class="col-6 col-lg-3 col-md-6">
+          <div class="select-wrapper">
+            <select 
+              class="form-select custom-select"
+              [ngModel]="typeFilter()" 
+              (ngModelChange)="typeFilter.set($event)">
+              <option value="all">جميع الأنواع</option>
+              <option value="Exam">امتحان</option>
+              <option value="Meeting">اجتماع</option>
+              <option value="Invoice">فاتورة</option>
+              <option value="General">عام</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Unread Filter -->
+        <div class="col-6 col-lg-3 col-md-6">
+          <div class="checkbox-wrapper">
+            <input 
+              id="onlyUnread" 
+              class="form-check-input custom-checkbox" 
+              type="checkbox"
+              [ngModel]="onlyUnread()" 
+              (ngModelChange)="onlyUnread.set($event)">
+            <label for="onlyUnread" class="form-check-label custom-label">
+              غير المقروء فقط
+            </label>
+          </div>
+        </div>
+
+        <!-- Mark All Read Button -->
+        <div class="col-12 col-lg-2 col-md-6">
+          <button 
+            class="btn btn-mark-all" 
+            (click)="markAllRead()">
+            <i class="fa-solid fa-check-double me-2"></i>
             تعليم الكل كمقروء
           </button>
         </div>
@@ -33,23 +95,90 @@
     </div>
   </div>
 
-  <div class="list-group">
-    <a class="list-group-item list-group-item-action" *ngFor="let n of rows()">
-      <div class="d-flex w-100 justify-content-between">
-        <h6 class="mb-1">
-          {{ n.title }}
-          <span [class]="badgeClass(n)">{{ n.isRead ? 'مقروء' : 'جديد' }}</span>
-        </h6>
-        <small class="text-muted">{{ n.createdAt | date:'short':'Africa/Cairo' }}</small>
-      </div>
-      <p class="mb-1">{{ n.body }}</p>
-      <button class="btn btn-sm btn-outline-primary" *ngIf="!n.isRead" (click)="markRead(n)">
-        تعليم كمقروء
-      </button>
-    </a>
+  <!-- Notifications List -->
+  <div class="notifications-list">
+    @for (n of rows(); track n.id) {
+      <div 
+        class="notification-item" 
+        [class.unread]="!n.isRead"
+        (click)="open(n, $event)">
+        
+        <!-- Notification Header -->
+        <div class="notification-header">
+          <div class="notification-meta">
+            <span class="type-badge" [ngClass]="badgeClass(n)">
+              <i class="badge-icon" 
+                 [ngClass]="{
+                   'fa-solid fa-graduation-cap': n.type === 'Exam',
+                   'fa-solid fa-users': n.type === 'Meeting', 
+                   'fa-solid fa-file-invoice-dollar': n.type === 'Invoice',
+                   'fa-solid fa-bell': n.type === 'General'
+                 }"></i>
+              {{ n.type === 'Exam' ? 'امتحان'
+                : n.type === 'Meeting' ? 'اجتماع'
+                : n.type === 'Invoice' ? 'فاتورة' 
+                : 'عام' }}
+            </span>
+            
+            <h6 class="notification-title">
+              {{ n.title }}
+            </h6>
+            
+            @if (!n.isRead) {
+              <span class="new-badge">
+                <i class="fa-solid fa-circle"></i>
+                جديد
+              </span>
+            }
+          </div>
+          
+          <div class="notification-time">
+            <i class="fa-regular fa-clock me-1"></i>
+            {{ n.createdAt | date:'short':'Africa/Cairo' }}
+          </div>
+        </div>
 
-    <div *ngIf="rows().length === 0" class="text-center text-muted py-4">
-      لا توجد إشعارات مطابقة.
-    </div>
+        <!-- Notification Body -->
+        <div class="notification-body">
+          <p class="notification-text">{{ n.body }}</p>
+        </div>
+
+        <!-- Notification Actions -->
+        <div class="notification-actions">
+          @if (n.actionUrl) {
+            <button 
+              class="btn btn-action btn-primary-action" 
+              (click)="open(n, $event)">
+              <i class="fa-solid fa-external-link me-2"></i>
+              فتح
+            </button>
+          }
+          @if (!n.isRead) {
+            <button 
+              class="btn btn-action btn-secondary-action" 
+              (click)="markRead(n, $event)">
+              <i class="fa-solid fa-check me-2"></i>
+              تعليم كمقروء
+            </button>
+          }
+        </div>
+
+        <!-- Unread Indicator -->
+        @if (!n.isRead) {
+          <div class="unread-indicator"></div>
+        }
+      </div>
+    }
+    
+    <!-- Empty State -->
+    @if (rows().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="fa-regular fa-bell-slash"></i>
+        </div>
+        <h5 class="empty-title">لا توجد إشعارات</h5>
+        <p class="empty-text">لا توجد إشعارات مطابقة للفلاتر المحددة</p>
+      </div>
+    }
   </div>
 </div>

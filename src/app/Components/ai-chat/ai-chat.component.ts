@@ -14,9 +14,7 @@ interface ChatMessage {
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <!-- Chat Widget Button -->
     <div class="chat-widget" [class.expanded]="isExpanded">
-      <!-- Collapsed State Button -->
       <div class="chat-button" (click)="toggleChat()" *ngIf="!isExpanded">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
@@ -27,9 +25,7 @@ interface ChatMessage {
         </svg>
       </div>
 
-      <!-- Expanded Chat Window -->
       <div class="chat-window" *ngIf="isExpanded">
-        <!-- Chat Header -->
         <div class="chat-header">
           <div class="header-content">
             <div class="bot-avatar">
@@ -51,7 +47,6 @@ interface ChatMessage {
           </button>
         </div>
 
-        <!-- Chat Messages -->
         <div class="chat-messages" #messagesContainer>
           <div class="welcome-message" *ngIf="messages.length === 0">
             <div class="bot-avatar">🤖</div>
@@ -84,7 +79,6 @@ interface ChatMessage {
           </div>
         </div>
 
-        <!-- Chat Input -->
         <div class="chat-input">
           <div class="input-container">
             <input
@@ -119,7 +113,7 @@ interface ChatMessage {
     .chat-button {
       width: 60px;
       height: 60px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -159,7 +153,7 @@ interface ChatMessage {
     }
 
     .chat-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
       color: white;
       padding: 16px;
       display: flex;
@@ -447,322 +441,298 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
   private genAI: GoogleGenAI;
   private readonly API_KEY = 'AIzaSyBSJLAiFOHYYpnLToY7A7bQ0ol-JQmJWIc'; // <-------- API KEY HERE
 
-  // FAQ and support information
   private readonly FAQ_CONTEXT = `
-    You are a helpful AI assistant for our web application. You are going to be getting questions in arabic and will also answer them in arabic. Here's important information about our app:
+    س: إزاي أعمل حساب؟
+ج: اضغط إنشاء حساب بالأعلى، أدخل الإيميل والباسورد، ثم فعِّل الحساب من رسالة التأكيد.
 
-    FREQUENTLY ASKED QUESTIONS:
+س: لازم أفعِّل الإيميل؟
+ج: نعم، تتفعّل المزايا بعد الضغط على رابط التأكيد في الإيميل.
 
-    Q: How do I create an account?
-    A: Click Create Account at the top, enter your email and password, then verify via the confirmation email.
+س: نسيت كلمة السر؟
+ج: اضغط هل نسيت كلمة المرور في صفحة الدخول واتبع التعليمات المُرسلة لإيميلك.
 
-    Q: Do I have to verify my email?
-    A: Yes. Your account features unlock after you confirm the link sent to your inbox.
+س: أغيّر كلمة السر بعد ما أسجل دخول؟
+ج: الإعدادات > الأمان > تغيير كلمة المرور.
 
-    Q: How do I reset my password?
-    A: Click Forgot Password on the login page, enter your email, and follow the instructions sent to you.
+س: أعدِّل عنوان الإيميل؟
+ج: الإعدادات > البيانات الشخصية > تعديل الإيميل، ثم أدخل كود التحقق المُرسل للإيميل الجديد.
 
-    Q: How do I change my password after logging in?
-    A: Go to Settings > Security > Change Password and follow the prompts.
+س: أقدر أغيّر رقم الموبايل؟
+ج: نعم من الإعدادات > البيانات الشخصية، ثم تأكيد بالكود.
 
-    Q: How do I update my email address?
-    A: Settings > Personal Info > Edit Email, then confirm using the verification code sent to the new address.
+س: أوقف الإشعارات؟
+ج: الإعدادات > الإشعارات لتخصيصها أو تعطيلها مؤقتًا.
 
-    Q: Can I change my phone number?
-    A: Yes. Update it under Settings > Personal Info, then verify using the code we send.
+س: أحذف حسابي نهائيًا؟
+ج: الإعدادات > الحساب > حذف الحساب. سيُعطَّل الوصول وتُحذف البيانات غير المطلوبة قانونيًا.
+س: أرقام الدعم ؟
+ج: 01149122568 || 01127597047
+س: أصدّر بياناتي؟
+ج: الإعدادات > تصدير البيانات، واختر JSON أو CSV أو PDF.
 
-    Q: How do I turn off notifications?
-    A: Settings > Notifications to customize or temporarily disable alerts.
+س: بياناتي آمنة؟
+ج: نعم، وفق سياسة خصوصية صارمة. لا نشارك بياناتك مع طرف ثالث إلا إذا طُلِب قانونيًا.
 
-    Q: How do I delete my account permanently?
-    A: Settings > Account > Delete Account. This disables access and deletes data not required by law.
+س: بتحتفظوا ببياناتي بعد انتهاء الاشتراك؟
+ج: نحتفظ بالحد الأدنى المطلوب قانونًا. يمكنك طلب الحذف من الإعدادات > الحساب.
 
-    Q: How do I export my data?
-    A: Go to Settings > Data Export and choose JSON, CSV, or PDF.
+س: مين مستر نادر؟
+ج: مستر نادر مُعلّم اللغة العربية للثانوي (أولى/تانية/تالتة). نشرح منهج الوزارة كاملًا مع تدريب عملي على أساليب أسئلة الامتحان.
 
-    Q: Is my data secure?
-    A: We follow a strict privacy policy. Only authorized staff can access your data, and we never share it with third parties except when required by law.
+س: أكلم مستر نادر مباشرة؟
+ج: لا يوجد تواصل مباشر. اكتب رسالتك عبر الدعم وسنوصّلها للفريق الأكاديمي.
 
-    Q: Do you keep my data after my subscription ends?
-    A: We retain only the minimum legally necessary records. You can request deletion from Settings > Account.
+س: مواعيد عمل الدعم؟
+ج: موضّحة داخل حسابك في صفحة تواصل معنا.
 
-    Q: How do I contact Mr. Nader directly?
-    A: Direct contact isn’t available. Please contact the support team, and they’ll relay any necessary messages.
+س: أتواصل مع الدعم إزاي؟
+ج: من داخل التطبيق عبر المحادثة أو الإيميل في قسم المساعدة > تواصل معنا.
 
-    Q: When is support available?
-    A: Support hours are listed on the Contact Us page inside your account.
+س: فين الدروس الحضورية؟
+ج: بني سويف الجديدة – شارع الأباصيري. العنوان الكامل والخريطة داخل حسابك في قسم الموقع.
 
-    Q: What channels can I use to reach support?
-    A: In‑app chat and email (both listed in Help > Contact Us).
+س: فيه مجموعات أونلاين؟
+ج: نعم، مجموعات مباشرة عبر الإنترنت بالإضافة للحضوري.
 
-    Q: Where are in‑person classes held?
-    A: Beni Suef – Al‑Abasiri Street. The full address and map are in Location inside your account.
+س: مستر نادر يدرّس لمين؟
+ج: لغة عربية لصفوف: أولى – تانية – تالتة ثانوي فقط.
 
-    Q: Do you offer online classes as well?
-    A: Yes. We have live online groups in addition to in‑person classes.
+س: بتتّبعوا منهج الوزارة؟
+ج: نعم، مع تدريب على نمط الأسئلة الحديثة.
 
-    Q: Which grades does Mr. Nader teach?
-    A: Arabic for 1st, 2nd, and 3rd Secondary only.
+س: موضوعات العربي اللي بتتغطّى؟
+ج: نحو، بلاغة، نصوص/أدب، قراءة، وتعبير (وظيفي وإبداعي).
 
-    Q: Do you follow the official Ministry curriculum?
-    A: Yes. We cover the full syllabus and train on exam‑style questions.
+س: فيه تدريب على استراتيجيات الامتحان؟
+ج: بالتأكيد: إدارة الوقت، مهارات الاختيار من متعدد، وصياغة إجابات التعبير.
 
-    Q: What Arabic topics are included?
-    A: Grammar, rhetoric, literature/texts, reading comprehension, and composition (functional & creative).
+س: بتستخدموا أي منصة للأونلاين؟
+ج: غالبًا Zoom، والرابط يظهر في لوحة الطالب قبل المحاضرة.
 
-    Q: Do you train specifically for exam strategies?
-    A: Absolutely—time management, MCQ tactics, and structured answers for essay questions.
+س: المتطلبات التقنية للأونلاين؟
+ج: هاتف أو كمبيوتر، إنترنت مستقر، متصفح/Zoom مُحدّث، وسماعات مُستحسنة.
 
-    Q: Which platform do you use for online sessions?
-    A: Usually Zoom. The meeting link appears in your Student Dashboard before class.
+س: النت ضعيف، أعمل إيه؟
+ج: اقفل التطبيقات الأخرى، قرّب من الراوتر/استخدم سلكي إن أمكن، واطلب تسجيل الجلسة لو متاح.
 
-    Q: What are the technical requirements for online classes?
-    A: A phone or PC, stable internet, updated browser/Zoom, and headphones are recommended.
+س: حصل انقطاع كهرباء في الحضوري؟
+ج: قد نمدّ المدة/نعيد الجدولة/نقدّم بديل تعويضي. التحديثات تصلك عبر المنصة.
 
-    Q: My internet is weak—what can I do?
-    A: Close other apps, use wired or stronger Wi‑Fi if possible, and request the session recording when available.
+س: سياسة التأخّر؟
+ج: ادخل بهدوء، ويمكنك المراجعة من الملحوظات أو التسجيل (إن وُجد).
 
-    Q: What happens if there’s a power cut during an in‑person class?
-    A: We may extend, reschedule, or offer a makeup option—updates come via the platform.
+س: الحضور بيتسجّل؟
+ج: نعم. لو هتتأخر/تغيب، بلّغ الدعم.
 
-    Q: What’s the policy on late arrivals?
-    A: You may enter quietly. Catch up using the notes or recording (if available).
+س: بتسجّلوا المحاضرات؟
+ج: بعض المجموعات فقط. ستظهر لك روابط المشاهدة في لوحة الطالب حال توفرها ولمدّة محدودة.
 
-    Q: Is attendance tracked?
-    A: Yes. Please inform support if you expect to be late or absent.
+س: فيه حصة تجريبية؟
+ج: غالبًا في بداية كل مجموعة. راجع الجدول.
 
-    Q: Are classes recorded?
-    A: Some groups are recorded. When available, the playback link appears on your dashboard.
+س: عدد الطلبة في المجموعة؟
+ج: مجموعات صغيرة لتحسين التفاعل (العدد يختلف حسب المجموعة).
 
-    Q: If I miss a class, can I get a recording?
-    A: If that group is recorded, you’ll get a link for a limited time.
+س: فيه دروس واحد لواحد؟
+ج: نعم بأسعار منفصلة وحسب المتاح.
 
-    Q: Do you offer a trial class?
-    A: Often yes at the start of each group. Check Schedule for upcoming trial dates.
+س: طرق الدفع؟
+ج: فودافون كاش فقط حاليًا.
 
-    Q: How many students are in each group?
-    A: Small groups for better interaction; exact numbers depend on the specific group.
+س: تحويل بنكي أو فوري؟
+ج: غير متاح. المعتمد فودافون كاش فقط.
 
-    Q: Do you offer one‑to‑one tutoring?
-    A: Yes, at separate rates and subject to availability.
+س: أرفع إيصال الدفع إزاي؟
+ج: لوحة التحكم > المدفوعات > رفع إيصال وانتظر التأكيد.
 
-    Q: What payment methods do you accept?
-    A: Vodafone Cash only at the moment.
+س: تفعيل الاشتراك بياخد قد إيه بعد الدفع؟
+ج: خلال وقت قصير بعد مراجعة الإيصال. الحالة بتظهر في حسابك.
 
-    Q: Do you accept bank transfer or Fawry?
-    A: No. Accepted payments are Vodafone Cash only.
+س: اتأخّرت في الدفع؟
+ج: قد يتوقّف الوصول لحين الإتمام عبر فودافون كاش.
 
-    Q: How do I upload a payment receipt?
-    A: Dashboard > Payments > Upload Receipt, then wait for confirmation.
+س: ألغِي الاشتراك وأسترد فلوسي؟
+ج: قبل بدء الكورس: استرداد كامل. بعد البدء: لا يوجد استرداد، لكن يمكن النقل/التجميد حسب السياسة.
 
-    Q: How long until my subscription is activated after payment?
-    A: Shortly after our team reviews your receipt; you’ll see the status in your account.
+س: أنقل الاشتراك لشخص آخر؟
+ج: مرّة واحدة خلال الأسبوع الأول وبعد موافقة الإدارة.
 
-    Q: What if I pay late?
-    A: Access may be paused until payment is completed via Vodafone Cash.
+س: أجمّد الاشتراك؟
+ج: نعم لفترة محدودة وبموافقة—تواصل مع الدعم.
 
-    Q: Can I cancel my subscription?
-    A: Before the course starts: full refund. After it starts: no refunds, but you may transfer or freeze per policy.
+س: أغيّر مجموعتي؟
+ج: مسموح مرّة واحدة في الترم بناءً على المقاعد المتاحة.
 
-    Q: Can I transfer my subscription to someone else?
-    A: Once, within the first week of the course, subject to admin approval.
+س: أغيّر من حضوري لأونلاين؟
+ج: نعم إذا توفّر مكان ووفق الشروط.
 
-    Q: Can I freeze my subscription?
-    A: Yes, for a limited period upon approval—contact support.
+س: أنضم لمجموعة بدأت؟
+ج: ممكن لو فيه مقاعد. هنساعدك تلحق بالمحتوى.
 
-    Q: Can I switch groups?
-    A: One change per term, based on seat availability.
+س: الطلبة الحاليين لهم أولوية؟
+ج: نعم، لهم أولوية التجديد قبل فتح المقاعد للجمهور.
 
-    Q: Can I change from in‑person to online?
-    A: Yes, if there’s a seat in the online group and policy conditions are met.
+س: أشوف الجدول فين؟
+ج: يُنشر أسبوعيًا في لوحة الطالب > الجدول.
 
-    Q: Can I join a group that already started?
-    A: If seats are available. We’ll guide you on catching up.
+س: بتعدّلوا الجداول في رمضان والإجازات؟
+ج: نعم، ننشر جدولًا خاصًا مسبقًا.
 
-    Q: Do current students get priority for new seats?
-    A: Yes—renewal priority is given before public enrollment opens.
+س: فيه تقويم سنوي؟
+ج: الخطة العامة متاحة، والتفاصيل تُحدّث أسبوعيًا داخل المنصة.
 
-    Q: Where can I see the timetable?
-    A: It’s posted weekly in your Student Dashboard > Schedule.
+س: معسكرات مُكثّفة قبل الامتحانات؟
+ج: نعم، مع اختبارات تجريبية.
 
-    Q: Do you adjust schedules for Ramadan and holidays?
-    A: Yes. We publish a special schedule in advance.
+س: باقات مُراجعة نهائية؟
+ج: نعم، مراجعات مركّزة مع بنوك أسئلة مُدرجة.
 
-    Q: Is there a yearly academic calendar?
-    A: There’s a general plan; detailed timings are updated weekly on the platform.
+س: فيديوهات عند الطلب؟
+ج: أحيانًا لموضوعات محددة—نعلن عنها داخل المنصة.
 
-    Q: Do you run intensive revision camps?
-    A: Yes—high‑focus sessions with mock exams before finals.
+س: المذكرات PDF متضمنة؟
+ج: نعم ضمن الاشتراك.
 
-    Q: Do you offer final review packages?
-    A: Yes, targeted revisions with graded question banks.
+س: مذكرات مطبوعة؟
+ج: إن توفّرت، تستلمها من المركز في مواعيد مُعلنة (قد تُحتسب رسوم بسيطة للطباعة).
 
-    Q: Are there on‑demand video packs I can buy?
-    A: Sometimes for select topics—we announce availability in the platform.
+س: أجيب إيه معايا في الحضوري؟
+ج: كشكول وقلم وكتيّب المادة. وأي أوراق إضافية نعلن عنها.
 
-    Q: Are PDFs of notes included?
-    A: Core PDFs are included with your subscription.
+س: فيه نماذج إجابات وسُلم تصحيح؟
+ج: نعم لِمجموعات مختارة من الأسئلة والامتحانات.
 
-    Q: Are printed notes available?
-    A: If offered, you can collect them from the center at scheduled pickup times.
+س: بتدرّبوا على الاختيار من متعدد والتعبير؟
+ج: نعم، بأساليب عملية لكلٍّ منهما.
 
-    Q: Do printed notes cost extra?
-    A: Digital notes are included. Printed copies, if offered, may have a small fee.
+س: بتوفّروا امتحانات سابقة؟
+ج: نعم، مع محاكاة واقعية للاتجاهات الحديثة.
 
-    Q: What should I bring to in‑person classes?
-    A: Notebook, pen, and the subject booklet. Extra handouts are announced in class.
+س: مين بيصحّح التعبير؟
+ج: فريق التصحيح تحت إشراف مستر نادر وبنُظم تقييم واضحة.
 
-    Q: Do you provide model answers and mark schemes?
-    A: Yes, for selected sets of questions and exams.
+س: هاخد تعليقات على الواجب؟
+ج: نعم، ملاحظات ونصائح تحسّن مستواك دوريًا.
 
-    Q: Do you train on both MCQs and essays?
-    A: Yes—techniques for both formats are covered.
+س: تأخير تسليم الواجب يتخصم؟
+ج: قد يُخفَّض التقييم—راجِع سياسة مجموعتك في اللوحة.
 
-    Q: Do you include past papers?
-    A: Yes—plus realistic simulations aligned with recent trends.
+س: فيه كويزات أونلاين؟
+ج: نعم، قصيرة ودورية لقياس تقدّمك.
 
-    Q: Who grades composition and essays?
-    A: The grading team under Mr. Nader’s supervision, using clear rubrics.
+س: أقدر أُعيد محاولة الكويز؟
+ج: بعض الكويزات تسمح بمحاولات متعددة—ستجد التنبيه قبل البدء.
 
-    Q: Will I get feedback on my homework?
-    A: Yes—comments and improvement tips are shared regularly.
+س: الدرجات بتظهر في تقرير التقدم؟
+ج: نعم، داخل لوحة الطالب.
 
-    Q: Are late homework submissions penalized?
-    A: They may receive reduced credit. See each group’s policy in your dashboard.
+س: أعرف إن مستواي بيتحسّن إزاي؟
+ج: عبر نتائج الكويزات والواجبات وتقارير شهرية مختصرة.
 
-    Q: Do you have online quizzes?
-    A: Yes—short, periodic assessments to track your progress.
+س: وليّ الأمر يطّلع على تقدمي؟
+ج: يمكنك مشاركة تقارير مُلخّصة من حسابك.
 
-    Q: Can I retake online quizzes?
-    A: Some allow multiple attempts—this will be stated before you start.
+س: شهادة إتمام؟
+ج: نعم إلكترونية عند استيفاء متطلبات الحضور.
 
-    Q: Do quiz scores appear in my progress report?
-    A: Yes—scores are visible in your Student Dashboard.
+س: الاسم على الشهادة؟
+ج: كما هو في البيانات الشخصية—راجِعه قبل الإصدار.
 
-    Q: How will I know I’m improving?
-    A: Through periodic quiz results, graded assignments, and monthly progress summaries.
+س: خطط مذاكرة؟
+ج: نعم—جداول قابلة للتعديل حسب وقتك.
 
-    Q: Can my parent/guardian view my progress?
-    A: You can share summarized progress reports from your account.
+س: جلسات إرشاد دراسي؟
+ج: إرشاد جماعي مجاني، وفردي اختياري مدفوع.
 
-    Q: Do you send a monthly performance report?
-    A: Yes—highlights strengths and areas to reinforce.
+س: سياسة الانضباط داخل الفصل؟
+ج: هدوء، الهاتف صامت، واحترام الجميع.
 
-    Q: Can I get a certificate of completion?
-    A: Yes—an electronic certificate at the end if you meet attendance requirements.
+س: آكل أو أشرب أثناء الحصة؟
+ج: ماء فقط داخل الفصل—الأطعمة أثناء الاستراحة.
 
-    Q: Which name will appear on my certificate?
-    A: Exactly as written in Personal Info—please check before issuance.
+س: في Wi-Fi بالمركز؟
+ج: محدود وليس مخصصًا للاستخدام أثناء الدرس.
 
-    Q: Do you offer study plans?
-    A: Yes—editable study schedules tailored to your time.
+س: في مكان انتظار لأولياء الأمور؟
+ج: المساحة محدودة—يُفضّل التنسيق مسبقًا مع الاستقبال.
 
-    Q: Do you offer study guidance sessions?
-    A: Group guidance is free; optional 1‑to‑1 advising is available.
+س: أسجّل الدرس بنفسي؟
+ج: التسجيل الشخصي غير مسموح. التسجيلات الرسمية—إن وُجدت—تصل عبر المنصة.
 
-    Q: What’s the classroom behavior policy?
-    A: Stay quiet, phone on silent, and respect classmates and teachers.
+س: قواعد استخدام الموبايل؟
+ج: صامت وبدون استخدام أثناء الحصة.
 
-    Q: Can I eat or drink during in‑person classes?
-    A: Water only in the classroom; food is for breaks outside.
+س: دعم للطوارئ؟
+ج: عبر محادثة التطبيق أو الإيميل—التفاصيل في المساعدة > تواصل معنا.
 
-    Q: Is there Wi‑Fi at the center?
-    A: Limited access; not intended for use during class.
+س: استلام تذكيرات على واتساب؟
+ج: الإشعارات الأساسية داخل التطبيق، وقد نوفّر قنوات إضافية عند تفعيلها.
 
-    Q: Is there a waiting area for parents?
-    A: Space is limited—please coordinate with reception in advance.
+س: بتنظّموا مجموعات مذاكرة؟
+ج: نعم—غرف نقاش مُدارة داخل المنصة.
 
-    Q: Is the venue accessible for students with disabilities?
-    A: We do our best—request a ground‑floor room in advance if needed.
+س: أستخدم تابلت المدرسة للأونلاين؟
+ج: نعم إذا كان يدعم Zoom ومتصفح حديث وإنترنت مستقر.
 
-    Q: May I record the lesson myself?
-    A: Personal recording isn’t allowed. Official recordings—when available—are shared via the platform.
+س: المنطقة الزمنية للجدول؟
+ج: Africa/Cairo.
 
-    Q: Do you have rules about mobile phones?
-    A: Phones must be silent and unused during class.
+س: أبلّغ عن مشكلة تقنية أثناء الحصة الأونلاين؟
+ج: استخدم زر الإبلاغ عن مشكلة أو راسل الدعم من المساعدة. نراجع السجلات والتسجيلات.
 
-    Q: Is there emergency contact support?
-    A: Use in‑app chat or support email; details are in Help > Contact Us.
+س: أحجز مكالمة دعم؟
+ج: نعم—المساعدة > حجز مكالمة واختر ميعادًا مناسبًا.
 
-    Q: Can I receive reminders on WhatsApp?
-    A: Primary notifications are in‑app; additional channels may be offered when enabled.
+س: أين أجد روابط الحصص والمواد؟
+ج: داخل لوحة الطالب (روابط Zoom، المواد، المذكرات، الكويزات).
 
-    Q: Do you arrange student study groups?
-    A: Yes—moderated discussion rooms are available on the platform.
+س: اتغيّر ميعاد الحصة؟
+ج: نبلغك داخل التطبيق وبالإيميل مع بدائل إن لزم.
 
-    Q: Can I use my school tablet for online classes?
-    A: Yes, if it supports Zoom and a modern browser with stable internet.
+س: لو مستر نادر تعذّر حضوره فجأة؟
+ج: نرتّب حصة تعويضية أو بديل مُعتمد، مع إخطار الجميع.
 
-    Q: Which timezone are schedules shown in?
-    A: Africa/Cairo.
+س: هل يوجد مساعدين لمستر نادر؟
+ج: نعم—فريق أكاديمي وتقني للمساعدة في التصحيح وتنظيم الحصص.
 
-    Q: How do I report a technical issue during an online class?
-    A: Use the Report Issue button or message support from Help. We’ll review logs/recordings.
+س: أغيّر اسم مجموعتي بعد الحجز؟
+ج: مسموح مرّة واحدة قبل بداية الأسبوع الجديد، حسب المقاعد.
 
-    Q: Can I book a support call?
-    A: Yes—Help > Book a Call and choose an available slot.
+س: سياسة الغش؟
+ج: إلغاء نتيجة الامتحان وقد يُعلّق الحساب مؤقتًا.
 
-    Q: Where do I find all important class links?
-    A: Your Student Dashboard—it lists Zoom links, materials, notes, and quizzes.
+س: جلسات تقوية قبل الامتحانات؟
+ج: نعم—مراجعات مُكثّفة سريعة.
 
-    Q: What happens if the class time changes?
-    A: You’ll be notified in‑app and by email, with alternative options if needed.
+س: مجموعات مخصّصة لطلبة اللغات؟
+ج: نعم—نُكيّف المصطلحات والأمثلة عند الحاجة.
 
-    Q: What if Mr. Nader is unexpectedly unavailable?
-    A: We arrange a makeup class or a session with an approved assistant; everyone is compensated appropriately.
+س: لغة الشرح؟
+ج: عربية فصحى مبسّطة مع أمثلة عملية لطلبة الثانوي.
 
-    Q: Does Mr. Nader have assistants?
-    A: Yes—an academic team and technical support assist with grading and class logistics.
+س: خصم للإخوة؟
+ج: نعم—نعلن عنه دوريًا في العروض ويُطبّق عند دفع فودافون كاش.
 
-    Q: Can I rename my group after booking?
-    A: Once, before the new week starts—contact support if seats allow.
+س: منح أو دعم مالي؟
+ج: أحيانًا بمقاعد محدودة—تابع العروض.
 
-    Q: What is your policy on cheating?
-    A: Violations void the exam result and may lead to temporary account suspension.
+س: برنامج الإحالة؟
+ج: نعم عند تفعيله—تفاصيله في العروض.
 
-    Q: Do you offer booster sessions right before exams?
-    A: Yes—short, intensive refreshers with targeted drills.
+س: خصومات/أكواد؟
+ج: تُعلن أثناء الحملات داخل المنصة.
 
-    Q: Do you have groups tailored for language‑school students?
-    A: Yes—terminology and examples are adjusted when needed.
+س: موقف للسيارات؟
+ج: لا ندير جراجًا خاصًا—يُفضّل الحضور مبكرًا لركن قريب.
 
-    Q: What language is used in explanations?
-    A: Clear Modern Standard Arabic, with practical examples suited to secondary students.
+س: أقدر أنضم وأنا من خارج بني سويف؟
+ج: نعم—المجموعات الأونلاين متاحة للجميع.
 
-    Q: Do you offer sibling discounts?
-    A: Yes—announced periodically in Offers and applied at Vodafone Cash payment.
+س: لو مجموعة اتلغت قبل البدء؟
+ج: استرداد كامل عبر فودافون كاش أو التحويل لمجموعة أخرى.
 
-    Q: Are scholarships or financial aid available?
-    A: Occasionally, limited seats. Check Offers regularly.
-
-    Q: Do you have a referral program?
-    A: Yes, when active—you’ll find details in Offers.
-
-    Q: Do you share discount codes?
-    A: Sometimes during promotions—watch the platform announcements.
-
-    Q: Is parking available near the center?
-    A: We don’t manage a private lot. Arrive early to find a nearby spot.
-
-    Q: Can I join from outside Beni Suef?
-    A: Yes—online groups are open to students from anywhere.
-
-    Q: What if a group is canceled before it starts?
-    A: You get a full refund to your Vodafone Cash wallet or you may transfer to another group.
-
-    Q: What’s the overall teaching approach of Mr. Nader?
-    A: Simplify concepts, practice intensively, and build exam‑ready skills aligned with the current question styles.
-
-    SUPPORT CONTACT INFORMATION:
-    - Email: mahmood@mail.com
-    - Phone: 01149122568
-    - Live Chat: Available on our website during business hours
-    - Help Center: help.basit.com
-
-    Please provide helpful, accurate answers about our app and direct users to the appropriate support channels when needed.
-    Keep responses concise but friendly. If you don't know something specific, direct them to our support team.
-
-    If you got stuck just direct the user to the support team.
+س: أسلوب التدريس العام؟
+ج: تبسيط المفاهيم + تدريب مكثّف + بناء مهارات جاهزة للامتحان وفق أحدث الأنماط.
   `;
 
   constructor() {
@@ -770,7 +740,6 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    // Initialize the component
   }
 
   ngAfterViewChecked() {

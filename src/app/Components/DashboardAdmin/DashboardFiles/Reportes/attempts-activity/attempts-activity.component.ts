@@ -30,4 +30,37 @@ private api = inject(ReportsService);
       error: _ => { this.error = 'فشل تحميل النشاط'; this.loading = false; }
     });
   }
+
+  // في الكمبوننت
+trackByDay(index: number, item: any): any {
+  return item.day;
+}
+
+getTotalAttempts(): number {
+  return this.rows.reduce((sum, row) => sum + row.attempts, 0);
+}
+
+getAverageAttempts(): number {
+  if (this.rows.length === 0) return 0;
+  return Math.round(this.getTotalAttempts() / this.rows.length);
+}
+
+getMaxAttempts(): number {
+  if (this.rows.length === 0) return 0;
+  return Math.max(...this.rows.map(row => row.attempts));
+}
+
+getPercentage(attempts: number): number {
+  const max = this.getMaxAttempts();
+  return max === 0 ? 0 : Math.round((attempts / max) * 100);
+}
+
+getAttemptsClass(attempts: number): string {
+  const max = this.getMaxAttempts();
+  const percentage = max === 0 ? 0 : (attempts / max) * 100;
+  
+  if (percentage >= 70) return 'attempts-high';
+  if (percentage >= 40) return 'attempts-medium';
+  return 'attempts-low';
+}
 }
